@@ -302,6 +302,21 @@ class Prefs(context: Context) {
         get() = sp.getBoolean(KEY_ADB_WIFI, true)
         set(v) = sp.edit().putBoolean(KEY_ADB_WIFI, v).apply()
 
+    /** Audio visualizer animation enabled. */
+    var visualizerEnabled: Boolean
+        get() = sp.getBoolean(KEY_VISUALIZER_ENABLED, true)
+        set(v) = sp.edit().putBoolean(KEY_VISUALIZER_ENABLED, v).apply()
+
+    /** Bluetooth device broadcast name. */
+    var bluetoothDeviceName: String
+        get() = sp.getString(KEY_BT_NAME, "Mazda") ?: "Mazda"
+        set(v) = sp.edit().putString(KEY_BT_NAME, v).apply()
+
+    /** Bluetooth pairing PIN code. */
+    var bluetoothPin: String
+        get() = sp.getString(KEY_BT_PIN, "0000") ?: "0000"
+        set(v) = sp.edit().putString(KEY_BT_PIN, v).apply()
+
     /** Keep the screen on while the dashboard is showing. */
     var keepScreenOn: Boolean
         get() = sp.getBoolean(KEY_KEEP_ON, true)
@@ -481,6 +496,9 @@ class Prefs(context: Context) {
         private const val KEY_PROJECTION_ON = "projection_row"
         private const val KEY_FLOATING_HOME = "floating_home"
         private const val KEY_ADB_WIFI = "adb_wifi"
+        private const val KEY_VISUALIZER_ENABLED = "visualizer_enabled"
+        private const val KEY_BT_NAME = "bt_device_name"
+        private const val KEY_BT_PIN = "bt_pin_code"
         private const val KEY_CACHED_LAT = "cached_lat"
         private const val KEY_CACHED_LON = "cached_lon"
         private const val KEY_CACHED_CITY = "cached_city"

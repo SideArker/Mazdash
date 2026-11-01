@@ -15,6 +15,7 @@ import android.graphics.Typeface
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import androidx.appcompat.app.AlertDialog
@@ -41,6 +42,27 @@ class HomeActivity : BaseActivity() {
     private var currentMedia: MediaInfo? = null
     private var draggingMedia = false
     private var needsMediaAccess = false
+
+    private val mazdaBtListener = object : MazdaBluetoothController.Listener {
+        override fun onConnectionChanged(connected: Boolean, deviceName: String?, deviceAddress: String?) {
+            runOnUiThread { syncBluetoothMedia() }
+        }
+
+        override fun onPlaybackChanged(isPlaying: Boolean, title: String, artist: String) {
+            runOnUiThread { syncBluetoothMedia() }
+        }
+    }
+
+    private fun syncBluetoothMedia() {
+        val bt = MazdaBluetoothController.getInstance(this)
+        if (bt.isMusicPlaying || (bt.isConnected && bt.trackTitle.isNotEmpty())) {
+            val title = bt.trackTitle.ifEmpty { "Bluetooth Audio" }
+            val artist = bt.trackArtist.ifEmpty { bt.connectedDeviceName.orEmpty() }
+            renderMedia(MediaInfo(title, artist, null, bt.isMusicPlaying, "com.nwd.bt.music"))
+        } else if (currentMedia?.packageName == "com.nwd.bt.music") {
+            renderMedia(null)
+        }
+    }
 
     private lateinit var audioManager: android.media.AudioManager
     private var draggingVolume = false
@@ -195,9 +217,10 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun onTab(tab: TabAction) = when (tab) {
-        TabAction.AUDIO -> launchRole(Prefs.ROLE_MEDIA)
+        TabAction.AUDIO -> openMedia()
         TabAction.RADIO -> launchRole(Prefs.ROLE_RADIO)
         TabAction.PHONE -> openPhone()
+        TabAction.BLUETOOTH -> startActivity(Intent(this, MazdaBluetoothActivity::class.java))
         TabAction.NAV -> {
             if (headUnitManager?.isProjecting() == true) {
                 headUnitManager?.raiseProjection()
@@ -888,9 +911,30 @@ class HomeActivity : BaseActivity() {
     // ---- Media widget ------------------------------------------------------
 
     private fun setupMedia() {
-        binding.btnPlayPause.setOnClickListener { mediaMonitor?.playPause() }
-        binding.btnNext.setOnClickListener { mediaMonitor?.next() }
-        binding.btnPrev.setOnClickListener { mediaMonitor?.previous() }
+        binding.btnPlayPause.setOnClickListener {
+            val bt = MazdaBluetoothController.getInstance(this)
+            if (bt.isConnected || currentMedia?.packageName == "com.nwd.bt.music") {
+                bt.playPause()
+            } else {
+                mediaMonitor?.playPause()
+            }
+        }
+        binding.btnNext.setOnClickListener {
+            val bt = MazdaBluetoothController.getInstance(this)
+            if (bt.isConnected || currentMedia?.packageName == "com.nwd.bt.music") {
+                bt.nextTrack()
+            } else {
+                mediaMonitor?.next()
+            }
+        }
+        binding.btnPrev.setOnClickListener {
+            val bt = MazdaBluetoothController.getInstance(this)
+            if (bt.isConnected || currentMedia?.packageName == "com.nwd.bt.music") {
+                bt.previousTrack()
+            } else {
+                mediaMonitor?.previous()
+            }
+        }
 
         binding.mediaProgress.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar, progress: Int, fromUser: Boolean) {
@@ -956,6 +1000,17 @@ class HomeActivity : BaseActivity() {
             // On 5.0+, reading what's playing needs Notification access. If it isn't
             // granted, the widget can never see media — guide the user to enable it.
             needsMediaAccess = mediaMonitor != null && !NotificationAccess.isGranted(this)
+            val bt = MazdaBluetoothController.getInstance(this)
+            if (bt.isConnected) {
+                binding.mediaTitle.text = bt.connectedDeviceName ?: "Telefon Bluetooth"
+                binding.mediaArtist.text = getString(R.string.media_tap_to_open)
+                binding.mediaTitle.isSelected = true
+                binding.btnPlayPause.setImageResource(R.drawable.ic_play)
+                if (prefs.mediaFraction >= 0.34f || !isLandscapeNow()) {
+                    binding.mediaControls.visibility = android.view.View.VISIBLE
+                }
+                return
+            }
             if (needsMediaAccess) {
                 binding.mediaTitle.text = getString(R.string.media_nothing_playing)
                 binding.mediaArtist.text = getString(R.string.media_enable_access)
@@ -981,8 +1036,13 @@ class HomeActivity : BaseActivity() {
         binding.btnPlayPause.setImageResource(
             if (info.isPlaying) R.drawable.ic_pause else R.drawable.ic_play
         )
-        binding.mediaVisualizer.visibility = android.view.View.VISIBLE
-        binding.mediaVisualizer.isPlaying = info.isPlaying
+        if (prefs.visualizerEnabled) {
+            binding.mediaVisualizer.visibility = android.view.View.VISIBLE
+            binding.mediaVisualizer.isPlaying = info.isPlaying
+        } else {
+            binding.mediaVisualizer.visibility = android.view.View.GONE
+            binding.mediaVisualizer.isPlaying = false
+        }
         // Respect whatever applyMediaDensity decided there was room for.
         if (prefs.mediaFraction >= 0.34f || !isLandscapeNow()) {
             binding.mediaControls.visibility = android.view.View.VISIBLE
@@ -1018,25 +1078,14 @@ class HomeActivity : BaseActivity() {
         binding.mediaArt.setColorFilter(accentColor(), android.graphics.PorterDuff.Mode.SRC_IN)
     }
 
-    /** Tapping the media card: enable access, else open the playing / chosen app. */
+    /** Tapping the media card: smoothly expands into Mazda Media screen. */
     private fun openMedia() {
-        if (needsMediaAccess) {
-            NotificationAccess.openSettings(this)
-            return
-        }
-        val playingPkg = currentMedia?.packageName
-        if (playingPkg != null) {
-            // The icon the user picked, if it belongs to the app that's playing —
-            // otherwise that app's default one.
-            val chosen = prefs.mediaApp
-            val target =
-                if (chosen != null && AppRepository.packageOf(chosen) == playingPkg) chosen
-                else playingPkg
-            if (AppRepository.launch(this, target)) return
-        }
-        if (!AppRepository.launchFirstAvailable(this, prefs.candidatesFor(Prefs.ROLE_MEDIA))) {
-            AppPickerActivity.start(this, Prefs.ROLE_MEDIA, REQ_PICK_GENERIC)
-        }
+        val w = if (binding.mediaCard.width > 0) binding.mediaCard.width else 300
+        val h = if (binding.mediaCard.height > 0) binding.mediaCard.height else 200
+        val options = ActivityOptionsCompat.makeScaleUpAnimation(
+            binding.mediaCard, 0, 0, w, h
+        )
+        startActivity(Intent(this, MazdaMediaActivity::class.java), options.toBundle())
     }
 
     // ---- Tab actions -------------------------------------------------------
@@ -1280,6 +1329,8 @@ class HomeActivity : BaseActivity() {
         }
         handler.post(ticker)
         loadWeather()
+        MazdaBluetoothController.getInstance(this).addListener(mazdaBtListener)
+        syncBluetoothMedia()
         mediaMonitor?.start()
         headUnitManager?.start()
         MazdaOverlayService.hide(this)
@@ -1343,6 +1394,7 @@ class HomeActivity : BaseActivity() {
             WidgetHost.detach()
             attachedWidgets = false
         }
+        MazdaBluetoothController.getInstance(this).removeListener(mazdaBtListener)
         mediaMonitor?.stop()
         headUnitManager?.stop()
         if (prefs.floatingHomeEnabled) {

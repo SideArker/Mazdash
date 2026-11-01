@@ -22,6 +22,7 @@ enum class TabAction(
     AUDIO("audio", R.drawable.ic_audio, R.string.tab_audio),
     RADIO("radio", R.drawable.ic_radio, R.string.audio_radio),
     PHONE("phone", R.drawable.ic_phone, R.string.tab_phone),
+    BLUETOOTH("bluetooth", R.drawable.ic_bluetooth, R.string.tab_bluetooth),
     NAV("nav", R.drawable.ic_nav, R.string.tab_nav),
     APPS("apps", R.drawable.ic_apps, R.string.tab_apps, canHide = false),
     SETTINGS("settings", R.drawable.ic_settings, R.string.tab_settings, canHide = false);

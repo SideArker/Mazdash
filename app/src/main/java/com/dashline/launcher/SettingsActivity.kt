@@ -94,6 +94,16 @@ class SettingsActivity : BaseActivity() {
             prefs.clearHiddenApps()
             refresh()
         }
+        binding.rowVisualizer.setOnClickListener {
+            prefs.visualizerEnabled = !prefs.visualizerEnabled
+            refresh()
+        }
+        binding.rowAudioDsp.setOnClickListener {
+            startActivity(Intent(this, MazdaAudioDspActivity::class.java))
+        }
+        binding.rowBluetooth.setOnClickListener {
+            startActivity(Intent(this, MazdaBluetoothActivity::class.java))
+        }
         binding.rowFloatingHome.setOnClickListener {
             prefs.floatingHomeEnabled = !prefs.floatingHomeEnabled
             if (!prefs.floatingHomeEnabled) {
@@ -248,6 +258,7 @@ class SettingsActivity : BaseActivity() {
         binding.resetHiddenValue.text =
             resources.getQuantityString(R.plurals.hidden_count, hidden, hidden)
 
+        binding.visualizerValue.text = getString(if (prefs.visualizerEnabled) R.string.on else R.string.off)
         binding.floatingHomeValue.text = getString(if (prefs.floatingHomeEnabled) R.string.on else R.string.off)
         binding.adbWifiValue.text = getString(if (prefs.adbWifiEnabled) R.string.on else R.string.off)
 

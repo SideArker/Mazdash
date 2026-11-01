@@ -14,6 +14,12 @@ class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        ThemeManager.apply(Prefs(this))
+        val prefs = Prefs(this)
+        ThemeManager.apply(prefs)
+        MazdaBluetoothController.getInstance(this).init()
+        MazdaAudioDspController.getInstance(this).init()
+        if (prefs.adbWifiEnabled) {
+            AdbController.setWifiAdb(true)
+        }
     }
 }

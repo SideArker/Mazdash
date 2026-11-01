@@ -93,6 +93,24 @@
             android:configChanges="keyboard|keyboardHidden|navigation"
             android:parentActivityName=".HomeActivity" />
 
+        <activity
+            android:name=".MazdaMediaActivity"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:parentActivityName=".HomeActivity" />
+
+        <activity
+            android:name=".MazdaBluetoothActivity"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:parentActivityName=".HomeActivity" />
+
+        <activity
+            android:name=".MazdaAudioDspActivity"
+            android:exported="false"
+            android:configChanges="keyboard|keyboardHidden|navigation"
+            android:parentActivityName=".HomeActivity" />
+
         <!--
           Empty notification listener. Its only job is to let the user grant
           "Notification access", which unlocks reading the active MediaSession so
