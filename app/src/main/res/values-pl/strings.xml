@@ -115,4 +115,9 @@
     <string name="settings_car_oem_title">Ustawienia samochodu (Fabryczne / Pojazd)</string>
     <string name="settings_visualizer">Wizualizer audio</string>
     <string name="settings_visualizer_desc">Animowane paski częstotliwości audio podczas odtwarzania</string>
+    <string name="brightness_title">Jasność ekranu</string>
+    <string name="brightness_screen_off">Wygaś ekran</string>
+    <string name="brightness_screen_off_hint">Dotknij ekranu, aby wybudzić</string>
+    <string name="brightness_control">Jasność</string>
+    <string name="brightness_close">Zamknij</string>
 </resources>

@@ -91,6 +91,13 @@
                     <TextView style="@style/SettingsRowTitle" android:text="@string/settings_keep_on" />
                     <TextView android:id="@+id/keepOnValue" style="@style/SettingsRowValue" />
                 </LinearLayout>
+
+                <View style="@style/SettingsDivider" />
+
+                <LinearLayout android:id="@+id/rowBrightness" style="@style/SettingsRow">
+                    <TextView style="@style/SettingsRowTitle" android:text="@string/brightness_title" />
+                    <TextView android:id="@+id/brightnessValue" style="@style/SettingsRowValue" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- ===== Default apps ===== -->

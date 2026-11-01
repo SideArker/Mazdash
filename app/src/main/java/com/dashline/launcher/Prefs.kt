@@ -317,6 +317,11 @@ class Prefs(context: Context) {
         get() = sp.getString(KEY_BT_PIN, "0000") ?: "0000"
         set(v) = sp.edit().putString(KEY_BT_PIN, v).apply()
 
+    /** Screen brightness percentage (5 - 100). */
+    var screenBrightness: Int
+        get() = sp.getInt(KEY_SCREEN_BRIGHTNESS, 80).coerceIn(5, 100)
+        set(v) = sp.edit().putInt(KEY_SCREEN_BRIGHTNESS, v.coerceIn(5, 100)).apply()
+
     /** Keep the screen on while the dashboard is showing. */
     var keepScreenOn: Boolean
         get() = sp.getBoolean(KEY_KEEP_ON, true)
@@ -408,6 +413,7 @@ class Prefs(context: Context) {
         private const val KEY_FAHRENHEIT = "use_fahrenheit"
         private const val KEY_THEME = "theme_mode"
         private const val KEY_KEEP_ON = "keep_screen_on"
+        private const val KEY_SCREEN_BRIGHTNESS = "screen_brightness"
         private const val KEY_HIDDEN = "hidden_apps"
         private const val KEY_LANGUAGE = "language"
         private const val KEY_ASKED_LOCATION = "asked_location"

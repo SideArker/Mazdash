@@ -48,6 +48,16 @@
             android:contentDescription="@string/tab_settings"
             android:visibility="gone"
             app:srcCompat="@drawable/ic_wifi" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/brightnessButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:layout_marginStart="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/brightness_control"
+            app:srcCompat="@drawable/ic_brightness" />
     </LinearLayout>
 
     <!-- ===== Stacked content ===== -->

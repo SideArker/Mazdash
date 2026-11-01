@@ -279,4 +279,9 @@
     <string name="settings_car_oem_title">OEM Car Settings (Factory / Vehicle)</string>
     <string name="settings_visualizer">Audio Visualizer</string>
     <string name="settings_visualizer_desc">Animate audio frequency bars during playback</string>
+    <string name="brightness_title">Screen Brightness</string>
+    <string name="brightness_screen_off">Screen Off</string>
+    <string name="brightness_screen_off_hint">Tap screen to wake</string>
+    <string name="brightness_control">Brightness</string>
+    <string name="brightness_close">Close</string>
 </resources>

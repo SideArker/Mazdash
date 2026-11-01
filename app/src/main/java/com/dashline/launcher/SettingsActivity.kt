@@ -86,6 +86,9 @@ class SettingsActivity : BaseActivity() {
             prefs.keepScreenOn = !prefs.keepScreenOn
             refresh()
         }
+        binding.rowBrightness.setOnClickListener {
+            MazdaBrightnessDialog(this) { refresh() }.show()
+        }
         binding.rowDefaultLauncher.setOnClickListener {
             DefaultLauncher.request(this, REQ_DEFAULT_LAUNCHER)
         }
@@ -261,6 +264,7 @@ class SettingsActivity : BaseActivity() {
             this, gradient, 4f * resources.displayMetrics.density
         )
         binding.keepOnValue.text = getString(if (prefs.keepScreenOn) R.string.on else R.string.off)
+        binding.brightnessValue.text = "${MazdaBrightnessController.getBrightness(this)}%"
         binding.defaultLauncherValue.text = getString(
             if (DefaultLauncher.isDefault(this)) R.string.yes else R.string.set_now
         )

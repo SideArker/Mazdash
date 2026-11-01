@@ -46,6 +46,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onResume()
         enterImmersive()
         applyGradient()
+        MazdaBrightnessController.applyWindowBrightness(this)
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {

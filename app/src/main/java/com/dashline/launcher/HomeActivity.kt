@@ -261,7 +261,27 @@ class HomeActivity : BaseActivity() {
         // Home button: we're already on the dashboard — force a weather refresh.
         binding.homeButton.setOnClickListener { loadWeather() }
 
+        binding.brightnessButton.setOnClickListener {
+            MazdaBrightnessDialog(this).show()
+        }
+        binding.brightnessButton.setOnLongClickListener {
+            cycleBrightnessPreset()
+            true
+        }
+
         binding.phoneLabel.text = getString(R.string.tab_phone)
+    }
+
+    private fun cycleBrightnessPreset() {
+        val current = MazdaBrightnessController.getBrightness(this)
+        val next = when {
+            current < 35 -> 50
+            current < 65 -> 80
+            current < 90 -> 100
+            else -> 25
+        }
+        MazdaBrightnessController.setBrightness(this, next)
+        android.widget.Toast.makeText(this, "${getString(R.string.brightness_title)}: $next%", android.widget.Toast.LENGTH_SHORT).show()
     }
 
     /**
