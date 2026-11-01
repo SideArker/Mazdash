@@ -545,7 +545,6 @@ object Defaults {
      */
     val ANDROID_AUTO = listOf(
         "com.andrerinas.headunitrevived",
-        "com.google.android.projection.gearhead",
         "com.zjinnova.zlink",
         "net.easyconn",
         "com.autokit.carlink",

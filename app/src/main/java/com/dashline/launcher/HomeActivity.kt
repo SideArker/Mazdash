@@ -244,12 +244,29 @@ class HomeActivity : BaseActivity() {
         binding.phoneCard.setOnClickListener {
             startActivity(Intent(this, MazdaBluetoothActivity::class.java))
         }
-        // Phone projection: if projecting, immediately raise to front; otherwise launch role.
+        // Phone projection: if projecting, immediately raise to front; otherwise launch receiver.
         binding.shortcutAndroidAuto.setOnClickListener {
-            if (headUnitManager?.isProjecting() == true) {
-                headUnitManager?.raiseProjection()
-            } else {
-                launchRole(Prefs.ROLE_ANDROID_AUTO)
+            if (headUnitManager?.isInstalled() == true) {
+                if (headUnitManager?.isProjecting() == true) {
+                    headUnitManager?.raiseProjection()
+                } else {
+                    val launchIntent = packageManager.getLaunchIntentForPackage(HeadUnitManager.PKG_OPEN_HEADUNIT)
+                    if (launchIntent != null) {
+                        try {
+                            startActivity(launchIntent)
+                        } catch (e: Exception) {
+                            headUnitManager?.raiseProjection()
+                        }
+                    } else {
+                        headUnitManager?.raiseProjection()
+                    }
+                }
+            } else if (!AppRepository.launchFirstAvailable(this, prefs.candidatesFor(Prefs.ROLE_ANDROID_AUTO))) {
+                android.widget.Toast.makeText(
+                    this,
+                    "Open Headunit (odbiornik Android Auto) nie jest zainstalowany na tym telefonie.\n(W aucie aplikacja com.andrerinas.headunitrevived jest już wgrana)",
+                    android.widget.Toast.LENGTH_LONG
+                ).show()
             }
         }
         binding.shortcutCarPlay.setOnClickListener { launchRole(Prefs.ROLE_CARPLAY) }
