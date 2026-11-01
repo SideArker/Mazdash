@@ -76,13 +76,40 @@ class MediaMonitor(
     }
 
     fun playPause() {
-        val c = controller ?: return
-        val playing = c.playbackState?.state == PlaybackState.STATE_PLAYING
-        if (playing) c.transportControls.pause() else c.transportControls.play()
+        val c = controller
+        if (c != null) {
+            val playing = c.playbackState?.state == PlaybackState.STATE_PLAYING
+            if (playing) c.transportControls.pause() else c.transportControls.play()
+        } else {
+            sendMediaKey(android.view.KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE)
+        }
     }
 
-    fun next() = controller?.transportControls?.skipToNext()
-    fun previous() = controller?.transportControls?.skipToPrevious()
+    fun next() {
+        val c = controller
+        if (c != null) {
+            c.transportControls.skipToNext()
+        } else {
+            sendMediaKey(android.view.KeyEvent.KEYCODE_MEDIA_NEXT)
+        }
+    }
+
+    fun previous() {
+        val c = controller
+        if (c != null) {
+            c.transportControls.skipToPrevious()
+        } else {
+            sendMediaKey(android.view.KeyEvent.KEYCODE_MEDIA_PREVIOUS)
+        }
+    }
+
+    private fun sendMediaKey(keyCode: Int) {
+        val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as? android.media.AudioManager
+        val eventDown = android.view.KeyEvent(android.view.KeyEvent.ACTION_DOWN, keyCode)
+        val eventUp = android.view.KeyEvent(android.view.KeyEvent.ACTION_UP, keyCode)
+        audioManager?.dispatchMediaKeyEvent(eventDown)
+        audioManager?.dispatchMediaKeyEvent(eventUp)
+    }
 
     fun seekTo(ms: Long) {
         controller?.transportControls?.seekTo(ms)

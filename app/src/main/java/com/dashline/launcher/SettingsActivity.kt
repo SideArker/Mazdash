@@ -94,6 +94,18 @@ class SettingsActivity : BaseActivity() {
             prefs.clearHiddenApps()
             refresh()
         }
+        binding.rowFloatingHome.setOnClickListener {
+            prefs.floatingHomeEnabled = !prefs.floatingHomeEnabled
+            if (!prefs.floatingHomeEnabled) {
+                MazdaOverlayService.hide(this)
+            }
+            refresh()
+        }
+        binding.rowAdbWifi.setOnClickListener {
+            prefs.adbWifiEnabled = !prefs.adbWifiEnabled
+            AdbController.setWifiAdb(prefs.adbWifiEnabled)
+            refresh()
+        }
 
         refresh()
     }
@@ -235,6 +247,9 @@ class SettingsActivity : BaseActivity() {
         val hidden = prefs.hiddenApps.size
         binding.resetHiddenValue.text =
             resources.getQuantityString(R.plurals.hidden_count, hidden, hidden)
+
+        binding.floatingHomeValue.text = getString(if (prefs.floatingHomeEnabled) R.string.on else R.string.off)
+        binding.adbWifiValue.text = getString(if (prefs.adbWifiEnabled) R.string.on else R.string.off)
 
         binding.versionValue.text = getString(
             R.string.settings_version_value,

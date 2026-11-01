@@ -274,6 +274,7 @@
                         app:srcCompat="@drawable/ic_android_auto" />
 
                     <TextView
+                        android:id="@+id/labelAndroidAuto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:maxLines="1"

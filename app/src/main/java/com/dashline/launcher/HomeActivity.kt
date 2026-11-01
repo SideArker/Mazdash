@@ -37,6 +37,7 @@ class HomeActivity : BaseActivity() {
     private var lastWeatherFetch = 0L
 
     private var mediaMonitor: MediaMonitor? = null
+    private var headUnitManager: HeadUnitManager? = null
     private var currentMedia: MediaInfo? = null
     private var draggingMedia = false
     private var needsMediaAccess = false
@@ -117,6 +118,7 @@ class HomeActivity : BaseActivity() {
         buildFormats()
 
         audioManager = getSystemService(Context.AUDIO_SERVICE) as android.media.AudioManager
+        headUnitManager = HeadUnitManager(this) { info -> updateAndroidAutoTile(info) }
 
         setupTabs()
         setupCardsAndBar()
@@ -196,7 +198,14 @@ class HomeActivity : BaseActivity() {
         TabAction.AUDIO -> launchRole(Prefs.ROLE_MEDIA)
         TabAction.RADIO -> launchRole(Prefs.ROLE_RADIO)
         TabAction.PHONE -> openPhone()
-        TabAction.NAV -> openNav()
+        TabAction.NAV -> {
+            if (headUnitManager?.isProjecting() == true) {
+                headUnitManager?.raiseProjection()
+            } else {
+                openNav()
+            }
+            Unit
+        }
         TabAction.APPS -> startActivity(Intent(this, AppDrawerActivity::class.java))
         TabAction.SETTINGS -> startActivity(Intent(this, SettingsActivity::class.java))
     }
@@ -204,9 +213,14 @@ class HomeActivity : BaseActivity() {
     private fun setupCardsAndBar() {
         binding.mediaCard.setOnClickListener { openMedia() }
         binding.phoneCard.setOnClickListener { openPhone() }
-        // Phone projection is usually a third-party link app (ZLink, EasyConnected…),
-        // so these fall through to the picker when nothing known is installed.
-        binding.shortcutAndroidAuto.setOnClickListener { launchRole(Prefs.ROLE_ANDROID_AUTO) }
+        // Phone projection: if projecting, immediately raise to front; otherwise launch role.
+        binding.shortcutAndroidAuto.setOnClickListener {
+            if (headUnitManager?.isProjecting() == true) {
+                headUnitManager?.raiseProjection()
+            } else {
+                launchRole(Prefs.ROLE_ANDROID_AUTO)
+            }
+        }
         binding.shortcutCarPlay.setOnClickListener { launchRole(Prefs.ROLE_CARPLAY) }
         // Home button: we're already on the dashboard — force a weather refresh.
         binding.homeButton.setOnClickListener { loadWeather() }
@@ -246,6 +260,24 @@ class HomeActivity : BaseActivity() {
                 }
                 bar.thumb?.mutate()
                     ?.setColorFilter(seekColor, android.graphics.PorterDuff.Mode.SRC_IN)
+            }
+        }
+    }
+
+    private fun updateAndroidAutoTile(info: HeadUnitManager.SessionInfo) {
+        runOnUiThread {
+            val density = resources.displayMetrics.density
+            val accent = accentColor()
+            if (info.isProjecting) {
+                // Glow in Mazda Soul Red when projecting
+                binding.shortcutAndroidAuto.background = GradientThemes.roundedRect(accent, 8f * density)
+                binding.labelAndroidAuto.setText(R.string.aa_status_projecting)
+            } else {
+                val night = GradientThemes.isNight(this)
+                val baseColor = if (night) android.graphics.Color.parseColor("#1C1E22")
+                                else android.graphics.Color.parseColor("#E0E3E8")
+                binding.shortcutAndroidAuto.background = GradientThemes.roundedRect(baseColor, 8f * density)
+                binding.labelAndroidAuto.setText(R.string.shortcut_android_auto)
             }
         }
     }
@@ -1244,6 +1276,8 @@ class HomeActivity : BaseActivity() {
         handler.post(ticker)
         loadWeather()
         mediaMonitor?.start()
+        headUnitManager?.start()
+        MazdaOverlayService.hide(this)
         // Widgets only receive updates while the host is listening, and there's
         // no point listening for a dashboard that shows none.
         if (prefs.anyCardUsesWidgets()) {
@@ -1305,6 +1339,15 @@ class HomeActivity : BaseActivity() {
             attachedWidgets = false
         }
         mediaMonitor?.stop()
+        headUnitManager?.stop()
+        if (prefs.floatingHomeEnabled) {
+            MazdaOverlayService.show(this)
+        }
+    }
+
+    override fun onDestroy() {
+        MazdaOverlayService.hide(this)
+        super.onDestroy()
     }
 
     // As the HOME app, Back should stay on the dashboard rather than exit.

@@ -277,8 +277,18 @@ class Prefs(context: Context) {
 
     /** Id of the selected UI colour gradient (see GradientThemes.PRESETS). */
     var gradient: String
-        get() = sp.getString(KEY_GRADIENT, "midnight") ?: "midnight"
+        get() = sp.getString(KEY_GRADIENT, "mazda_soul_red") ?: "mazda_soul_red"
         set(v) = sp.edit().putString(KEY_GRADIENT, v).apply()
+
+    /** Floating Mazda return-to-home button shown in external apps. */
+    var floatingHomeEnabled: Boolean
+        get() = sp.getBoolean(KEY_FLOATING_HOME, true)
+        set(v) = sp.edit().putBoolean(KEY_FLOATING_HOME, v).apply()
+
+    /** Remote Wi-Fi ADB debugging on port 5555. */
+    var adbWifiEnabled: Boolean
+        get() = sp.getBoolean(KEY_ADB_WIFI, true)
+        set(v) = sp.edit().putBoolean(KEY_ADB_WIFI, v).apply()
 
     /** Keep the screen on while the dashboard is showing. */
     var keepScreenOn: Boolean
@@ -457,6 +467,8 @@ class Prefs(context: Context) {
         private const val KEY_FAV_COUNT = "favorite_count"
         private const val KEY_FAV_ON = "favorites_enabled"
         private const val KEY_PROJECTION_ON = "projection_row"
+        private const val KEY_FLOATING_HOME = "floating_home"
+        private const val KEY_ADB_WIFI = "adb_wifi"
         private const val KEY_FAV_SIZE = "favorite_size"
     }
 }
@@ -464,22 +476,27 @@ class Prefs(context: Context) {
 /** Common package names to try when the user hasn't picked one for a role. */
 object Defaults {
     val PHONE = listOf(
+        "com.nwd.bt.music",
+        "com.bt.bc03",
         "com.google.android.dialer",
         "com.android.dialer",
         "com.samsung.android.dialer"
     )
     val NAV = listOf(
+        "com.andrerinas.headunitrevived",
         "com.google.android.apps.maps",
         "com.waze",
         "com.sygic.aura"
     )
     val RADIO = listOf(
+        "com.nwd.radio",
         "com.mtk.fm",
         "com.microntek.radio",
         "com.android.fmradio",
         "com.rtk.fmradio"
     )
     val MEDIA = listOf(
+        "com.nwd.bt.music",
         "com.spotify.music",
         "com.google.android.apps.youtube.music",
         "com.google.android.music",
@@ -494,6 +511,7 @@ object Defaults {
      * These are best-guess defaults; the user can pick their own in Settings.
      */
     val ANDROID_AUTO = listOf(
+        "com.andrerinas.headunitrevived",
         "com.google.android.projection.gearhead",
         "com.zjinnova.zlink",
         "net.easyconn",

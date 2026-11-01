@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mazdash</string>
+
+    <!-- bottom tabs -->
+    <string name="tab_audio">Audio</string>
+    <string name="tab_phone">Telefon</string>
+    <string name="tab_nav">Nawigacja</string>
+    <string name="tab_apps">Aplikacje</string>
+    <string name="tab_settings">Ustawienia</string>
+
+    <!-- app drawer -->
+    <string name="all_apps">Wszystkie aplikacje</string>
+    <string name="no_apps">Nie znaleziono aplikacji</string>
+    <string name="app_icon">Ikona aplikacji</string>
+    <string name="search_apps">Szukaj aplikacji</string>
+    <string name="frequent">Często używane</string>
+    <string name="hide_app">Ukryj z listy</string>
+    <string name="settings_reset_hidden">Resetuj ukryte aplikacje</string>
+    <string name="couldnt_launch">Nie udało się uruchomić %1$s</string>
+    <plurals name="hidden_count">
+        <item quantity="one">%1$d ukryta</item>
+        <item quantity="few">%1$d ukryte</item>
+        <item quantity="many">%1$d ukrytych</item>
+        <item quantity="other">%1$d ukrytych</item>
+    </plurals>
+
+    <!-- audio chooser -->
+    <string name="audio_radio">Radio</string>
+
+    <!-- media widget -->
+    <string name="media_previous">Poprzedni</string>
+    <string name="media_play_pause">Odtwarzaj lub pauzuj</string>
+    <string name="media_next">Następny</string>
+    <string name="media_nothing_playing">Brak odtwarzania</string>
+    <string name="media_tap_to_open">Dotknij, aby otworzyć</string>
+    <string name="now_playing">Odtwarzanie</string>
+
+    <!-- date & time -->
+    <string name="weather_loading">Ładowanie pogody…</string>
+
+    <!-- shortcuts -->
+    <string name="shortcut_android_auto">Android Auto</string>
+    <string name="shortcut_carplay">CarPlay</string>
+
+    <!-- settings -->
+    <string name="settings_title">Ustawienia</string>
+    <string name="settings_nav_app">Aplikacja nawigacji</string>
+    <string name="settings_media_app">Aplikacja muzyki</string>
+    <string name="settings_radio_app">Aplikacja radia</string>
+    <string name="settings_phone_app">Aplikacja telefonu</string>
+    <string name="settings_android_auto_app">Aplikacja Android Auto</string>
+    <string name="settings_gradient">Motyw kolorystyczny</string>
+    <string name="section_appearance">WYGLĄD</string>
+    <string name="gradient_preview_hint">Podgląd wybranych kolorów</string>
+    <string name="gradient_mazda">Mazda Soul Red</string>
+    <string name="gradient_midnight">Północ</string>
+    <string name="gradient_ocean">Ocean</string>
+    <string name="gradient_sunset">Zachód słońca</string>
+    <string name="gradient_forest">Las</string>
+    <string name="gradient_violet">Fiolet</string>
+    <string name="gradient_crimson">Karmazyn</string>
+    <string name="gradient_graphite">Grafit</string>
+
+    <!-- Mazdash extensions -->
+    <string name="aa_status_connected">Android Auto Połączone</string>
+    <string name="aa_status_projecting">Android Auto Aktywne</string>
+    <string name="aa_status_disconnected">Android Auto Rozłączone</string>
+    <string name="aa_tap_to_view">Dotknij, aby wyświetlić projekcję</string>
+    <string name="settings_floating_home">Pływający przycisk powrotu Mazda</string>
+    <string name="settings_floating_home_desc">Wyświetla przycisk powrotu do Mazdash w innych aplikacjach</string>
+    <string name="settings_adb_wifi">Debugowanie Wi-Fi ADB (Port 5555)</string>
+    <string name="settings_adb_wifi_desc">Włącz lub wyłącz zdalny dostęp root przez ADB</string>
+</resources>

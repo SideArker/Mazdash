@@ -34,6 +34,12 @@ object GradientThemes {
      */
     val PRESETS = listOf(
         GradientPreset(
+            "mazda_soul_red", R.string.gradient_mazda,
+            darkStart = "#0B0C0E", darkEnd = "#1E0A0F",
+            lightStart = "#D6C0C4", lightEnd = "#BD99A0",
+            accentHex = "#C41230"
+        ),
+        GradientPreset(
             "midnight", R.string.gradient_midnight,
             darkStart = "#061726", darkEnd = "#0D3A5E",
             lightStart = "#C9DAEC", lightEnd = "#9DBAD8",

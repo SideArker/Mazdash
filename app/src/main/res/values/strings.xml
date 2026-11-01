@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dashline</string>
+    <string name="app_name">Mazdash</string>
 
     <!-- bottom tabs -->
     <string name="tab_audio">Audio</string>
@@ -116,6 +116,7 @@
     <string name="settings_gradient">Colour theme</string>
     <string name="section_appearance">APPEARANCE</string>
     <string name="gradient_preview_hint">Preview of the selected colours</string>
+    <string name="gradient_mazda">Mazda Soul Red</string>
     <string name="gradient_midnight">Midnight</string>
     <string name="gradient_ocean">Ocean</string>
     <string name="gradient_sunset">Sunset</string>
@@ -224,4 +225,14 @@
     <string name="widget_fail_slot">Android wouldn\'t reserve a slot for the widget. Restarting the unit usually clears this.</string>
     <string name="widget_fail_setup">%1$s closed its own setup screen before finishing, so nothing was added.</string>
     <string name="widget_fail_bind">%1$s couldn\'t be attached. Its app may have been updating — try again in a moment.</string>
+
+    <!-- Mazdash extensions -->
+    <string name="aa_status_connected">Android Auto Connected</string>
+    <string name="aa_status_projecting">Android Auto Active</string>
+    <string name="aa_status_disconnected">Android Auto Disconnected</string>
+    <string name="aa_tap_to_view">Tap to open projection</string>
+    <string name="settings_floating_home">Floating Mazda Home Button</string>
+    <string name="settings_floating_home_desc">Display a return-to-home button in external apps</string>
+    <string name="settings_adb_wifi">Wi-Fi ADB Debugging (Port 5555)</string>
+    <string name="settings_adb_wifi_desc">Enable or disable remote ADB root port</string>
 </resources>

@@ -175,6 +175,24 @@
                 </LinearLayout>
             </LinearLayout>
 
+            <!-- ===== Mazda System & Security ===== -->
+            <TextView style="@style/SettingsSection" android:text="MAZDA &amp; SECURITY" />
+
+            <LinearLayout style="@style/SettingsGroup">
+
+                <LinearLayout android:id="@+id/rowFloatingHome" style="@style/SettingsRow">
+                    <TextView style="@style/SettingsRowTitle" android:text="@string/settings_floating_home" />
+                    <TextView android:id="@+id/floatingHomeValue" style="@style/SettingsRowValue" />
+                </LinearLayout>
+
+                <View style="@style/SettingsDivider" />
+
+                <LinearLayout android:id="@+id/rowAdbWifi" style="@style/SettingsRow">
+                    <TextView style="@style/SettingsRowTitle" android:text="@string/settings_adb_wifi" />
+                    <TextView android:id="@+id/adbWifiValue" style="@style/SettingsRowValue" />
+                </LinearLayout>
+            </LinearLayout>
+
             <!-- ===== About ===== -->
             <TextView style="@style/SettingsSection" android:text="@string/section_about" />
 

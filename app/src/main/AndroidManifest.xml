@@ -17,6 +17,8 @@
     <!-- Location is used to fetch local weather; optional (weather just hides if denied). -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Floating return button for seamless navigation without swipe-down panel. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".App"
@@ -106,6 +108,10 @@
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".MazdaOverlayService"
+            android:exported="false" />
 
     </application>
 </manifest>
