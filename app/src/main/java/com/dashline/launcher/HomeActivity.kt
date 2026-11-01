@@ -217,25 +217,35 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun onTab(tab: TabAction) = when (tab) {
+        TabAction.RADIO -> openNativeRadio()
+        TabAction.PHONE -> startActivity(Intent(this, MazdaBluetoothActivity::class.java))
         TabAction.AUDIO -> openMedia()
-        TabAction.RADIO -> launchRole(Prefs.ROLE_RADIO)
-        TabAction.PHONE -> openPhone()
         TabAction.BLUETOOTH -> startActivity(Intent(this, MazdaBluetoothActivity::class.java))
-        TabAction.NAV -> {
-            if (headUnitManager?.isProjecting() == true) {
-                headUnitManager?.raiseProjection()
-            } else {
-                openNav()
-            }
-            Unit
-        }
         TabAction.APPS -> startActivity(Intent(this, AppDrawerActivity::class.java))
         TabAction.SETTINGS -> startActivity(Intent(this, SettingsActivity::class.java))
     }
 
+    private fun openNativeRadio() {
+        val intent = packageManager.getLaunchIntentForPackage("com.nwd.radio")
+            ?: packageManager.getLaunchIntentForPackage("com.microntek.radio")
+        if (intent != null) {
+            try {
+                startActivity(intent)
+                return
+            } catch (e: Exception) {
+                // ignore
+            }
+        }
+        if (!AppRepository.launchFirstAvailable(this, prefs.candidatesFor(Prefs.ROLE_RADIO))) {
+            android.widget.Toast.makeText(this, "Radio FM (com.nwd.radio)", android.widget.Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun setupCardsAndBar() {
         binding.mediaCard.setOnClickListener { openMedia() }
-        binding.phoneCard.setOnClickListener { openPhone() }
+        binding.phoneCard.setOnClickListener {
+            startActivity(Intent(this, MazdaBluetoothActivity::class.java))
+        }
         // Phone projection: if projecting, immediately raise to front; otherwise launch role.
         binding.shortcutAndroidAuto.setOnClickListener {
             if (headUnitManager?.isProjecting() == true) {

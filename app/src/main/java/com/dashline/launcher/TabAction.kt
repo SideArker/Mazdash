@@ -1,4 +1,4 @@
-// Copyright (C) 2026 Metehan Kaygısız
+// Copyright (C) 2026 Mazdash Project
 // SPDX-License-Identifier: GPL-3.0-only
 
 package com.dashline.launcher
@@ -19,18 +19,17 @@ enum class TabAction(
      */
     val canHide: Boolean = true
 ) {
-    AUDIO("audio", R.drawable.ic_audio, R.string.tab_audio),
     RADIO("radio", R.drawable.ic_radio, R.string.audio_radio),
     PHONE("phone", R.drawable.ic_phone, R.string.tab_phone),
+    AUDIO("audio", R.drawable.ic_audio, R.string.tab_audio),
     BLUETOOTH("bluetooth", R.drawable.ic_bluetooth, R.string.tab_bluetooth),
-    NAV("nav", R.drawable.ic_nav, R.string.tab_nav),
     APPS("apps", R.drawable.ic_apps, R.string.tab_apps, canHide = false),
     SETTINGS("settings", R.drawable.ic_settings, R.string.tab_settings, canHide = false);
 
     companion object {
         fun byId(id: String): TabAction? = entries.firstOrNull { it.id == id }
 
-        /** Default order, matching the original hardcoded bar. */
+        /** Default order, matching Mazda unit needs (no GPS nav). */
         val DEFAULT_ORDER: List<TabAction> = entries.toList()
     }
 }

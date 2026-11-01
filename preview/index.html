@@ -35,7 +35,7 @@
       background: #27272a;
       color: #e4e4e7;
       border: 1px solid #3f3f46;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 8px;
       font-size: 13px;
       font-weight: 600;
@@ -159,11 +159,11 @@
       font-weight: 600;
     }
 
-    /* ================= 1. HOME VIEW ================= */
+    /* ================= 1. HOME VIEW (NO GPS NAV) ================= */
     .home-grid {
       flex: 1;
       display: grid;
-      grid-template-columns: 1.25fr 1fr;
+      grid-template-columns: 1.15fr 1fr;
       grid-gap: 16px;
       padding: 16px;
       overflow: hidden;
@@ -178,59 +178,13 @@
       position: relative;
       overflow: hidden;
     }
-    .card-map {
-      background: linear-gradient(145deg, #18181b, #1f1f23);
+    .left-col {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-    }
-    .map-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .map-title {
-      font-size: 13px;
-      color: #a1a1aa;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .map-badge {
-      background: rgba(196, 18, 48, 0.18);
-      color: #ff4d6d;
-      border: 1px solid rgba(196, 18, 48, 0.3);
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 11px;
-      font-weight: 700;
-    }
-    .map-route-visual {
-      height: 180px;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 400 200'%3E%3Cdefs%3E%3Cpattern id='grid' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='%2327272a' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23121214'/%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)'/%3E%3Cpath d='M 40 160 Q 150 140 200 90 T 360 40' fill='none' stroke='%23C41230' stroke-width='4' stroke-linecap='round' stroke-dasharray='4 2'/%3E%3Ccircle cx='40' cy='160' r='6' fill='%23fff' stroke='%23C41230' stroke-width='3'/%3E%3Ccircle cx='360' cy='40' r='6' fill='%23C41230'/%3E%3C/svg%3E") center/cover no-repeat;
-      border-radius: 10px;
-      margin: 10px 0;
-      display: flex;
-      align-items: flex-end;
-      padding: 12px;
-    }
-    .map-instruction {
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      border-left: 3px solid #C41230;
-    }
-    .right-col {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      gap: 14px;
     }
     .card-clock {
-      flex: 1;
+      flex: 1.2;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -238,20 +192,69 @@
       background: linear-gradient(135deg, #18181b, #151518);
     }
     .clock-time {
-      font-size: 50px;
+      font-size: 58px;
       font-weight: 800;
       color: #fff;
       line-height: 1;
-      letter-spacing: -1px;
+      letter-spacing: -1.5px;
     }
     .clock-date {
-      font-size: 14px;
+      font-size: 15px;
       color: #a1a1aa;
-      margin-top: 6px;
-      font-weight: 500;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+    .card-phone-home {
+      flex: 0.9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 16px 20px;
+      background: #18181b;
+      transition: all 0.2s;
+    }
+    .card-phone-home:hover {
+      border-color: rgba(196, 18, 48, 0.4);
+    }
+    .phone-home-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .phone-icon-box {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      background: #27272a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #C41230;
+    }
+    .phone-icon-box svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+    }
+    .phone-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .phone-sub {
+      font-size: 12px;
+      color: #22c55e;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
     }
     .card-media {
-      flex: 1.25;
+      flex: 1.35;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -270,7 +273,7 @@
       width: 58px;
       height: 58px;
       background: #27272a;
-      border-radius: 10px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -323,8 +326,8 @@
       font-weight: 700;
       color: #e4e4e7;
       background: #27272a;
-      padding: 3px 8px;
-      border-radius: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
     }
     .media-controls {
       display: flex;
@@ -332,8 +335,8 @@
       gap: 8px;
     }
     .ctrl-btn {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: #27272a;
       display: flex;
@@ -358,7 +361,21 @@
       fill: currentColor;
     }
 
-    /* ================= 2. EXPANDED MEDIA VIEW ================= */
+    .card-radio-home {
+      flex: 0.8;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 16px 20px;
+      background: #18181b;
+      transition: all 0.2s;
+    }
+    .card-radio-home:hover {
+      border-color: rgba(196, 18, 48, 0.4);
+    }
+
+    /* ================= 2. EXPANDED MEDIA VIEW (20 BARS + ALBUM ART & BG) ================= */
     .expanded-media-wrap {
       flex: 1;
       position: relative;
@@ -372,7 +389,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle at 30% 50%, rgba(196, 18, 48, 0.25) 0%, rgba(20, 20, 24, 0.95) 75%);
+      background: radial-gradient(circle at 25% 50%, rgba(196, 18, 48, 0.25) 0%, rgba(20, 20, 24, 0.95) 75%);
       z-index: 1;
     }
     .media-container-2col {
@@ -438,7 +455,7 @@
       background: #27272a;
       border: 1px solid #3f3f46;
       color: #e4e4e7;
-      padding: 4px 12px;
+      padding: 4px 14px;
       border-radius: 20px;
       font-size: 12px;
       font-weight: 600;
@@ -504,12 +521,12 @@
       display: flex;
       background: #27272a;
       padding: 3px;
-      border-radius: 10px;
+      border-radius: 24px;
       margin-right: 12px;
     }
     .tab-switch-btn {
-      padding: 6px 18px;
-      border-radius: 7px;
+      padding: 6px 20px;
+      border-radius: 20px;
       font-size: 12px;
       font-weight: 700;
       color: #a1a1aa;
@@ -596,12 +613,13 @@
       font-weight: 700;
       color: #fff;
     }
+    /* Rounded buttons (never ovals) */
     .btn-quick-stage {
       background: #27272a;
       border: 1px solid #3f3f46;
       color: #fff;
-      padding: 10px 12px;
-      border-radius: 10px;
+      padding: 10px 14px;
+      border-radius: 8px;
       font-size: 12px;
       font-weight: 700;
       cursor: pointer;
@@ -707,9 +725,9 @@
       margin-top: 4px;
     }
     .btn-step {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
       background: #27272a;
       border: 1px solid #3f3f46;
       color: #fff;
@@ -891,7 +909,19 @@
     .form-input:focus {
       border-color: #C41230;
     }
-    .btn-action {
+    /* Sleek Pill button (Never an oval) */
+    .btn-action-pill {
+      background: #C41230;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 24px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-action-rounded {
       background: #C41230;
       border: none;
       color: #fff;
@@ -942,8 +972,8 @@
       background: #3f3f46;
       border: none;
       color: #fff;
-      padding: 6px 14px;
-      border-radius: 6px;
+      padding: 6px 16px;
+      border-radius: 8px;
       font-size: 12px;
       font-weight: 600;
       cursor: pointer;
@@ -1023,7 +1053,7 @@
     <button class="btn-nav active" onclick="switchView('view-home')">Pulpit (Home)</button>
     <button class="btn-nav" onclick="switchView('view-media')">Odtwarzacz (Media)</button>
     <button class="btn-nav" onclick="switchView('view-dsp')">DSP &amp; Korektor (Audio)</button>
-    <button class="btn-nav" onclick="switchView('view-bluetooth')">Bluetooth Mazda</button>
+    <button class="btn-nav" onclick="switchView('view-bluetooth')">Bluetooth &amp; Telefon</button>
     <button class="btn-nav" onclick="switchView('view-settings')">Ustawienia Dashline &amp; OEM</button>
   </div>
 
@@ -1031,7 +1061,7 @@
   <div class="screen-bezel">
     <div class="screen">
 
-      <!-- ================= 1. HOME VIEW ================= -->
+      <!-- ================= 1. HOME VIEW (NO GPS NAV) ================= -->
       <div id="view-home" class="view-page active">
         <div class="header">
           <div class="header-title">MAZDASH</div>
@@ -1039,7 +1069,7 @@
             <div class="icon-btn" title="Korektor DSP" onclick="switchView('view-dsp')">
               <svg viewBox="0 0 24 24"><path d="M10,20h4V4h-4v16zM4,20h4v-8H4v8zM16,9v11h4V9h-4z"/></svg>
             </div>
-            <div class="icon-btn" title="Bluetooth" onclick="switchView('view-bluetooth')">
+            <div class="icon-btn" title="Bluetooth & Telefon" onclick="switchView('view-bluetooth')">
               <svg viewBox="0 0 24 24"><path d="M17.71,7.71L12,2h-1v7.59L6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 11,14.41V22h1l5.71,-5.71 -4.3,-4.29 4.3,-4.29zM13,5.83l1.88,1.88L13,9.59V5.83zM14.88,16.29L13,18.17v-3.76l1.88,1.88z"/></svg>
             </div>
             <div class="icon-btn" title="Ustawienia" onclick="switchView('view-settings')">
@@ -1049,28 +1079,31 @@
         </div>
 
         <div class="home-grid">
-          <!-- Left: Maps Preview Card -->
-          <div class="card card-map">
-            <div class="map-header">
-              <div class="map-title">Nawigacja GPS</div>
-              <div class="map-badge">LIVE GPS</div>
-            </div>
-            <div class="map-route-visual">
-              <div class="map-instruction">Za 350 m: Skręć w prawo w Aleje Jerozolimskie</div>
-            </div>
-            <div style="font-size: 13px; color: #a1a1aa; font-weight: 500;">
-              Trasa: Dom → Praca • 18 min (11.2 km)
-            </div>
-          </div>
-
-          <!-- Right Column -->
-          <div class="right-col">
+          <!-- Left Column: Clock & Phone Status -->
+          <div class="left-col">
             <!-- Clock Card -->
             <div class="card card-clock">
               <div class="clock-time" id="homeClock">22:20</div>
               <div class="clock-date" id="homeDate">Niedziela, 1 listopada</div>
             </div>
 
+            <!-- Native Phone Card (Directly opens our Bluetooth/Phone screen) -->
+            <div class="card card-phone-home" onclick="switchView('view-bluetooth')">
+              <div class="phone-home-left">
+                <div class="phone-icon-box">
+                  <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                </div>
+                <div>
+                  <div class="phone-title">Telefon Mazda</div>
+                  <div class="phone-sub">● Połączono: iPhone 15 Pro</div>
+                </div>
+              </div>
+              <div style="font-size: 13px; color: #a1a1aa; font-weight: 600;">Otwórz ›</div>
+            </div>
+          </div>
+
+          <!-- Right Column: Media Card & FM Radio -->
+          <div class="right-col">
             <!-- Media Card with 12 Animated Bars -->
             <div class="card card-media" onclick="switchView('view-media')">
               <div class="media-info-row">
@@ -1099,7 +1132,7 @@
               </div>
 
               <div class="media-bottom">
-                <div class="media-source-pill">Bluetooth • iPhone 15 Pro</div>
+                <div class="media-source-pill">Bluetooth Audio • iPhone 15 Pro</div>
                 <div class="media-controls" onclick="event.stopPropagation()">
                   <div class="ctrl-btn" onclick="prevTrack()">
                     <svg viewBox="0 0 24 24"><path d="M6,6h2v12H6V6zM9.5,12l8.5,6V6L9.5,12z"/></svg>
@@ -1113,18 +1146,32 @@
                 </div>
               </div>
             </div>
+
+            <!-- FM Radio Card -->
+            <div class="card card-radio-home" onclick="alert('Uruchamia natywne Radio FM (com.nwd.radio)!')">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="phone-icon-box">
+                  <svg viewBox="0 0 24 24"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-.83-.51-1.57-1.24-1.85L12 2.65 3.24 6.15zM12 4.47l6.8 2.87-6.8 2.87-6.8-2.87L12 4.47zM4 9.47l7 2.95v7.58H4V9.47zm9 10.53v-7.58l7-2.95v10.53h-7z"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 15px; font-weight: 700; color: #fff;">Radio FM Samochodowe</div>
+                  <div style="font-size: 12px; color: #a1a1aa; margin-top: 2px;">98.80 MHz • Radio ZET (Natywne)</div>
+                </div>
+              </div>
+              <div style="font-size: 13px; color: #a1a1aa; font-weight: 600;">Odtwórz ›</div>
+            </div>
           </div>
         </div>
 
-        <!-- Bottom Navigation Bar -->
+        <!-- Bottom Navigation Bar (No Nav GPS) -->
         <div class="bottom-bar">
-          <div class="tab-item" onclick="switchView('view-home')">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            <span>Nawigacja</span>
-          </div>
-          <div class="tab-item" onclick="switchView('view-home')">
+          <div class="tab-item" onclick="alert('Uruchamia natywne Radio FM (com.nwd.radio)!')">
             <svg viewBox="0 0 24 24"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-.83-.51-1.57-1.24-1.85L12 2.65 3.24 6.15zM12 4.47l6.8 2.87-6.8 2.87-6.8-2.87L12 4.47zM4 9.47l7 2.95v7.58H4V9.47zm9 10.53v-7.58l7-2.95v10.53h-7z"/></svg>
             <span>Radio</span>
+          </div>
+          <div class="tab-item" onclick="switchView('view-bluetooth')">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            <span>Telefon</span>
           </div>
           <div class="tab-item active" onclick="switchView('view-media')">
             <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
@@ -1156,7 +1203,7 @@
             <div class="icon-btn" title="Korektor DSP" onclick="switchView('view-dsp')">
               <svg viewBox="0 0 24 24"><path d="M10,20h4V4h-4v16zM4,20h4v-8H4v8zM16,9v11h4V9h-4z"/></svg>
             </div>
-            <div class="icon-btn" title="Bluetooth" onclick="switchView('view-bluetooth')">
+            <div class="icon-btn" title="Bluetooth & Telefon" onclick="switchView('view-bluetooth')">
               <svg viewBox="0 0 24 24"><path d="M17.71,7.71L12,2h-1v7.59L6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 11,14.41V22h1l5.71,-5.71 -4.3,-4.29 4.3,-4.29zM13,5.83l1.88,1.88L13,9.59V5.83zM14.88,16.29L13,18.17v-3.76l1.88,1.88z"/></svg>
             </div>
             <div class="icon-btn" onclick="switchView('view-home')">
@@ -1267,7 +1314,7 @@
               <div class="section-label">KOREKTOR GRAFICZNY (8-PASMOWY)</div>
 
               <div class="eq-sliders-row" id="eqSlidersContainer">
-                <!-- Generated dynamically by script: 60Hz, 150Hz, 400Hz, 1kHz, 2.5kHz, 6kHz, 10kHz, 14kHz -->
+                <!-- Generated dynamically: 60Hz, 150Hz, 400Hz, 1kHz, 2.5kHz, 6kHz, 10kHz, 14kHz -->
               </div>
 
               <div class="section-label" style="margin-top: 6px;">PROFILE DŹWIĘKU</div>
@@ -1321,13 +1368,13 @@
         </div>
       </div>
 
-      <!-- ================= 4. BLUETOOTH VIEW ================= -->
+      <!-- ================= 4. BLUETOOTH & TELEFON VIEW ================= -->
       <div id="view-bluetooth" class="view-page">
         <div class="header">
           <div class="icon-btn" onclick="switchView('view-home')">
             <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
           </div>
-          <div class="header-title">BLUETOOTH RADIA (BC03 / MAZDA)</div>
+          <div class="header-title">BLUETOOTH &amp; TELEFON (MAZDA)</div>
           <div class="header-icons">
             <div class="icon-btn" onclick="switchView('view-home')">
               <svg viewBox="0 0 24 24"><path d="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/></svg>
@@ -1340,20 +1387,20 @@
           <div class="bt-card">
             <div class="bt-status-bar">
               <div class="bt-icon-circle">
-                <svg viewBox="0 0 24 24"><path d="M17.71,7.71L12,2h-1v7.59L6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 11,14.41V22h1l5.71,-5.71 -4.3,-4.29 4.3,-4.29zM13,5.83l1.88,1.88L13,9.59V5.83zM14.88,16.29L13,18.17v-3.76l1.88,1.88z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
               </div>
               <div>
                 <div style="font-size: 15px; font-weight: 700; color: #fff;">Połączono</div>
-                <div style="font-size: 12px; color: #a1a1aa;">iPhone 15 Pro (Media &amp; Rozmowy)</div>
+                <div style="font-size: 12px; color: #a1a1aa;">iPhone 15 Pro (Rozmowy &amp; Media A2DP)</div>
               </div>
             </div>
 
             <!-- Rename Device -->
             <div class="form-group">
-              <div class="form-label">Nazwa Bluetooth widoczna w telefonie</div>
+              <div class="form-label">Nazwa radia Bluetooth (np. Mazda)</div>
               <div class="form-row">
                 <input type="text" class="form-input" id="btDeviceName" value="Mazda">
-                <button class="btn-action" onclick="saveBtName()">Zapisz</button>
+                <button class="btn-action-rounded" onclick="saveBtName()">Zapisz</button>
               </div>
             </div>
 
@@ -1362,14 +1409,14 @@
               <div class="form-label">Kod PIN parowania (Domyślny: 0000)</div>
               <div class="form-row">
                 <input type="text" class="form-input" id="btPinCode" value="0000" maxlength="6">
-                <button class="btn-action" onclick="saveBtPin()">Ustaw</button>
+                <button class="btn-action-rounded" onclick="saveBtPin()">Ustaw</button>
               </div>
             </div>
 
-            <!-- Quick Pair Mode -->
+            <!-- Quick Pair Mode (Sleek pill button, never oval) -->
             <div class="form-group" style="margin-top: 8px;">
               <div class="form-label">Tryb szybkiego parowania</div>
-              <button class="btn-action" id="btnPairMode" style="padding: 12px; font-size: 14px;" onclick="togglePairMode()">
+              <button class="btn-action-pill" id="btnPairMode" style="width: 100%; height: 48px; font-size: 14px;" onclick="togglePairMode()">
                 ROZPOCZNIJ PAROWANIE (WIDOCZNY 120s)
               </button>
             </div>
@@ -1433,8 +1480,8 @@
 
             <div class="settings-row" onclick="switchView('view-bluetooth')">
               <div>
-                <div class="settings-row-title">Zarządzanie Bluetooth Mazda</div>
-                <div class="settings-row-desc">Nazwa urządzenia ("Mazda"), kod PIN ("0000"), lista sparowanych</div>
+                <div class="settings-row-title">Zarządzanie Bluetooth &amp; Telefon</div>
+                <div class="settings-row-desc">Nazwa urządzenia ("Mazda"), kod PIN ("0000"), lista telefonów</div>
               </div>
               <div class="settings-row-val">Połączono ›</div>
             </div>
@@ -1528,20 +1575,16 @@
           <div class="settings-section-title">DOMYŚLNE ROLKI APLIKACJI</div>
           <div class="settings-group">
             <div class="settings-row">
-              <div class="settings-row-title">Aplikacja Nawigacji</div>
-              <div class="settings-row-val">Google Maps</div>
-            </div>
-            <div class="settings-row">
               <div class="settings-row-title">Aplikacja Radia FM</div>
-              <div class="settings-row-val">Radio Fabryczne (T3)</div>
+              <div class="settings-row-val">Radio Fabryczne (com.nwd.radio)</div>
             </div>
             <div class="settings-row">
               <div class="settings-row-title">Odtwarzacz Muzyki</div>
-              <div class="settings-row-val">Spotify / Bluetooth</div>
+              <div class="settings-row-val">Spotify / Bluetooth Audio</div>
             </div>
             <div class="settings-row">
               <div class="settings-row-title">Telefon / Rozmowy</div>
-              <div class="settings-row-val">Bluetooth Phone</div>
+              <div class="settings-row-val">Natywny Telefon Mazda</div>
             </div>
           </div>
 

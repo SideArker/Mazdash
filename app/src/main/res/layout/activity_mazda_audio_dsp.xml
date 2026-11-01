@@ -53,7 +53,7 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:background="@drawable/btn_circle"
+                android:background="@drawable/btn_pill"
                 android:backgroundTint="#C41230" />
 
             <Button
@@ -176,8 +176,10 @@
                     android:text="CAŁE AUTO (ŚRODEK)"
                     android:textSize="11sp"
                     android:textStyle="bold"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/btn_circle"
+                    android:background="@drawable/btn_rounded"
                     android:layout_marginBottom="6dp" />
 
                 <Button
@@ -187,8 +189,10 @@
                     android:text="KIEROWCA"
                     android:textSize="11sp"
                     android:textStyle="bold"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/btn_circle"
+                    android:background="@drawable/btn_rounded"
                     android:layout_marginBottom="6dp" />
 
                 <Button
@@ -198,8 +202,10 @@
                     android:text="PASAŻER"
                     android:textSize="11sp"
                     android:textStyle="bold"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/btn_circle"
+                    android:background="@drawable/btn_rounded"
                     android:layout_marginBottom="6dp" />
 
                 <Button
@@ -209,8 +215,10 @@
                     android:text="TYŁ"
                     android:textSize="11sp"
                     android:textStyle="bold"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/btn_circle"
+                    android:background="@drawable/btn_rounded"
                     android:layout_marginBottom="6dp" />
 
                 <View
@@ -224,6 +232,8 @@
                     android:layout_height="36dp"
                     android:text="WYŚRODKUJ"
                     android:textSize="11sp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
                     android:textColor="@color/text_secondary"
                     android:background="@drawable/tile_bg" />
 
@@ -306,7 +316,9 @@
                                 android:textSize="14sp"
                                 android:padding="0dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                             <Button
                                 android:id="@+id/btnEq0Plus"
                                 android:layout_width="26dp"
@@ -316,7 +328,9 @@
                                 android:padding="0dp"
                                 android:layout_marginStart="2dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                         </LinearLayout>
 
                         <TextView
@@ -365,7 +379,9 @@
                                 android:textSize="14sp"
                                 android:padding="0dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                             <Button
                                 android:id="@+id/btnEq1Plus"
                                 android:layout_width="26dp"
@@ -375,7 +391,9 @@
                                 android:padding="0dp"
                                 android:layout_marginStart="2dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                         </LinearLayout>
 
                         <TextView
@@ -424,7 +442,9 @@
                                 android:textSize="14sp"
                                 android:padding="0dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                             <Button
                                 android:id="@+id/btnEq2Plus"
                                 android:layout_width="26dp"
@@ -434,7 +454,9 @@
                                 android:padding="0dp"
                                 android:layout_marginStart="2dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                         </LinearLayout>
 
                         <TextView
@@ -483,7 +505,9 @@
                                 android:textSize="14sp"
                                 android:padding="0dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                             <Button
                                 android:id="@+id/btnEq3Plus"
                                 android:layout_width="26dp"
@@ -493,7 +517,9 @@
                                 android:padding="0dp"
                                 android:layout_marginStart="2dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                         </LinearLayout>
 
                         <TextView
@@ -542,7 +568,9 @@
                                 android:textSize="14sp"
                                 android:padding="0dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                             <Button
                                 android:id="@+id/btnEq4Plus"
                                 android:layout_width="26dp"
@@ -552,7 +580,9 @@
                                 android:padding="0dp"
                                 android:layout_marginStart="2dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                         </LinearLayout>
 
                         <TextView
@@ -601,7 +631,9 @@
                                 android:textSize="14sp"
                                 android:padding="0dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                             <Button
                                 android:id="@+id/btnEq5Plus"
                                 android:layout_width="26dp"
@@ -611,7 +643,9 @@
                                 android:padding="0dp"
                                 android:layout_marginStart="2dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                         </LinearLayout>
 
                         <TextView
@@ -660,7 +694,9 @@
                                 android:textSize="14sp"
                                 android:padding="0dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                             <Button
                                 android:id="@+id/btnEq6Plus"
                                 android:layout_width="26dp"
@@ -670,7 +706,9 @@
                                 android:padding="0dp"
                                 android:layout_marginStart="2dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                         </LinearLayout>
 
                         <TextView
@@ -719,7 +757,9 @@
                                 android:textSize="14sp"
                                 android:padding="0dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                             <Button
                                 android:id="@+id/btnEq7Plus"
                                 android:layout_width="26dp"
@@ -729,7 +769,9 @@
                                 android:padding="0dp"
                                 android:layout_marginStart="2dp"
                                 android:textColor="@android:color/white"
-                                android:background="@drawable/btn_circle" />
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:background="@drawable/btn_stepper" />
                         </LinearLayout>
 
                         <TextView
@@ -766,8 +808,10 @@
                         android:layout_weight="1"
                         android:text="Standard"
                         android:textSize="10sp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:textColor="@android:color/white"
-                        android:background="@drawable/btn_circle"
+                        android:background="@drawable/btn_rounded"
                         android:layout_marginEnd="3dp" />
 
                     <Button
@@ -777,8 +821,10 @@
                         android:layout_weight="1"
                         android:text="Pop"
                         android:textSize="10sp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:textColor="@android:color/white"
-                        android:background="@drawable/btn_circle"
+                        android:background="@drawable/btn_rounded"
                         android:layout_marginEnd="3dp" />
 
                     <Button
@@ -788,8 +834,10 @@
                         android:layout_weight="1"
                         android:text="Rock"
                         android:textSize="10sp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:textColor="@android:color/white"
-                        android:background="@drawable/btn_circle"
+                        android:background="@drawable/btn_rounded"
                         android:layout_marginEnd="3dp" />
 
                     <Button
@@ -799,8 +847,10 @@
                         android:layout_weight="1"
                         android:text="Klasyka"
                         android:textSize="10sp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:textColor="@android:color/white"
-                        android:background="@drawable/btn_circle"
+                        android:background="@drawable/btn_rounded"
                         android:layout_marginEnd="3dp" />
 
                     <Button
@@ -810,8 +860,10 @@
                         android:layout_weight="1"
                         android:text="Jazz"
                         android:textSize="10sp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
                         android:textColor="@android:color/white"
-                        android:background="@drawable/btn_circle" />
+                        android:background="@drawable/btn_rounded" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -921,8 +973,10 @@
                             android:layout_height="32dp"
                             android:text="−"
                             android:textSize="16sp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
                             android:textColor="@android:color/white"
-                            android:background="@drawable/btn_circle" />
+                            android:background="@drawable/btn_stepper" />
 
                         <SeekBar
                             android:id="@+id/seekHeavyBass"
@@ -942,8 +996,10 @@
                             android:layout_height="32dp"
                             android:text="+"
                             android:textSize="16sp"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
                             android:textColor="@android:color/white"
-                            android:background="@drawable/btn_circle" />
+                            android:background="@drawable/btn_stepper" />
                     </LinearLayout>
                 </LinearLayout>
 
