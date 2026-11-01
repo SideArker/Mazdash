@@ -6,342 +6,809 @@
     android:orientation="vertical"
     android:background="@color/bg">
 
-    <include
-        android:id="@+id/header"
-        layout="@layout/view_page_header" />
-
+    <!-- Top Navigation Header with Tabs -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="54dp"
         android:orientation="horizontal"
-        android:padding="12dp">
+        android:gravity="center_vertical"
+        android:background="@color/bar"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
-        <!-- Left Column: Sound Stage / Fader & Balance -->
-        <LinearLayout
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/navBack"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/nav_back"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/pageTitle"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
+            android:layout_marginStart="8dp"
+            android:text="@string/mazda_dsp_title"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <!-- Segmented Tab Switch: KABINA vs EQUALIZER -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
             android:background="@drawable/card_dark"
-            android:padding="12dp"
+            android:orientation="horizontal"
+            android:padding="3dp"
             android:layout_marginEnd="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dsp_sound_stage"
-                android:textColor="@color/text_secondary"
+            <Button
+                android:id="@+id/tabCabin"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:text="KABINA"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:textAllCaps="true"
-                android:layout_marginBottom="8dp" />
+                android:textColor="@android:color/white"
+                android:background="@drawable/btn_circle"
+                android:backgroundTint="#C41230" />
 
-            <com.dashline.launcher.MazdaSoundStageView
-                android:id="@+id/soundStageView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+            <Button
+                android:id="@+id/tabEqualizer"
+                android:layout_width="120dp"
+                android:layout_height="match_parent"
+                android:text="EQUALIZER"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_secondary"
+                android:background="@android:color/transparent" />
 
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/navHome"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/nav_home"
+            app:srcCompat="@drawable/ic_home" />
+
+    </LinearLayout>
+
+    <!-- Main Content Pages -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <!-- ===== PAGE 1: KABINA (SOUND STAGE & FADER) ===== -->
+        <LinearLayout
+            android:id="@+id/pageCabin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:visibility="visible">
+
+            <!-- Left: Cabin View with Car Seats & Touch Crosshair -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginTop="8dp">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.4"
+                android:orientation="vertical"
+                android:background="@drawable/card_dark"
+                android:padding="10dp"
+                android:layout_marginEnd="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SCENA DŹWIĘKOWA (DOTKNIJ W KABINIE)"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_marginBottom="6dp" />
+
+                <com.dashline.launcher.MazdaSoundStageView
+                    android:id="@+id/soundStageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+            <!-- Right: Quick Stage Buttons & Readout -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:orientation="vertical"
+                android:background="@drawable/card_dark"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SZYBKIE POZYCJE"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Stage Position readout -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/tile_bg"
+                    android:padding="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/textFaderStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fader: Środek (0)"
+                        android:textColor="@color/text_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/textBalanceStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Balance: Środek (0)"
+                        android:textColor="@color/text_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="3dp" />
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/btnStageCenter"
-                    android:layout_width="0dp"
-                    android:layout_height="38dp"
-                    android:layout_weight="1"
-                    android:text="@string/dsp_preset_center"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="CAŁE AUTO (ŚRODEK)"
                     android:textSize="11sp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:background="@drawable/btn_circle"
-                    android:layout_marginEnd="4dp" />
+                    android:layout_marginBottom="6dp" />
 
                 <Button
                     android:id="@+id/btnStageDriver"
-                    android:layout_width="0dp"
-                    android:layout_height="38dp"
-                    android:layout_weight="1"
-                    android:text="@string/dsp_preset_driver"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="KIEROWCA"
                     android:textSize="11sp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:background="@drawable/btn_circle"
-                    android:layout_marginEnd="4dp" />
+                    android:layout_marginBottom="6dp" />
 
                 <Button
                     android:id="@+id/btnStageCopilot"
-                    android:layout_width="0dp"
-                    android:layout_height="38dp"
-                    android:layout_weight="1"
-                    android:text="@string/dsp_preset_copilot"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="PASAŻER"
                     android:textSize="11sp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
                     android:background="@drawable/btn_circle"
-                    android:layout_marginEnd="4dp" />
+                    android:layout_marginBottom="6dp" />
 
                 <Button
                     android:id="@+id/btnStageRear"
-                    android:layout_width="0dp"
-                    android:layout_height="38dp"
-                    android:layout_weight="1"
-                    android:text="@string/dsp_preset_rear"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:text="TYŁ"
                     android:textSize="11sp"
+                    android:textStyle="bold"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/btn_circle" />
+                    android:background="@drawable/btn_circle"
+                    android:layout_marginBottom="6dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btnStageReset"
+                    android:layout_width="match_parent"
+                    android:layout_height="36dp"
+                    android:text="WYŚRODKUJ"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_secondary"
+                    android:background="@drawable/tile_bg" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <!-- Right Column: Equalizer & Subwoofer -->
-        <ScrollView
-            android:layout_width="0dp"
+        <!-- ===== PAGE 2: EQUALIZER (8 VERTICAL BANDS + STEPPERS) ===== -->
+        <LinearLayout
+            android:id="@+id/pageEqualizer"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.1"
-            android:background="@drawable/card_dark"
-            android:padding="12dp">
+            android:orientation="horizontal"
+            android:padding="12dp"
+            android:visibility="gone">
 
+            <!-- Left: 8 Vertical Slider Columns + Profile Chips -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6"
+                android:orientation="vertical"
+                android:background="@drawable/card_dark"
+                android:padding="12dp"
+                android:layout_marginEnd="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/dsp_equalizer"
+                    android:text="KOREKTOR GRAFICZNY (8-PASMOWY)"
                     android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
+                    android:textSize="11sp"
                     android:textStyle="bold"
                     android:textAllCaps="true"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="6dp" />
 
-                <!-- Bass Slider -->
+                <!-- 8 Vertical Sliders Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="6dp">
+                    android:gravity="center_vertical">
 
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dsp_bass"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp" />
-
-                    <SeekBar
-                        android:id="@+id/seekBass"
+                    <!-- Band 1: 60 Hz -->
+                    <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:max="14"
-                        android:progress="7"
-                        android:progressDrawable="@drawable/seek_progress"
-                        android:thumb="@drawable/seek_thumb" />
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp">
 
-                    <TextView
-                        android:id="@+id/textBassVal"
-                        android:layout_width="36dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="0"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
+                        <TextView
+                            android:id="@+id/textEqVal0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 dB"
+                            android:textColor="@color/text_primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <com.dashline.launcher.MazdaVerticalSlider
+                            android:id="@+id/sliderEq0"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <!-- - and + Steppers -->
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="2dp">
+                            <Button
+                                android:id="@+id/btnEq0Minus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="−"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                            <Button
+                                android:id="@+id/btnEq0Plus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="+"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:layout_marginStart="2dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="60Hz"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <!-- Band 2: 150 Hz -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/textEqVal1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 dB"
+                            android:textColor="@color/text_primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <com.dashline.launcher.MazdaVerticalSlider
+                            android:id="@+id/sliderEq1"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="2dp">
+                            <Button
+                                android:id="@+id/btnEq1Minus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="−"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                            <Button
+                                android:id="@+id/btnEq1Plus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="+"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:layout_marginStart="2dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="150Hz"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <!-- Band 3: 400 Hz -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/textEqVal2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 dB"
+                            android:textColor="@color/text_primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <com.dashline.launcher.MazdaVerticalSlider
+                            android:id="@+id/sliderEq2"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="2dp">
+                            <Button
+                                android:id="@+id/btnEq2Minus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="−"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                            <Button
+                                android:id="@+id/btnEq2Plus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="+"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:layout_marginStart="2dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="400Hz"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <!-- Band 4: 1 kHz -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/textEqVal3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 dB"
+                            android:textColor="@color/text_primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <com.dashline.launcher.MazdaVerticalSlider
+                            android:id="@+id/sliderEq3"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="2dp">
+                            <Button
+                                android:id="@+id/btnEq3Minus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="−"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                            <Button
+                                android:id="@+id/btnEq3Plus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="+"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:layout_marginStart="2dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1kHz"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <!-- Band 5: 2.5 kHz -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/textEqVal4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 dB"
+                            android:textColor="@color/text_primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <com.dashline.launcher.MazdaVerticalSlider
+                            android:id="@+id/sliderEq4"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="2dp">
+                            <Button
+                                android:id="@+id/btnEq4Minus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="−"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                            <Button
+                                android:id="@+id/btnEq4Plus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="+"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:layout_marginStart="2dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2.5k"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <!-- Band 6: 6 kHz -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/textEqVal5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 dB"
+                            android:textColor="@color/text_primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <com.dashline.launcher.MazdaVerticalSlider
+                            android:id="@+id/sliderEq5"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="2dp">
+                            <Button
+                                android:id="@+id/btnEq5Minus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="−"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                            <Button
+                                android:id="@+id/btnEq5Plus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="+"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:layout_marginStart="2dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="6kHz"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <!-- Band 7: 10 kHz -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/textEqVal6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 dB"
+                            android:textColor="@color/text_primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <com.dashline.launcher.MazdaVerticalSlider
+                            android:id="@+id/sliderEq6"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="2dp">
+                            <Button
+                                android:id="@+id/btnEq6Minus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="−"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                            <Button
+                                android:id="@+id/btnEq6Plus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="+"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:layout_marginStart="2dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10kHz"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
+                    <!-- Band 8: 14 kHz -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center_horizontal"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/textEqVal7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 dB"
+                            android:textColor="@color/text_primary"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <com.dashline.launcher.MazdaVerticalSlider
+                            android:id="@+id/sliderEq7"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="2dp">
+                            <Button
+                                android:id="@+id/btnEq7Minus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="−"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                            <Button
+                                android:id="@+id/btnEq7Plus"
+                                android:layout_width="26dp"
+                                android:layout_height="26dp"
+                                android:text="+"
+                                android:textSize="14sp"
+                                android:padding="0dp"
+                                android:layout_marginStart="2dp"
+                                android:textColor="@android:color/white"
+                                android:background="@drawable/btn_circle" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="14kHz"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="10sp"
+                            android:layout_marginTop="2dp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <!-- Tenor / Midrange Slider -->
+                <!-- Profile Selection Below Sliders -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PROFILE DŹWIĘKU"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="4dp" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dsp_tenor"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp" />
-
-                    <SeekBar
-                        android:id="@+id/seekTenor"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:max="14"
-                        android:progress="7"
-                        android:progressDrawable="@drawable/seek_progress"
-                        android:thumb="@drawable/seek_thumb" />
-
-                    <TextView
-                        android:id="@+id/textTenorVal"
-                        android:layout_width="36dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="0"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Treble Slider -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="6dp">
-
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dsp_treble"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp" />
-
-                    <SeekBar
-                        android:id="@+id/seekTreble"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:max="14"
-                        android:progress="7"
-                        android:progressDrawable="@drawable/seek_progress"
-                        android:thumb="@drawable/seek_thumb" />
-
-                    <TextView
-                        android:id="@+id/textTrebleVal"
-                        android:layout_width="36dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="0"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Subwoofer Slider -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dsp_heavy_bass"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp" />
-
-                    <SeekBar
-                        android:id="@+id/seekHeavyBass"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:max="14"
-                        android:progress="0"
-                        android:progressDrawable="@drawable/seek_progress"
-                        android:thumb="@drawable/seek_thumb" />
-
-                    <TextView
-                        android:id="@+id/textHeavyBassVal"
-                        android:layout_width="36dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:text="0"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <!-- Loudness Switch & Presets -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/dsp_loudness"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13sp" />
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchLoudness"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-                <!-- EQ Presets -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="34dp"
                     android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/btnEqStandard"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/dsp_mode_standard"
+                        android:text="Standard"
                         android:textSize="10sp"
                         android:textColor="@android:color/white"
                         android:background="@drawable/btn_circle"
-                        android:layout_marginEnd="2dp" />
+                        android:layout_marginEnd="3dp" />
 
                     <Button
                         android:id="@+id/btnEqPop"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/dsp_mode_pop"
+                        android:text="Pop"
                         android:textSize="10sp"
                         android:textColor="@android:color/white"
                         android:background="@drawable/btn_circle"
-                        android:layout_marginEnd="2dp" />
+                        android:layout_marginEnd="3dp" />
 
                     <Button
                         android:id="@+id/btnEqRock"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/dsp_mode_rock"
+                        android:text="Rock"
                         android:textSize="10sp"
                         android:textColor="@android:color/white"
                         android:background="@drawable/btn_circle"
-                        android:layout_marginEnd="2dp" />
+                        android:layout_marginEnd="3dp" />
 
                     <Button
                         android:id="@+id/btnEqClassic"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/dsp_mode_classic"
+                        android:text="Klasyka"
                         android:textSize="10sp"
                         android:textColor="@android:color/white"
                         android:background="@drawable/btn_circle"
-                        android:layout_marginEnd="2dp" />
+                        android:layout_marginEnd="3dp" />
 
                     <Button
                         android:id="@+id/btnEqJazz"
                         android:layout_width="0dp"
-                        android:layout_height="36dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="@string/dsp_mode_jazz"
+                        android:text="Jazz"
                         android:textSize="10sp"
                         android:textColor="@android:color/white"
                         android:background="@drawable/btn_circle" />
@@ -349,8 +816,155 @@
 
             </LinearLayout>
 
-        </ScrollView>
+            <!-- Right: Loudness Toggle & Subwoofer -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:orientation="vertical"
+                android:background="@drawable/card_dark"
+                android:padding="14dp">
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DYNAMIKA DŹWIĘKU"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textAllCaps="true"
+                    android:layout_marginBottom="10dp" />
+
+                <!-- Loudness Toggle Box (Underneath tab switch on the right) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/tile_bg"
+                    android:padding="12dp"
+                    android:layout_marginBottom="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Loudness"
+                            android:textColor="@color/text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchLoudness"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Wzmocnienie dynamiki i konturu basu przy cichym odsłuchu."
+                        android:textColor="@color/text_secondary"
+                        android:textSize="10sp"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <!-- Subwoofer Gain Control -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/tile_bg"
+                    android:padding="10dp"
+                    android:layout_marginBottom="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Subwoofer"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/textHeavyBassVal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="+0"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="6dp">
+
+                        <Button
+                            android:id="@+id/btnSubMinus"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:text="−"
+                            android:textSize="16sp"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/btn_circle" />
+
+                        <SeekBar
+                            android:id="@+id/seekHeavyBass"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:max="14"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/seek_progress"
+                            android:thumb="@drawable/seek_thumb"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginEnd="4dp" />
+
+                        <Button
+                            android:id="@+id/btnSubPlus"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:text="+"
+                            android:textSize="16sp"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/btn_circle" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btnResetEq"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:text="ZERUJ KOREKTOR (0 dB)"
+                    android:textSize="11sp"
+                    android:textColor="@color/text_secondary"
+                    android:background="@drawable/tile_bg" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
 </LinearLayout>

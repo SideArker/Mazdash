@@ -116,6 +116,16 @@ class SettingsActivity : BaseActivity() {
             AdbController.setWifiAdb(prefs.adbWifiEnabled)
             refresh()
         }
+        binding.rowCarSettings.setOnClickListener {
+            val intent = packageManager.getLaunchIntentForPackage("com.nwd.setting")
+                ?: packageManager.getLaunchIntentForPackage("com.android.settings")
+                ?: Intent(android.provider.Settings.ACTION_SETTINGS)
+            try {
+                startActivity(intent)
+            } catch (e: Exception) {
+                android.widget.Toast.makeText(this, "Nie można otworzyć ustawień pojazdu", android.widget.Toast.LENGTH_SHORT).show()
+            }
+        }
 
         refresh()
     }

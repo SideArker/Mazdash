@@ -210,6 +210,12 @@
                     <TextView style="@style/SettingsRowTitle" android:text="@string/settings_adb_wifi" />
                     <TextView android:id="@+id/adbWifiValue" style="@style/SettingsRowValue" />
                 </LinearLayout>
+
+                <View style="@style/SettingsDivider" />
+
+                <LinearLayout android:id="@+id/rowCarSettings" style="@style/SettingsRow">
+                    <TextView style="@style/SettingsRowTitle" android:text="@string/settings_car_oem_title" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- ===== About ===== -->

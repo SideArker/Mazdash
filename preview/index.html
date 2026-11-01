@@ -1,0 +1,1956 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mazdash – Podgląd Interfejsu (1024x600 K2001M)</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    body {
+      background: #09090b;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-nav {
+      background: #27272a;
+      color: #e4e4e7;
+      border: 1px solid #3f3f46;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-nav.active, .btn-nav:hover {
+      background: #C41230;
+      border-color: #C41230;
+      color: #fff;
+    }
+    /* Headunit Frame (Exact 1024 x 600) */
+    .screen-bezel {
+      width: 1048px;
+      height: 624px;
+      background: #18181b;
+      border-radius: 20px;
+      padding: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.08);
+      position: relative;
+    }
+    .screen {
+      width: 1024px;
+      height: 600px;
+      background: #121214;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .view-page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #121214;
+      display: none;
+      flex-direction: column;
+    }
+    .view-page.active {
+      display: flex;
+    }
+    /* Header */
+    .header {
+      height: 54px;
+      background: #18181b;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      z-index: 10;
+    }
+    .header-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      flex: 1;
+      margin-left: 12px;
+      letter-spacing: 0.5px;
+    }
+    .header-icons {
+      display: flex;
+      gap: 10px;
+    }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #27272a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #a1a1aa;
+      transition: all 0.2s;
+    }
+    .icon-btn:hover {
+      background: #3f3f46;
+      color: #fff;
+    }
+    .icon-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+    /* Bottom Navigation Bar */
+    .bottom-bar {
+      height: 64px;
+      background: #18181b;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 0 12px;
+      z-index: 10;
+    }
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      color: #71717a;
+      transition: all 0.2s;
+      flex: 1;
+      height: 100%;
+    }
+    .tab-item:hover, .tab-item.active {
+      color: #C41230;
+    }
+    .tab-item svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+    .tab-item span {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ================= 1. HOME VIEW ================= */
+    .home-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      grid-gap: 16px;
+      padding: 16px;
+      overflow: hidden;
+    }
+    .card {
+      background: #18181b;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-map {
+      background: linear-gradient(145deg, #18181b, #1f1f23);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+    .map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .map-title {
+      font-size: 13px;
+      color: #a1a1aa;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .map-badge {
+      background: rgba(196, 18, 48, 0.18);
+      color: #ff4d6d;
+      border: 1px solid rgba(196, 18, 48, 0.3);
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .map-route-visual {
+      height: 180px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 400 200'%3E%3Cdefs%3E%3Cpattern id='grid' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Cpath d='M 40 0 L 0 0 0 40' fill='none' stroke='%2327272a' stroke-width='1'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='100%25' height='100%25' fill='%23121214'/%3E%3Crect width='100%25' height='100%25' fill='url(%23grid)'/%3E%3Cpath d='M 40 160 Q 150 140 200 90 T 360 40' fill='none' stroke='%23C41230' stroke-width='4' stroke-linecap='round' stroke-dasharray='4 2'/%3E%3Ccircle cx='40' cy='160' r='6' fill='%23fff' stroke='%23C41230' stroke-width='3'/%3E%3Ccircle cx='360' cy='40' r='6' fill='%23C41230'/%3E%3C/svg%3E") center/cover no-repeat;
+      border-radius: 10px;
+      margin: 10px 0;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+    }
+    .map-instruction {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border-left: 3px solid #C41230;
+    }
+    .right-col {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card-clock {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #18181b, #151518);
+    }
+    .clock-time {
+      font-size: 50px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .clock-date {
+      font-size: 14px;
+      color: #a1a1aa;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+    .card-media {
+      flex: 1.25;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .card-media:hover {
+      border-color: rgba(196, 18, 48, 0.4);
+    }
+    .media-info-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .media-thumb {
+      width: 58px;
+      height: 58px;
+      background: #27272a;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #C41230;
+      flex-shrink: 0;
+    }
+    .media-thumb svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+    }
+    .media-texts {
+      flex: 1;
+      overflow: hidden;
+    }
+    .media-title {
+      font-size: 17px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .media-artist {
+      font-size: 13px;
+      color: #a1a1aa;
+      margin-top: 2px;
+    }
+    .visualizer-12 {
+      width: 68px;
+      height: 24px;
+      display: flex;
+      gap: 2.5px;
+      align-items: flex-end;
+    }
+    .viz-bar {
+      flex: 1;
+      background: #C41230;
+      border-radius: 2px;
+      min-height: 3px;
+      transition: height 0.15s ease;
+    }
+    .media-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .media-source-pill {
+      font-size: 11px;
+      font-weight: 700;
+      color: #e4e4e7;
+      background: #27272a;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .media-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ctrl-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #27272a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      transition: all 0.2s;
+    }
+    .ctrl-btn:hover {
+      background: #3f3f46;
+    }
+    .ctrl-btn.play {
+      background: #C41230;
+    }
+    .ctrl-btn.play:hover {
+      background: #d81436;
+    }
+    .ctrl-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ================= 2. EXPANDED MEDIA VIEW ================= */
+    .expanded-media-wrap {
+      flex: 1;
+      position: relative;
+      display: flex;
+      overflow: hidden;
+      padding: 16px;
+    }
+    .media-ambient-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 30% 50%, rgba(196, 18, 48, 0.25) 0%, rgba(20, 20, 24, 0.95) 75%);
+      z-index: 1;
+    }
+    .media-container-2col {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      background: rgba(24, 24, 27, 0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      display: flex;
+      padding: 24px;
+      align-items: center;
+    }
+    .media-left-col {
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-right: 24px;
+      border-right: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .media-album-cover {
+      width: 170px;
+      height: 170px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #27272a, #18181b);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(196, 18, 48, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .media-album-cover svg {
+      width: 80px;
+      height: 80px;
+      fill: #C41230;
+    }
+    .media-album-name {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #a1a1aa;
+      font-weight: 600;
+      text-align: center;
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .media-right-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 28px;
+    }
+    .exp-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      color: #e4e4e7;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .exp-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .exp-artist {
+      font-size: 18px;
+      color: #a1a1aa;
+      margin-top: 4px;
+      margin-bottom: 18px;
+    }
+    .visualizer-20-wrap {
+      width: 100%;
+      height: 60px;
+      margin-bottom: 20px;
+    }
+    .exp-controls {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .exp-ctrl-btn {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: #27272a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #fff;
+      transition: all 0.2s;
+    }
+    .exp-ctrl-btn:hover {
+      background: #3f3f46;
+    }
+    .exp-ctrl-btn.play {
+      width: 68px;
+      height: 68px;
+      background: #C41230;
+      box-shadow: 0 4px 16px rgba(196, 18, 48, 0.4);
+    }
+    .exp-ctrl-btn.play:hover {
+      background: #d81436;
+    }
+    .exp-ctrl-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+    }
+
+    /* ================= 3. SOUND STAGE & DSP VIEW (2 TABS) ================= */
+    .tab-switch-header {
+      display: flex;
+      background: #27272a;
+      padding: 3px;
+      border-radius: 10px;
+      margin-right: 12px;
+    }
+    .tab-switch-btn {
+      padding: 6px 18px;
+      border-radius: 7px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #a1a1aa;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-switch-btn.active {
+      background: #C41230;
+      color: #fff;
+    }
+
+    .dsp-pages-wrap {
+      flex: 1;
+      position: relative;
+      display: flex;
+      padding: 12px;
+      overflow: hidden;
+    }
+    .dsp-page {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      display: none;
+      gap: 12px;
+    }
+    .dsp-page.active {
+      display: flex;
+    }
+
+    /* Page 1: Kabina */
+    .cabin-left {
+      flex: 1.4;
+      background: #18181b;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .cabin-right {
+      flex: 0.8;
+      background: #18181b;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #71717a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .cockpit-canvas-wrapper {
+      flex: 1;
+      position: relative;
+      background: #121214;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #27272a;
+    }
+    #stageCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: crosshair;
+    }
+    .status-box {
+      background: #27272a;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 10px;
+    }
+    .status-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .btn-quick-stage {
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-bottom: 8px;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .btn-quick-stage:hover, .btn-quick-stage.active {
+      background: #C41230;
+      border-color: #C41230;
+    }
+
+    /* Page 2: Equalizer */
+    .eq-left {
+      flex: 1.6;
+      background: #18181b;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .eq-right {
+      flex: 0.8;
+      background: #18181b;
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .eq-sliders-row {
+      flex: 1;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin: 8px 0;
+    }
+    .eq-band-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100%;
+      justify-content: space-between;
+      padding: 4px 2px;
+      background: #151518;
+      border-radius: 8px;
+    }
+    .eq-gain-val {
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      min-height: 16px;
+    }
+    .eq-vert-slider {
+      flex: 1;
+      width: 100%;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+      margin: 4px 0;
+    }
+    .eq-track {
+      width: 6px;
+      height: 100%;
+      background: #27272a;
+      border-radius: 3px;
+      position: relative;
+    }
+    .eq-track-center {
+      position: absolute;
+      top: 50%;
+      left: -6px;
+      right: -6px;
+      height: 2px;
+      background: #52525b;
+      transform: translateY(-50%);
+    }
+    .eq-fill {
+      position: absolute;
+      width: 6px;
+      background: #C41230;
+      border-radius: 3px;
+      left: 0;
+    }
+    .eq-thumb {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid #C41230;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+    .eq-steppers {
+      display: flex;
+      gap: 3px;
+      margin-top: 4px;
+    }
+    .btn-step {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .btn-step:hover {
+      background: #C41230;
+      border-color: #C41230;
+    }
+    .eq-freq-label {
+      font-size: 10px;
+      color: #71717a;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .eq-presets-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .eq-chip {
+      flex: 1;
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      color: #a1a1aa;
+      padding: 7px 4px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .eq-chip:hover, .eq-chip.active {
+      background: #C41230;
+      border-color: #C41230;
+      color: #fff;
+    }
+
+    /* Styled Toggle Switch for Loudness */
+    .toggle-box {
+      background: #27272a;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .toggle-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .toggle-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .switch-ui {
+      width: 48px;
+      height: 26px;
+      background: #3f3f46;
+      border-radius: 13px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .switch-ui.on {
+      background: #C41230;
+    }
+    .switch-thumb {
+      width: 20px;
+      height: 20px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.2s;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    .switch-ui.on .switch-thumb {
+      transform: translateX(22px);
+    }
+
+    /* Subwoofer Row */
+    .sub-box {
+      background: #27272a;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .sub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .sub-ctrl-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ================= 4. BLUETOOTH VIEW ================= */
+    .bt-container {
+      flex: 1;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 16px;
+      overflow-y: auto;
+    }
+    .bt-card {
+      background: #18181b;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .bt-status-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #27272a;
+      padding: 12px 14px;
+      border-radius: 10px;
+    }
+    .bt-icon-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(196, 18, 48, 0.2);
+      color: #C41230;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bt-icon-circle svg {
+      width: 22px;
+      height: 22px;
+      fill: currentColor;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #a1a1aa;
+    }
+    .form-row {
+      display: flex;
+      gap: 8px;
+    }
+    .form-input {
+      flex: 1;
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      color: #fff;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: #C41230;
+    }
+    .btn-action {
+      background: #C41230;
+      border: none;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .device-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow-y: auto;
+      max-height: 380px;
+    }
+    .device-item {
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .device-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .device-mac {
+      font-size: 11px;
+      color: #71717a;
+      margin-top: 2px;
+    }
+    .device-status {
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .status-connected {
+      color: #22c55e;
+    }
+    .status-disconnected {
+      color: #71717a;
+    }
+    .btn-connect {
+      background: #3f3f46;
+      border: none;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-connect.active {
+      background: #C41230;
+    }
+
+    /* ================= 5. SETTINGS VIEW (FULL DASHLINE) ================= */
+    .settings-container {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .settings-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #C41230;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-top: 8px;
+    }
+    .settings-group {
+      background: #18181b;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .settings-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .settings-row:last-child {
+      border-bottom: none;
+    }
+    .settings-row:hover {
+      background: #202024;
+    }
+    .settings-row-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .settings-row-desc {
+      font-size: 11px;
+      color: #71717a;
+      margin-top: 2px;
+    }
+    .settings-row-val {
+      font-size: 13px;
+      color: #a1a1aa;
+      font-weight: 500;
+    }
+    .swatch-accent {
+      width: 24px;
+      height: 16px;
+      border-radius: 4px;
+      background: #C41230;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mode Switcher Toolbar -->
+  <div class="toolbar">
+    <button class="btn-nav active" onclick="switchView('view-home')">Pulpit (Home)</button>
+    <button class="btn-nav" onclick="switchView('view-media')">Odtwarzacz (Media)</button>
+    <button class="btn-nav" onclick="switchView('view-dsp')">DSP &amp; Korektor (Audio)</button>
+    <button class="btn-nav" onclick="switchView('view-bluetooth')">Bluetooth Mazda</button>
+    <button class="btn-nav" onclick="switchView('view-settings')">Ustawienia Dashline &amp; OEM</button>
+  </div>
+
+  <!-- Physical Headunit Frame (1024 x 600) -->
+  <div class="screen-bezel">
+    <div class="screen">
+
+      <!-- ================= 1. HOME VIEW ================= -->
+      <div id="view-home" class="view-page active">
+        <div class="header">
+          <div class="header-title">MAZDASH</div>
+          <div class="header-icons">
+            <div class="icon-btn" title="Korektor DSP" onclick="switchView('view-dsp')">
+              <svg viewBox="0 0 24 24"><path d="M10,20h4V4h-4v16zM4,20h4v-8H4v8zM16,9v11h4V9h-4z"/></svg>
+            </div>
+            <div class="icon-btn" title="Bluetooth" onclick="switchView('view-bluetooth')">
+              <svg viewBox="0 0 24 24"><path d="M17.71,7.71L12,2h-1v7.59L6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 11,14.41V22h1l5.71,-5.71 -4.3,-4.29 4.3,-4.29zM13,5.83l1.88,1.88L13,9.59V5.83zM14.88,16.29L13,18.17v-3.76l1.88,1.88z"/></svg>
+            </div>
+            <div class="icon-btn" title="Ustawienia" onclick="switchView('view-settings')">
+              <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-grid">
+          <!-- Left: Maps Preview Card -->
+          <div class="card card-map">
+            <div class="map-header">
+              <div class="map-title">Nawigacja GPS</div>
+              <div class="map-badge">LIVE GPS</div>
+            </div>
+            <div class="map-route-visual">
+              <div class="map-instruction">Za 350 m: Skręć w prawo w Aleje Jerozolimskie</div>
+            </div>
+            <div style="font-size: 13px; color: #a1a1aa; font-weight: 500;">
+              Trasa: Dom → Praca • 18 min (11.2 km)
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="right-col">
+            <!-- Clock Card -->
+            <div class="card card-clock">
+              <div class="clock-time" id="homeClock">22:20</div>
+              <div class="clock-date" id="homeDate">Niedziela, 1 listopada</div>
+            </div>
+
+            <!-- Media Card with 12 Animated Bars -->
+            <div class="card card-media" onclick="switchView('view-media')">
+              <div class="media-info-row">
+                <div class="media-thumb">
+                  <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+                </div>
+                <div class="media-texts">
+                  <div class="media-title">Midnight Drive</div>
+                  <div class="media-artist">Synthwave Radio</div>
+                </div>
+                <!-- 12-Bar Visualizer in Menu -->
+                <div class="visualizer-12" id="homeVisualizer">
+                  <div class="viz-bar" style="height: 40%"></div>
+                  <div class="viz-bar" style="height: 70%"></div>
+                  <div class="viz-bar" style="height: 90%"></div>
+                  <div class="viz-bar" style="height: 50%"></div>
+                  <div class="viz-bar" style="height: 80%"></div>
+                  <div class="viz-bar" style="height: 100%"></div>
+                  <div class="viz-bar" style="height: 60%"></div>
+                  <div class="viz-bar" style="height: 85%"></div>
+                  <div class="viz-bar" style="height: 45%"></div>
+                  <div class="viz-bar" style="height: 75%"></div>
+                  <div class="viz-bar" style="height: 95%"></div>
+                  <div class="viz-bar" style="height: 55%"></div>
+                </div>
+              </div>
+
+              <div class="media-bottom">
+                <div class="media-source-pill">Bluetooth • iPhone 15 Pro</div>
+                <div class="media-controls" onclick="event.stopPropagation()">
+                  <div class="ctrl-btn" onclick="prevTrack()">
+                    <svg viewBox="0 0 24 24"><path d="M6,6h2v12H6V6zM9.5,12l8.5,6V6L9.5,12z"/></svg>
+                  </div>
+                  <div class="ctrl-btn play" onclick="togglePlay(this)">
+                    <svg viewBox="0 0 24 24"><path d="M8,5v14l11,-7L8,5z"/></svg>
+                  </div>
+                  <div class="ctrl-btn" onclick="nextTrack()">
+                    <svg viewBox="0 0 24 24"><path d="M6,18l8.5,-6L6,6v12zM16,6v12h2V6H16z"/></svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Navigation Bar -->
+        <div class="bottom-bar">
+          <div class="tab-item" onclick="switchView('view-home')">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            <span>Nawigacja</span>
+          </div>
+          <div class="tab-item" onclick="switchView('view-home')">
+            <svg viewBox="0 0 24 24"><path d="M3.24 6.15C2.51 6.43 2 7.17 2 8v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-.83-.51-1.57-1.24-1.85L12 2.65 3.24 6.15zM12 4.47l6.8 2.87-6.8 2.87-6.8-2.87L12 4.47zM4 9.47l7 2.95v7.58H4V9.47zm9 10.53v-7.58l7-2.95v10.53h-7z"/></svg>
+            <span>Radio</span>
+          </div>
+          <div class="tab-item active" onclick="switchView('view-media')">
+            <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+            <span>Media</span>
+          </div>
+          <div class="tab-item" onclick="switchView('view-bluetooth')">
+            <svg viewBox="0 0 24 24"><path d="M17.71,7.71L12,2h-1v7.59L6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 11,14.41V22h1l5.71,-5.71 -4.3,-4.29 4.3,-4.29zM13,5.83l1.88,1.88L13,9.59V5.83zM14.88,16.29L13,18.17v-3.76l1.88,1.88z"/></svg>
+            <span>Bluetooth</span>
+          </div>
+          <div class="tab-item" onclick="switchView('view-dsp')">
+            <svg viewBox="0 0 24 24"><path d="M10,20h4V4h-4v16zM4,20h4v-8H4v8zM16,9v11h4V9h-4z"/></svg>
+            <span>DSP Audio</span>
+          </div>
+          <div class="tab-item" onclick="switchView('view-settings')">
+            <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            <span>Ustawienia</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 2. EXPANDED MEDIA VIEW (20 BARS + ALBUM ART & BG) ================= -->
+      <div id="view-media" class="view-page">
+        <div class="header">
+          <div class="icon-btn" onclick="switchView('view-home')">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          </div>
+          <div class="header-title">MAZDA AUDIO</div>
+          <div class="header-icons">
+            <div class="icon-btn" title="Korektor DSP" onclick="switchView('view-dsp')">
+              <svg viewBox="0 0 24 24"><path d="M10,20h4V4h-4v16zM4,20h4v-8H4v8zM16,9v11h4V9h-4z"/></svg>
+            </div>
+            <div class="icon-btn" title="Bluetooth" onclick="switchView('view-bluetooth')">
+              <svg viewBox="0 0 24 24"><path d="M17.71,7.71L12,2h-1v7.59L6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 11,14.41V22h1l5.71,-5.71 -4.3,-4.29 4.3,-4.29zM13,5.83l1.88,1.88L13,9.59V5.83zM14.88,16.29L13,18.17v-3.76l1.88,1.88z"/></svg>
+            </div>
+            <div class="icon-btn" onclick="switchView('view-home')">
+              <svg viewBox="0 0 24 24"><path d="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="expanded-media-wrap">
+          <!-- Ambient Blurred Album Background Backdrop -->
+          <div class="media-ambient-bg"></div>
+
+          <!-- 2-Column Content Card -->
+          <div class="media-container-2col">
+            <!-- Left: Album Cover & Album Name -->
+            <div class="media-left-col">
+              <div class="media-album-cover">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"/></svg>
+              </div>
+              <div class="media-album-name">Album: Retro Wave Hits (2026)</div>
+            </div>
+
+            <!-- Right: Title, Artist, 20-Bar Visualizer, Controls -->
+            <div class="media-right-col">
+              <div class="exp-badge">Bluetooth Audio (A2DP) • iPhone 15 Pro</div>
+              <div class="exp-title">Midnight Drive</div>
+              <div class="exp-artist">Synthwave Radio • Master Quality</div>
+
+              <!-- 20 Animated Visualizer Bars -->
+              <div class="visualizer-20-wrap">
+                <canvas id="largeVisualizerCanvas" width="480" height="60" style="width: 100%; height: 60px;"></canvas>
+              </div>
+
+              <div class="exp-controls">
+                <div class="exp-ctrl-btn" onclick="prevTrack()">
+                  <svg viewBox="0 0 24 24"><path d="M6,6h2v12H6V6zM9.5,12l8.5,6V6L9.5,12z"/></svg>
+                </div>
+                <div class="exp-ctrl-btn play" onclick="togglePlay(this)">
+                  <svg viewBox="0 0 24 24"><path d="M8,5v14l11,-7L8,5z"/></svg>
+                </div>
+                <div class="exp-ctrl-btn" onclick="nextTrack()">
+                  <svg viewBox="0 0 24 24"><path d="M6,18l8.5,-6L6,6v12zM16,6v12h2V6H16z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 3. SOUND STAGE & DSP VIEW (2 TABS) ================= -->
+      <div id="view-dsp" class="view-page">
+        <div class="header">
+          <div class="icon-btn" onclick="switchView('view-home')">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          </div>
+          <div class="header-title">USTAWIENIA DŹWIĘKU DSP</div>
+
+          <!-- Segmented Tab Switch: KABINA vs EQUALIZER -->
+          <div class="tab-switch-header">
+            <button id="btnTabCabin" class="tab-switch-btn active" onclick="switchDspTab('cabin')">KABINA</button>
+            <button id="btnTabEqualizer" class="tab-switch-btn" onclick="switchDspTab('equalizer')">EQUALIZER</button>
+          </div>
+
+          <div class="header-icons">
+            <div class="icon-btn" onclick="switchView('view-home')">
+              <svg viewBox="0 0 24 24"><path d="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="dsp-pages-wrap">
+
+          <!-- TAB 1: KABINA -->
+          <div id="page-cabin" class="dsp-page active">
+            <!-- Left: Cockpit Canvas with OEM Car Seats & Crosshair -->
+            <div class="cabin-left">
+              <div class="section-label">SCENA DŹWIĘKOWA (DOTKNIJ W KABINIE)</div>
+              <div class="cockpit-canvas-wrapper" id="cockpitWrapper">
+                <canvas id="stageCanvas"></canvas>
+              </div>
+            </div>
+
+            <!-- Right: Quick Stage Buttons & Readout -->
+            <div class="cabin-right">
+              <div>
+                <div class="section-label">SZYBKIE POZYCJE</div>
+                <div class="status-box">
+                  <div class="status-text" id="readoutFader">Fader: Środek (0)</div>
+                  <div class="status-text" id="readoutBalance" style="margin-top: 4px;">Balance: Środek (0)</div>
+                </div>
+
+                <div class="btn-quick-stage active" onclick="setStagePreset('center')">CAŁE AUTO (ŚRODEK)</div>
+                <div class="btn-quick-stage" onclick="setStagePreset('driver')">KIEROWCA</div>
+                <div class="btn-quick-stage" onclick="setStagePreset('copilot')">PASAŻER</div>
+                <div class="btn-quick-stage" onclick="setStagePreset('rear')">TYŁ</div>
+              </div>
+
+              <div class="btn-quick-stage" style="background: #202024; border-color: #3f3f46; color: #a1a1aa;" onclick="setStagePreset('center')">
+                WYŚRODKUJ
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: EQUALIZER (8 VERTICAL BANDS + STEPPERS + PROFILES + LOUDNESS TOGGLE) -->
+          <div id="page-equalizer" class="dsp-page">
+            <!-- Left: 8 Sliders & Profiles -->
+            <div class="eq-left">
+              <div class="section-label">KOREKTOR GRAFICZNY (8-PASMOWY)</div>
+
+              <div class="eq-sliders-row" id="eqSlidersContainer">
+                <!-- Generated dynamically by script: 60Hz, 150Hz, 400Hz, 1kHz, 2.5kHz, 6kHz, 10kHz, 14kHz -->
+              </div>
+
+              <div class="section-label" style="margin-top: 6px;">PROFILE DŹWIĘKU</div>
+              <div class="eq-presets-row">
+                <button class="eq-chip active" onclick="applyPreset('standard', this)">Standard</button>
+                <button class="eq-chip" onclick="applyPreset('pop', this)">Pop</button>
+                <button class="eq-chip" onclick="applyPreset('rock', this)">Rock</button>
+                <button class="eq-chip" onclick="applyPreset('classic', this)">Klasyka</button>
+                <button class="eq-chip" onclick="applyPreset('jazz', this)">Jazz</button>
+              </div>
+            </div>
+
+            <!-- Right: Loudness Toggle Box & Subwoofer & Reset -->
+            <div class="eq-right">
+              <div>
+                <div class="section-label">DYNAMIKA DŹWIĘKU</div>
+
+                <!-- Loudness Toggle (under the tab switch) -->
+                <div class="toggle-box">
+                  <div class="toggle-header">
+                    <span class="toggle-title">Loudness</span>
+                    <div class="switch-ui on" id="loudnessSwitch" onclick="toggleLoudness()">
+                      <div class="switch-thumb"></div>
+                    </div>
+                  </div>
+                  <div style="font-size: 11px; color: #71717a; line-height: 1.3;">
+                    Wzmocnienie konturu i dynamiki niskich oraz wysokich tonów przy cichym odsłuchu.
+                  </div>
+                </div>
+
+                <!-- Subwoofer Box -->
+                <div class="sub-box">
+                  <div class="sub-header">
+                    <span style="font-size: 13px; font-weight: 700; color: #fff;">Subwoofer</span>
+                    <span id="subVal" style="font-size: 13px; font-weight: 700; color: #C41230;">+4 dB</span>
+                  </div>
+                  <div class="sub-ctrl-row">
+                    <button class="btn-step" onclick="nudgeSub(-1)">−</button>
+                    <input type="range" min="0" max="14" value="4" id="subRange" style="flex: 1; accent-color: #C41230;" oninput="onSubChange(this.value)">
+                    <button class="btn-step" onclick="nudgeSub(1)">+</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="btn-quick-stage" style="background: #202024; border-color: #3f3f46; color: #a1a1aa;" onclick="resetEq()">
+                ZERUJ KOREKTOR (0 dB)
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ================= 4. BLUETOOTH VIEW ================= -->
+      <div id="view-bluetooth" class="view-page">
+        <div class="header">
+          <div class="icon-btn" onclick="switchView('view-home')">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          </div>
+          <div class="header-title">BLUETOOTH RADIA (BC03 / MAZDA)</div>
+          <div class="header-icons">
+            <div class="icon-btn" onclick="switchView('view-home')">
+              <svg viewBox="0 0 24 24"><path d="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="bt-container">
+          <!-- Left: Device Settings -->
+          <div class="bt-card">
+            <div class="bt-status-bar">
+              <div class="bt-icon-circle">
+                <svg viewBox="0 0 24 24"><path d="M17.71,7.71L12,2h-1v7.59L6.41,5 5,6.41 10.59,12 5,17.59 6.41,19 11,14.41V22h1l5.71,-5.71 -4.3,-4.29 4.3,-4.29zM13,5.83l1.88,1.88L13,9.59V5.83zM14.88,16.29L13,18.17v-3.76l1.88,1.88z"/></svg>
+              </div>
+              <div>
+                <div style="font-size: 15px; font-weight: 700; color: #fff;">Połączono</div>
+                <div style="font-size: 12px; color: #a1a1aa;">iPhone 15 Pro (Media &amp; Rozmowy)</div>
+              </div>
+            </div>
+
+            <!-- Rename Device -->
+            <div class="form-group">
+              <div class="form-label">Nazwa Bluetooth widoczna w telefonie</div>
+              <div class="form-row">
+                <input type="text" class="form-input" id="btDeviceName" value="Mazda">
+                <button class="btn-action" onclick="saveBtName()">Zapisz</button>
+              </div>
+            </div>
+
+            <!-- Change PIN -->
+            <div class="form-group">
+              <div class="form-label">Kod PIN parowania (Domyślny: 0000)</div>
+              <div class="form-row">
+                <input type="text" class="form-input" id="btPinCode" value="0000" maxlength="6">
+                <button class="btn-action" onclick="saveBtPin()">Ustaw</button>
+              </div>
+            </div>
+
+            <!-- Quick Pair Mode -->
+            <div class="form-group" style="margin-top: 8px;">
+              <div class="form-label">Tryb szybkiego parowania</div>
+              <button class="btn-action" id="btnPairMode" style="padding: 12px; font-size: 14px;" onclick="togglePairMode()">
+                ROZPOCZNIJ PAROWANIE (WIDOCZNY 120s)
+              </button>
+            </div>
+          </div>
+
+          <!-- Right: Paired Devices -->
+          <div class="bt-card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div class="section-label" style="margin-bottom: 0;">SPAROWANE TELEFONY</div>
+              <div style="font-size: 11px; color: #a1a1aa;">2 urządzenia</div>
+            </div>
+
+            <div class="device-list">
+              <div class="device-item">
+                <div>
+                  <div class="device-name">iPhone 15 Pro</div>
+                  <div class="device-mac">F4:D4:88:AC:32:B1</div>
+                  <div class="device-status status-connected">● Aktywne (Audio &amp; Tel)</div>
+                </div>
+                <button class="btn-connect active" onclick="toggleConnect(this)">Rozłącz</button>
+              </div>
+
+              <div class="device-item">
+                <div>
+                  <div class="device-name">Samsung Galaxy S23</div>
+                  <div class="device-mac">98:1D:FA:54:10:E2</div>
+                  <div class="device-status status-disconnected">○ Rozłączono</div>
+                </div>
+                <button class="btn-connect" onclick="toggleConnect(this)">Połącz</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 5. SETTINGS VIEW (FULL DASHLINE & OEM CAR SETTINGS) ================= -->
+      <div id="view-settings" class="view-page">
+        <div class="header">
+          <div class="icon-btn" onclick="switchView('view-home')">
+            <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          </div>
+          <div class="header-title">USTAWIENIA DASHLINE &amp; POJAZDU</div>
+          <div class="header-icons">
+            <div class="icon-btn" onclick="switchView('view-home')">
+              <svg viewBox="0 0 24 24"><path d="M10,20v-6h4v6h5v-8h3L12,3 2,12h3v8z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="settings-container">
+          <!-- Section: Mazda & Sprzęt -->
+          <div class="settings-section-title">MAZDA &amp; SPRZĘT</div>
+          <div class="settings-group">
+            <div class="settings-row" onclick="switchView('view-dsp')">
+              <div>
+                <div class="settings-row-title">Scena dźwiękowa i korektor DSP</div>
+                <div class="settings-row-desc">Kabina (fotele OEM), Fader, Balance oraz 8-pasmowy korektor audio</div>
+              </div>
+              <div class="settings-row-val">Aktywny ›</div>
+            </div>
+
+            <div class="settings-row" onclick="switchView('view-bluetooth')">
+              <div>
+                <div class="settings-row-title">Zarządzanie Bluetooth Mazda</div>
+                <div class="settings-row-desc">Nazwa urządzenia ("Mazda"), kod PIN ("0000"), lista sparowanych</div>
+              </div>
+              <div class="settings-row-val">Połączono ›</div>
+            </div>
+
+            <div class="settings-row" onclick="alert('Uruchamia fabryczną aplikację com.nwd.setting na Twoim radiu samochodowym!')">
+              <div>
+                <div class="settings-row-title">Oryginalne Ustawienia Samochodu (OEM)</div>
+                <div class="settings-row-desc">Fabryczne opcje radia: przyciski kierownicy (SWC), CAN bus, kamera cofania</div>
+              </div>
+              <div class="settings-row-val" style="color: #C41230; font-weight: 700;">Uruchom com.nwd.setting ›</div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Wizualizer audio Soul Red</div>
+                <div class="settings-row-desc">12 barów na pulpicie, 20 barów w pełnym odtwarzaczu</div>
+              </div>
+              <div class="settings-row-val" style="color: #22c55e;">Włączony</div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Pływający przycisk Home</div>
+                <div class="settings-row-desc">Ułatwia powrót do launchera z innych aplikacji</div>
+              </div>
+              <div class="settings-row-val">Włączony</div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Bezprzewodowy ADB (Debugowanie)</div>
+                <div class="settings-row-desc">Dostęp sieciowy do radia na porcie 5555</div>
+              </div>
+              <div class="settings-row-val">Włączony</div>
+            </div>
+          </div>
+
+          <!-- Section: Ogólne Dashline -->
+          <div class="settings-section-title">OGÓLNE DASHLINE</div>
+          <div class="settings-group">
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Język interfejsu</div>
+                <div class="settings-row-desc">Język wszystkich kart i komunikatów</div>
+              </div>
+              <div class="settings-row-val">Polski</div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Motyw graficzny</div>
+                <div class="settings-row-desc">Automatyczny dzień/noc wg świateł pojazdu</div>
+              </div>
+              <div class="settings-row-val">Ciemny (Noc)</div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Kolor akcentu</div>
+                <div class="settings-row-desc">Mazda Soul Red Crystal Metallic</div>
+              </div>
+              <div class="settings-row-val">
+                Soul Red <span class="swatch-accent"></span>
+              </div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Styl zegara</div>
+                <div class="settings-row-desc">Format wyświetlania czasu na pulpicie</div>
+              </div>
+              <div class="settings-row-val">Cyfrowy (24h)</div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Jednostka temperatury</div>
+              </div>
+              <div class="settings-row-val">°C (Celsjusz)</div>
+            </div>
+
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Nie wygaszaj ekranu podczas jazdy</div>
+              </div>
+              <div class="settings-row-val" style="color: #22c55e;">Włączone</div>
+            </div>
+          </div>
+
+          <!-- Section: Domyślne Aplikacje -->
+          <div class="settings-section-title">DOMYŚLNE ROLKI APLIKACJI</div>
+          <div class="settings-group">
+            <div class="settings-row">
+              <div class="settings-row-title">Aplikacja Nawigacji</div>
+              <div class="settings-row-val">Google Maps</div>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-title">Aplikacja Radia FM</div>
+              <div class="settings-row-val">Radio Fabryczne (T3)</div>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-title">Odtwarzacz Muzyki</div>
+              <div class="settings-row-val">Spotify / Bluetooth</div>
+            </div>
+            <div class="settings-row">
+              <div class="settings-row-title">Telefon / Rozmowy</div>
+              <div class="settings-row-val">Bluetooth Phone</div>
+            </div>
+          </div>
+
+          <!-- Section: O programie -->
+          <div class="settings-section-title">INFORMACJE O PROGRAMIE</div>
+          <div class="settings-group">
+            <div class="settings-row">
+              <div>
+                <div class="settings-row-title">Wersja Mazdash</div>
+                <div class="settings-row-desc">Build testowy (Standalone) – nie zastępuje fabrycznego launchera</div>
+              </div>
+              <div class="settings-row-val">v1.0.0 (API 23 Allwinner T3)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // Navigation router
+    function switchView(viewId) {
+      document.querySelectorAll('.view-page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+
+      const targetPage = document.getElementById(viewId);
+      if (targetPage) targetPage.classList.add('active');
+
+      const btnIndex = {
+        'view-home': 0,
+        'view-media': 1,
+        'view-dsp': 2,
+        'view-bluetooth': 3,
+        'view-settings': 4
+      }[viewId];
+
+      const navBtns = document.querySelectorAll('.toolbar .btn-nav');
+      if (navBtns[btnIndex]) navBtns[btnIndex].classList.add('active');
+
+      if (viewId === 'view-dsp') {
+        setTimeout(drawCockpit, 50);
+      }
+    }
+
+    // DSP Tab Switcher (Kabina vs Equalizer)
+    function switchDspTab(tabName) {
+      const isCabin = tabName === 'cabin';
+      document.getElementById('btnTabCabin').classList.toggle('active', isCabin);
+      document.getElementById('btnTabEqualizer').classList.toggle('active', !isCabin);
+      document.getElementById('page-cabin').classList.toggle('active', isCabin);
+      document.getElementById('page-equalizer').classList.toggle('active', !isCabin);
+
+      if (isCabin) {
+        setTimeout(drawCockpit, 50);
+      }
+    }
+
+    // Cockpit Stage Canvas
+    const canvas = document.getElementById('stageCanvas');
+    const ctx = canvas.getContext('2d');
+    const cabinImg = new Image();
+    cabinImg.src = 'che.png'; // OEM car seats
+    cabinImg.onload = () => drawCockpit();
+
+    let targetXFrac = 0.5; // Balance center
+    let targetYFrac = 0.5; // Fader center
+
+    function resizeCanvas() {
+      const wrap = document.getElementById('cockpitWrapper');
+      if (wrap) {
+        canvas.width = wrap.clientWidth;
+        canvas.height = wrap.clientHeight;
+        drawCockpit();
+      }
+    }
+    window.addEventListener('resize', resizeCanvas);
+    setTimeout(resizeCanvas, 100);
+
+    function drawCockpit() {
+      if (!canvas.width || !canvas.height) return;
+      const w = canvas.width;
+      const h = canvas.height;
+
+      // Dark cockpit background
+      ctx.fillStyle = '#151517';
+      ctx.fillRect(0, 0, w, h);
+
+      // Grid lines
+      ctx.strokeStyle = '#27272a';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(w / 2, 20);
+      ctx.lineTo(w / 2, h - 20);
+      ctx.moveTo(20, h / 2);
+      ctx.lineTo(w - 20, h / 2);
+      ctx.stroke();
+
+      // Draw OEM car seats (che.png) centered
+      if (cabinImg.complete && cabinImg.naturalWidth > 0) {
+        const scale = (h * 0.8) / cabinImg.naturalHeight;
+        const dw = cabinImg.naturalWidth * scale;
+        const dh = cabinImg.naturalHeight * scale;
+        const dx = (w - dw) / 2;
+        const dy = (h - dh) / 2;
+        ctx.globalAlpha = 0.85;
+        ctx.drawImage(cabinImg, dx, dy, dw, dh);
+        ctx.globalAlpha = 1.0;
+      }
+
+      // Labels
+      ctx.fillStyle = '#71717a';
+      ctx.font = 'bold 11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('PRZÓD (FRONT)', w / 2, 24);
+      ctx.fillText('TYŁ (REAR)', w / 2, h - 14);
+
+      // 4 Speakers
+      const spkOffset = 36;
+      ctx.fillStyle = '#52525b';
+      [
+        [spkOffset, spkOffset],
+        [w - spkOffset, spkOffset],
+        [spkOffset, h - spkOffset],
+        [w - spkOffset, h - spkOffset]
+      ].forEach(([sx, sy]) => {
+        ctx.beginPath();
+        ctx.arc(sx, sy, 7, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Target Soul Red Disc
+      const pad = 40;
+      const actW = w - pad * 2;
+      const actH = h - pad * 2;
+      const tx = pad + targetXFrac * actW;
+      const ty = pad + targetYFrac * actH;
+
+      // Glow
+      ctx.fillStyle = 'rgba(196, 18, 48, 0.3)';
+      ctx.beginPath();
+      ctx.arc(tx, ty, 24, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Disc
+      ctx.fillStyle = '#C41230';
+      ctx.beginPath();
+      ctx.arc(tx, ty, 10, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Stage dragging
+    let isDraggingStage = false;
+    canvas.addEventListener('mousedown', (e) => { isDraggingStage = true; updateStageTouch(e); });
+    window.addEventListener('mousemove', (e) => { if (isDraggingStage) updateStageTouch(e); });
+    window.addEventListener('mouseup', () => { isDraggingStage = false; });
+
+    function updateStageTouch(e) {
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const pad = 40;
+      const actW = canvas.width - pad * 2;
+      const actH = canvas.height - pad * 2;
+
+      targetXFrac = Math.max(0, Math.min(1, (x - pad) / actW));
+      targetYFrac = Math.max(0, Math.min(1, (y - pad) / actH));
+
+      drawCockpit();
+      updateStageLabels();
+    }
+
+    function setStagePreset(preset) {
+      document.querySelectorAll('.btn-quick-stage').forEach(b => b.classList.remove('active'));
+      if (preset === 'center') {
+        targetXFrac = 0.5;
+        targetYFrac = 0.5;
+      } else if (preset === 'driver') {
+        targetXFrac = 0.32;
+        targetYFrac = 0.38;
+      } else if (preset === 'copilot') {
+        targetXFrac = 0.68;
+        targetYFrac = 0.38;
+      } else if (preset === 'rear') {
+        targetXFrac = 0.5;
+        targetYFrac = 0.72;
+      }
+      drawCockpit();
+      updateStageLabels();
+    }
+
+    function updateStageLabels() {
+      const fDiff = Math.round((targetYFrac - 0.5) * 14);
+      const bDiff = Math.round((targetXFrac - 0.5) * 14);
+
+      const fText = fDiff < 0 ? `Fader: Przód (${-fDiff})` : (fDiff > 0 ? `Fader: Tył (+${fDiff})` : 'Fader: Środek (0)');
+      const bText = bDiff < 0 ? `Balance: Lewo (${-bDiff})` : (bDiff > 0 ? `Balance: Prawo (+${bDiff})` : 'Balance: Środek (0)');
+
+      document.getElementById('readoutFader').innerText = fText;
+      document.getElementById('readoutBalance').innerText = bText;
+    }
+
+    // ================= 8-BAND EQUALIZER =================
+    const frequencies = ['60Hz', '150Hz', '400Hz', '1kHz', '2.5k', '6kHz', '10kHz', '14kHz'];
+    let eqGains = [0, 0, 0, 0, 0, 0, 0, 0]; // dB from -7 to +7
+
+    function initEqSliders() {
+      const container = document.getElementById('eqSlidersContainer');
+      container.innerHTML = '';
+
+      frequencies.forEach((freq, idx) => {
+        const col = document.createElement('div');
+        col.className = 'eq-band-col';
+        col.innerHTML = `
+          <div class="eq-gain-val" id="gainText${idx}">0 dB</div>
+          <div class="eq-vert-slider" id="sliderTrack${idx}">
+            <div class="eq-track">
+              <div class="eq-track-center"></div>
+              <div class="eq-fill" id="fill${idx}"></div>
+              <div class="eq-thumb" id="thumb${idx}"></div>
+            </div>
+          </div>
+          <div class="eq-steppers">
+            <button class="btn-step" onclick="nudgeEq(${idx}, -1)">−</button>
+            <button class="btn-step" onclick="nudgeEq(${idx}, 1)">+</button>
+          </div>
+          <div class="eq-freq-label">${freq}</div>
+        `;
+        container.appendChild(col);
+
+        // Click / drag to change
+        const track = col.querySelector('.eq-vert-slider');
+        track.addEventListener('mousedown', (e) => onSliderClick(e, idx, track));
+      });
+      updateAllSlidersUI();
+    }
+
+    function onSliderClick(e, idx, track) {
+      const rect = track.getBoundingClientRect();
+      const frac = 1 - Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+      eqGains[idx] = Math.round(frac * 14 - 7);
+      updateAllSlidersUI();
+    }
+
+    function nudgeEq(idx, delta) {
+      eqGains[idx] = Math.max(-7, Math.min(7, eqGains[idx] + delta));
+      updateAllSlidersUI();
+    }
+
+    function updateAllSlidersUI() {
+      eqGains.forEach((gain, idx) => {
+        const text = document.getElementById(`gainText${idx}`);
+        if (text) text.innerText = (gain > 0 ? `+${gain}` : `${gain}`) + ' dB';
+
+        const thumb = document.getElementById(`thumb${idx}`);
+        const fill = document.getElementById(`fill${idx}`);
+        if (thumb && fill) {
+          const frac = (gain + 7) / 14;
+          const topPercent = (1 - frac) * 100;
+          thumb.style.top = topPercent + '%';
+
+          if (gain >= 0) {
+            fill.style.top = topPercent + '%';
+            fill.style.height = (50 - topPercent) + '%';
+          } else {
+            fill.style.top = '50%';
+            fill.style.height = (topPercent - 50) + '%';
+          }
+        }
+      });
+    }
+
+    const eqPresets = {
+      standard: [0, 0, 0, 0, 0, 0, 0, 0],
+      pop: [1, 2, 1, 0, 1, 2, 1, 0],
+      rock: [4, 3, -1, -2, 0, 2, 4, 5],
+      classic: [3, 2, 0, 0, 1, 2, 3, 3],
+      jazz: [2, 2, 1, 2, 0, 1, 2, 3]
+    };
+
+    function applyPreset(name, btn) {
+      document.querySelectorAll('.eq-chip').forEach(c => c.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      if (eqPresets[name]) {
+        eqGains = [...eqPresets[name]];
+        updateAllSlidersUI();
+      }
+    }
+
+    function resetEq() {
+      applyPreset('standard', document.querySelector('.eq-chip'));
+      document.getElementById('subRange').value = 0;
+      onSubChange(0);
+    }
+
+    // Loudness toggle switch
+    let loudnessOn = true;
+    function toggleLoudness() {
+      loudnessOn = !loudnessOn;
+      const sw = document.getElementById('loudnessSwitch');
+      sw.classList.toggle('on', loudnessOn);
+    }
+
+    // Subwoofer
+    function onSubChange(val) {
+      document.getElementById('subVal').innerText = (val > 0 ? `+${val}` : `${val}`) + ' dB';
+    }
+    function nudgeSub(delta) {
+      const range = document.getElementById('subRange');
+      const next = Math.max(0, Math.min(14, parseInt(range.value) + delta));
+      range.value = next;
+      onSubChange(next);
+    }
+
+    // ================= 20-BAR VISUALIZER ANIMATION =================
+    const largeCanvas = document.getElementById('largeVisualizerCanvas');
+    const largeCtx = largeCanvas.getContext('2d');
+    const barCount20 = 20;
+    const speeds = Array.from({ length: barCount20 }, (_, i) => 1.6 + ((i * 7) % 11) * 0.22);
+    const phases = Array.from({ length: barCount20 }, (_, i) => (i * 0.73) % (Math.PI * 2));
+    let heights20 = Array(barCount20).fill(0.12);
+    let isPlaying = true;
+
+    function render20Visualizer() {
+      const w = largeCanvas.width;
+      const h = largeCanvas.height;
+      largeCtx.clearRect(0, 0, w, h);
+
+      const spacing = 4;
+      const totalSpacing = (barCount20 - 1) * spacing;
+      const barWidth = (w - totalSpacing) / barCount20;
+      const now = performance.now() / 1000;
+
+      for (let i = 0; i < barCount20; i++) {
+        const target = isPlaying ? (0.15 + (Math.sin(now * speeds[i] * 3.2 + phases[i]) + 1) / 2 * 0.8) : 0.12;
+        heights20[i] += (target - heights20[i]) * 0.28;
+
+        const bh = Math.max(barWidth, h * heights20[i]);
+        const bx = i * (barWidth + spacing);
+        const by = h - bh;
+
+        largeCtx.fillStyle = '#C41230';
+        largeCtx.beginPath();
+        largeCtx.roundRect(bx, by, barWidth, bh, 3);
+        largeCtx.fill();
+      }
+
+      // Also animate the 12-bar visualizer in home card
+      const homeBars = document.querySelectorAll('.visualizer-12 .viz-bar');
+      if (homeBars.length === 12) {
+        homeBars.forEach((bar, i) => {
+          const target = isPlaying ? (20 + (Math.sin(now * (1.8 + (i % 5) * 0.3) + i * 0.8) + 1) / 2 * 75) : 15;
+          bar.style.height = target + '%';
+        });
+      }
+
+      requestAnimationFrame(render20Visualizer);
+    }
+    requestAnimationFrame(render20Visualizer);
+
+    // Media controls
+    function togglePlay(btn) {
+      isPlaying = !isPlaying;
+      const icon = isPlaying
+        ? `<svg viewBox="0 0 24 24"><path d="M6,19h4V5H6V19zM14,5v14h4V5H14z"/></svg>`
+        : `<svg viewBox="0 0 24 24"><path d="M8,5v14l11,-7L8,5z"/></svg>`;
+      document.querySelectorAll('.ctrl-btn.play, .exp-ctrl-btn.play').forEach(b => b.innerHTML = icon);
+    }
+    function prevTrack() { alert('Poprzedni utwór (Bluetooth AVRCP / MediaSession)'); }
+    function nextTrack() { alert('Następny utwór (Bluetooth AVRCP / MediaSession)'); }
+
+    // Bluetooth
+    function saveBtName() {
+      const name = document.getElementById('btDeviceName').value;
+      alert(`Zapisano nazwę Bluetooth: "${name}" w com.bt.bc03.BTService!`);
+    }
+    function saveBtPin() {
+      const pin = document.getElementById('btPinCode').value;
+      alert(`Zapisano kod PIN Bluetooth: "${pin}"!`);
+    }
+    let isPairing = false;
+    function togglePairMode() {
+      isPairing = !isPairing;
+      const btn = document.getElementById('btnPairMode');
+      if (isPairing) {
+        btn.innerText = 'PAROWANIE AKTYWNE (WIDOCZNY W POBLIŻU)';
+        btn.style.background = '#22c55e';
+      } else {
+        btn.innerText = 'ROZPOCZNIJ PAROWANIE (WIDOCZNY 120s)';
+        btn.style.background = '#C41230';
+      }
+    }
+    function toggleConnect(btn) {
+      if (btn.classList.contains('active')) {
+        btn.classList.remove('active');
+        btn.innerText = 'Połącz';
+      } else {
+        btn.classList.add('active');
+        btn.innerText = 'Rozłącz';
+      }
+    }
+
+    // Init
+    initEqSliders();
+  </script>
+</body>
+</html>

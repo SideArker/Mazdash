@@ -58,7 +58,7 @@ class HomeActivity : BaseActivity() {
         if (bt.isMusicPlaying || (bt.isConnected && bt.trackTitle.isNotEmpty())) {
             val title = bt.trackTitle.ifEmpty { "Bluetooth Audio" }
             val artist = bt.trackArtist.ifEmpty { bt.connectedDeviceName.orEmpty() }
-            renderMedia(MediaInfo(title, artist, null, bt.isMusicPlaying, "com.nwd.bt.music"))
+            renderMedia(MediaInfo(title, artist, "Bluetooth Audio", null, bt.isMusicPlaying, "com.nwd.bt.music"))
         } else if (currentMedia?.packageName == "com.nwd.bt.music") {
             renderMedia(null)
         }
@@ -267,6 +267,7 @@ class HomeActivity : BaseActivity() {
         binding.mediaCard.background = GradientThemes.roundedRect(cardColor, 8f * density)
 
         binding.btnPlayPause.background = GradientThemes.roundedRect(accent, 25f * density)
+        binding.mediaVisualizer.barCount = 12
         binding.mediaVisualizer.setBarColor(accent)
 
         // Seek fill stays white on the dark card; accent-tinted on the light one.

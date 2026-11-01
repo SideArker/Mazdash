@@ -18,6 +18,7 @@ import androidx.annotation.RequiresApi
 data class MediaInfo(
     val title: String,
     val artist: String,
+    val album: String = "",
     val art: Bitmap?,
     val isPlaying: Boolean,
     val packageName: String
@@ -163,6 +164,7 @@ class MediaMonitor(
         val title = md?.getText(MediaMetadata.METADATA_KEY_TITLE)?.toString().orEmpty()
         val artist = (md?.getText(MediaMetadata.METADATA_KEY_ARTIST)
             ?: md?.getText(MediaMetadata.METADATA_KEY_ALBUM_ARTIST))?.toString().orEmpty()
+        val album = md?.getText(MediaMetadata.METADATA_KEY_ALBUM)?.toString().orEmpty()
         val art = md?.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART)
             ?: md?.getBitmap(MediaMetadata.METADATA_KEY_ART)
             ?: md?.getBitmap(MediaMetadata.METADATA_KEY_DISPLAY_ICON)
@@ -172,6 +174,6 @@ class MediaMonitor(
             onUpdate(null)
             return
         }
-        onUpdate(MediaInfo(title, artist, art, isPlaying, c.packageName))
+        onUpdate(MediaInfo(title, artist, album, art, isPlaying, c.packageName))
     }
 }

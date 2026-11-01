@@ -75,115 +75,167 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="16dp">
+        android:padding="14dp">
 
-        <!-- Active Media Player View -->
+        <!-- Ambient Album Background & Scrim -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageMediaBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:alpha="0.22"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/imageMediaOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#A6000000"
+            android:visibility="gone" />
+
+        <!-- Active Media Player View (2-Column Landscape) -->
         <LinearLayout
             android:id="@+id/layoutPlaying"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
+            android:orientation="horizontal"
             android:background="@drawable/card_dark"
-            android:padding="20dp"
+            android:padding="16dp"
+            android:gravity="center_vertical"
             android:visibility="visible">
 
-            <!-- Large Audio Visualizer Bars -->
-            <com.dashline.launcher.AudioVisualizerView
-                android:id="@+id/largeVisualizer"
-                android:layout_width="260dp"
-                android:layout_height="80dp"
-                android:layout_marginBottom="16dp" />
-
-            <!-- Song Title -->
-            <TextView
-                android:id="@+id/textMediaTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="600dp"
-                android:singleLine="true"
-                android:ellipsize="marquee"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:text="Odtwarzanie Bluetooth"
-                android:textColor="@color/text_primary"
-                android:textSize="26sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:layout_marginBottom="4dp" />
-
-            <!-- Artist / Album -->
-            <TextView
-                android:id="@+id/textMediaArtist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxWidth="600dp"
-                android:singleLine="true"
-                android:ellipsize="end"
-                android:text="Gotowy do odtwarzania"
-                android:textColor="@color/text_secondary"
-                android:textSize="17sp"
-                android:gravity="center"
-                android:layout_marginBottom="8dp" />
-
-            <!-- Source Device Badge -->
-            <TextView
-                android:id="@+id/textMediaSource"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/btn_circle"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:text="Bluetooth Audio"
-                android:textColor="@android:color/white"
-                android:textSize="12sp"
-                android:layout_marginBottom="20dp" />
-
-            <!-- Transport Playback Controls -->
+            <!-- Left: Album Art Cover & Album Name -->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_width="220dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="20dp">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageAlbumArt"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/tile_bg"
+                    android:padding="16dp"
+                    app:srcCompat="@drawable/ic_audio"
+                    app:tint="#C41230"
+                    android:elevation="4dp" />
+
+                <TextView
+                    android:id="@+id/textMediaAlbum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="200dp"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="Album Bluetooth"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <!-- Right: Title, Artist, 20-bar Visualizer & Transport Controls -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
                 android:gravity="center_vertical">
 
-                <!-- Previous Track -->
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/btnPrev"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:padding="14dp"
+                <TextView
+                    android:id="@+id/textMediaSource"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:background="@drawable/btn_circle"
-                    android:contentDescription="@string/media_previous"
-                    app:srcCompat="@drawable/ic_skip_previous"
-                    app:tint="@android:color/white"
-                    android:layout_marginEnd="16dp" />
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:text="Bluetooth Audio"
+                    android:textColor="@android:color/white"
+                    android:textSize="11sp"
+                    android:layout_marginBottom="8dp" />
 
-                <!-- Play / Pause -->
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/btnPlayPause"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:padding="18dp"
-                    android:background="@drawable/btn_circle"
-                    android:backgroundTint="#C41230"
-                    android:contentDescription="@string/media_play_pause"
-                    app:srcCompat="@drawable/ic_play"
-                    app:tint="@android:color/white"
-                    android:layout_marginEnd="16dp" />
+                <!-- Song Title -->
+                <TextView
+                    android:id="@+id/textMediaTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:text="Odtwarzanie Bluetooth"
+                    android:textColor="@color/text_primary"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="2dp" />
 
-                <!-- Next Track -->
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/btnNext"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:padding="14dp"
-                    android:background="@drawable/btn_circle"
-                    android:contentDescription="@string/media_next"
-                    app:srcCompat="@drawable/ic_skip_next"
-                    app:tint="@android:color/white" />
+                <!-- Artist -->
+                <TextView
+                    android:id="@+id/textMediaArtist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:text="Gotowy do odtwarzania"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="14dp" />
+
+                <!-- 20-Bar Large Audio Visualizer -->
+                <com.dashline.launcher.AudioVisualizerView
+                    android:id="@+id/largeVisualizer"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- Transport Controls -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/btnPrev"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:padding="13dp"
+                        android:background="@drawable/btn_circle"
+                        android:contentDescription="@string/media_previous"
+                        app:srcCompat="@drawable/ic_skip_previous"
+                        app:tint="@android:color/white"
+                        android:layout_marginEnd="16dp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/btnPlayPause"
+                        android:layout_width="66dp"
+                        android:layout_height="66dp"
+                        android:padding="16dp"
+                        android:background="@drawable/btn_circle"
+                        android:backgroundTint="#C41230"
+                        android:contentDescription="@string/media_play_pause"
+                        app:srcCompat="@drawable/ic_play"
+                        app:tint="@android:color/white"
+                        android:layout_marginEnd="16dp" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/btnNext"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:padding="13dp"
+                        android:background="@drawable/btn_circle"
+                        android:contentDescription="@string/media_next"
+                        app:srcCompat="@drawable/ic_skip_next"
+                        app:tint="@android:color/white" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

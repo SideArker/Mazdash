@@ -112,6 +112,7 @@
     <string name="dsp_mode_custom">Własny</string>
     <string name="settings_dsp_title">Ustawienia dźwięku radia (DSP &amp; Fader)</string>
     <string name="settings_bt_title">Zarządzanie Bluetooth radia</string>
+    <string name="settings_car_oem_title">Ustawienia samochodu (Fabryczne / Pojazd)</string>
     <string name="settings_visualizer">Wizualizer audio</string>
     <string name="settings_visualizer_desc">Animowane paski częstotliwości audio podczas odtwarzania</string>
 </resources>
