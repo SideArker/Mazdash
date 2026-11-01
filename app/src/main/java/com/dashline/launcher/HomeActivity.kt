@@ -244,6 +244,7 @@ class HomeActivity : BaseActivity() {
         binding.mediaCard.background = GradientThemes.roundedRect(cardColor, 8f * density)
 
         binding.btnPlayPause.background = GradientThemes.roundedRect(accent, 25f * density)
+        binding.mediaVisualizer.setBarColor(accent)
 
         // Seek fill stays white on the dark card; accent-tinted on the light one.
         // Only the progress layer is recoloured — the track must stay muted.
@@ -949,6 +950,8 @@ class HomeActivity : BaseActivity() {
             binding.mediaTitle.isSelected = false
             binding.mediaControls.visibility = android.view.View.GONE
             binding.mediaSeekRow.visibility = android.view.View.GONE
+            binding.mediaVisualizer.isPlaying = false
+            binding.mediaVisualizer.visibility = android.view.View.GONE
 
             // On 5.0+, reading what's playing needs Notification access. If it isn't
             // granted, the widget can never see media — guide the user to enable it.
@@ -978,6 +981,8 @@ class HomeActivity : BaseActivity() {
         binding.btnPlayPause.setImageResource(
             if (info.isPlaying) R.drawable.ic_pause else R.drawable.ic_play
         )
+        binding.mediaVisualizer.visibility = android.view.View.VISIBLE
+        binding.mediaVisualizer.isPlaying = info.isPlaying
         // Respect whatever applyMediaDensity decided there was room for.
         if (prefs.mediaFraction >= 0.34f || !isLandscapeNow()) {
             binding.mediaControls.visibility = android.view.View.VISIBLE

@@ -62,6 +62,18 @@ class Prefs(context: Context) {
         get() = sp.getBoolean(KEY_FAHRENHEIT, false)
         set(v) = sp.edit().putBoolean(KEY_FAHRENHEIT, v).apply()
 
+    var cachedLat: Double
+        get() = java.lang.Double.longBitsToDouble(sp.getLong(KEY_CACHED_LAT, java.lang.Double.doubleToRawLongBits(0.0)))
+        set(v) = sp.edit().putLong(KEY_CACHED_LAT, java.lang.Double.doubleToRawLongBits(v)).apply()
+
+    var cachedLon: Double
+        get() = java.lang.Double.longBitsToDouble(sp.getLong(KEY_CACHED_LON, java.lang.Double.doubleToRawLongBits(0.0)))
+        set(v) = sp.edit().putLong(KEY_CACHED_LON, java.lang.Double.doubleToRawLongBits(v)).apply()
+
+    var cachedCity: String
+        get() = sp.getString(KEY_CACHED_CITY, "") ?: ""
+        set(v) = sp.edit().putString(KEY_CACHED_CITY, v).apply()
+
     /**
      * Whether we've already shown the location prompt once. Setup asks first; the
      * dashboard only asks if setup never got the chance (e.g. upgraded installs),
@@ -469,6 +481,9 @@ class Prefs(context: Context) {
         private const val KEY_PROJECTION_ON = "projection_row"
         private const val KEY_FLOATING_HOME = "floating_home"
         private const val KEY_ADB_WIFI = "adb_wifi"
+        private const val KEY_CACHED_LAT = "cached_lat"
+        private const val KEY_CACHED_LON = "cached_lon"
+        private const val KEY_CACHED_CITY = "cached_city"
         private const val KEY_FAV_SIZE = "favorite_size"
     }
 }

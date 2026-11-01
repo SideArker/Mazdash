@@ -358,6 +358,12 @@
                                 android:textColor="@color/text_secondary"
                                 android:textSize="14sp" />
                         </LinearLayout>
+
+                        <com.dashline.launcher.AudioVisualizerView
+                            android:id="@+id/mediaVisualizer"
+                            android:layout_width="32dp"
+                            android:layout_height="24dp"
+                            android:layout_marginStart="8dp" />
                     </LinearLayout>
 
                     <LinearLayout
