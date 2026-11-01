@@ -60,6 +60,7 @@ install_apk_reliable() {
 
     echo "Kopiowanie $apk_name na urządzenie..."
     $ADB_CMD push "$apk_path" "$remote_temp"
+    $ADB_CMD shell chmod 644 "$remote_temp" 2>/dev/null || true
 
     echo "Instalacja $apk_name przez Package Manager..."
     local out
