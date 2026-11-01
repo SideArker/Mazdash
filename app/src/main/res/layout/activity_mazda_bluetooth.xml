@@ -19,118 +19,95 @@
 
         <!-- Left Column: Radio Settings & Pairing Mode -->
         <LinearLayout
+            style="@style/Mazdash.Card"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="@drawable/card_dark"
-            android:padding="14dp"
             android:layout_marginEnd="8dp">
 
             <TextView
+                style="@style/Mazdash.Text.SectionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bt_device_name_label"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textAllCaps="true"
                 android:layout_marginBottom="4dp" />
 
             <!-- Device Name Row -->
             <LinearLayout
+                style="@style/Mazdash.Tile"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/tile_bg"
-                android:paddingStart="12dp"
                 android:paddingEnd="8dp"
                 android:layout_marginBottom="12dp">
 
                 <TextView
                     android:id="@+id/textLocalBtName"
+                    style="@style/Mazdash.Text.CardTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Mazda"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp" />
 
                 <Button
                     android:id="@+id/btnChangeName"
+                    style="@style/Mazdash.Button.Rounded"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp"
                     android:text="@string/bt_change_name"
-                    android:textSize="11sp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/btn_rounded" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
             <!-- PIN Code Row -->
             <TextView
+                style="@style/Mazdash.Text.SectionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bt_pin_code_label"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textAllCaps="true"
                 android:layout_marginBottom="4dp" />
 
             <LinearLayout
+                style="@style/Mazdash.Tile"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="@drawable/tile_bg"
-                android:paddingStart="12dp"
                 android:paddingEnd="8dp"
                 android:layout_marginBottom="16dp">
 
                 <TextView
                     android:id="@+id/textBtPin"
+                    style="@style/Mazdash.Text.CardTitle"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="0000"
-                    android:textColor="@color/text_primary"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textSize="15sp" />
 
                 <Button
                     android:id="@+id/btnChangePin"
+                    style="@style/Mazdash.Button.Rounded"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
-                    android:paddingStart="14dp"
-                    android:paddingEnd="14dp"
                     android:text="@string/bt_change_pin"
-                    android:textSize="11sp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/btn_rounded" />
+                    android:textSize="11sp" />
             </LinearLayout>
 
-            <!-- Big Start Pairing Mode Button -->
+            <!-- Big Start Pairing Mode Button (Mazdash Soul Red Pill) -->
             <Button
                 android:id="@+id/btnStartPairing"
+                style="@style/Mazdash.Button.Pill"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="@string/bt_pairing_mode"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:background="@drawable/btn_pill"
-                android:backgroundTint="#C41230"
                 android:layout_marginBottom="8dp" />
 
             <TextView
                 android:id="@+id/textPairingInstructions"
+                style="@style/Mazdash.Text.CardSubtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_secondary"
                 android:textSize="12sp"
                 android:lineSpacingExtra="2dp"
                 android:layout_marginBottom="12dp" />
@@ -143,23 +120,21 @@
             <!-- Nearby Discovery Button -->
             <Button
                 android:id="@+id/btnStartDiscovery"
+                style="@style/Mazdash.Button.Rounded"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:text="Szukaj urządzeń w pobliżu"
-                android:textSize="11sp"
-                android:textColor="@color/text_primary"
-                android:background="@drawable/tile_bg" />
+                android:textSize="11sp" />
 
         </LinearLayout>
 
         <!-- Right Column: Paired Devices List -->
         <LinearLayout
+            style="@style/Mazdash.Card"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.2"
-            android:orientation="vertical"
-            android:background="@drawable/card_dark"
-            android:padding="14dp">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -169,23 +144,19 @@
                 android:layout_marginBottom="8dp">
 
                 <TextView
+                    style="@style/Mazdash.Text.SectionLabel"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@string/bt_paired_devices"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true" />
+                    android:text="@string/bt_paired_devices" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/btnRefreshDevices"
+                    style="@style/Mazdash.Button.Icon"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:padding="6dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    app:srcCompat="@drawable/ic_reset"
-                    app:tint="@color/icon_tint" />
+                    app:srcCompat="@drawable/ic_reset" />
 
             </LinearLayout>
 
@@ -202,12 +173,11 @@
 
                 <TextView
                     android:id="@+id/textEmptyPaired"
+                    style="@style/Mazdash.Text.CardSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="@string/bt_no_paired_devices"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp"
                     android:visibility="gone" />
 
             </FrameLayout>

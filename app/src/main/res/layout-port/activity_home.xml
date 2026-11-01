@@ -301,7 +301,7 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical"
                 android:padding="14dp"
-                android:background="@drawable/card_blue"
+                android:background="@drawable/card_dark"
                 android:foreground="?android:attr/selectableItemBackground">
                 <!-- Default: the media player itself -->
                 <LinearLayout

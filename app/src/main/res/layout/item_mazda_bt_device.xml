@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Mazdash.Card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:background="@drawable/card_dark"
     android:padding="10dp"
     android:layout_marginBottom="6dp">
 
@@ -25,19 +25,18 @@
 
         <TextView
             android:id="@+id/textDeviceName"
+            style="@style/Mazdash.Text.CardTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textStyle="bold"
             android:maxLines="1"
             android:ellipsize="end" />
 
         <TextView
             android:id="@+id/textDeviceAddress"
+            style="@style/Mazdash.Text.CardSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_secondary"
             android:textSize="11sp" />
 
         <TextView
@@ -52,11 +51,10 @@
 
     <Button
         android:id="@+id/btnConnectToggle"
+        style="@style/Mazdash.Button.Rounded"
         android:layout_width="80dp"
         android:layout_height="36dp"
         android:textSize="11sp"
-        android:textColor="@android:color/white"
-        android:background="@drawable/btn_rounded"
         android:text="@string/bt_connect"
         android:layout_marginEnd="6dp" />
 
@@ -67,7 +65,7 @@
         android:padding="8dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         app:srcCompat="@drawable/ic_delete"
-        app:tint="#FF453A"
+        app:tint="@color/mz_status_danger"
         android:contentDescription="@string/bt_delete" />
 
 </LinearLayout>

@@ -531,14 +531,14 @@
                  instead of both stretching and leaving large gaps. -->
             <LinearLayout
                 android:id="@+id/phoneCard"
+                style="@style/Mazdash.Card.Clickable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/phone_card_height"
                 android:orientation="vertical"
                 android:gravity="center_vertical"
                 android:padding="16dp"
-                android:background="@drawable/card_dark"
-                android:foreground="?android:attr/selectableItemBackground">
+                android:background="@drawable/card_dark">
 
                 <!-- Default: a plain Phone shortcut -->
                 <LinearLayout

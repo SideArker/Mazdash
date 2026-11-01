@@ -8,20 +8,11 @@
 
     <!-- Top Navigation Header with Tabs -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/bar"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
+        style="@style/Mazdash.Header">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/navBack"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:padding="10dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Mazdash.Button.Icon"
             android:contentDescription="@string/nav_back"
             app:srcCompat="@drawable/ic_back" />
 
@@ -38,42 +29,24 @@
 
         <!-- Segmented Tab Switch: KABINA vs EQUALIZER -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:background="@drawable/card_dark"
-            android:orientation="horizontal"
-            android:padding="3dp"
+            style="@style/Mazdash.Header.SegmentedTab"
             android:layout_marginEnd="8dp">
 
             <Button
                 android:id="@+id/tabCabin"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="KABINA"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:background="@drawable/btn_pill"
-                android:backgroundTint="#C41230" />
+                style="@style/Mazdash.Header.TabButton.Active"
+                android:text="KABINA" />
 
             <Button
                 android:id="@+id/tabEqualizer"
-                android:layout_width="120dp"
-                android:layout_height="match_parent"
-                android:text="EQUALIZER"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:textColor="@color/text_secondary"
-                android:background="@android:color/transparent" />
+                style="@style/Mazdash.Header.TabButton.Inactive"
+                android:text="EQUALIZER" />
 
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/navHome"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:padding="10dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Mazdash.Button.Icon"
             android:contentDescription="@string/nav_home"
             app:srcCompat="@drawable/ic_home" />
 
@@ -96,23 +69,19 @@
 
             <!-- Left: Cabin View with Car Seats & Touch Crosshair -->
             <LinearLayout
+                style="@style/Mazdash.Card"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.4"
                 android:orientation="vertical"
-                android:background="@drawable/card_dark"
                 android:padding="10dp"
                 android:layout_marginEnd="10dp">
 
                 <TextView
+                    style="@style/Mazdash.Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SCENA DŹWIĘKOWA (DOTKNIJ W KABINIE)"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:layout_marginBottom="6dp" />
+                    android:text="SCENA DŹWIĘKOWA (DOTKNIJ W KABINIE)" android:layout_marginBottom="6dp" />
 
                 <com.dashline.launcher.MazdaSoundStageView
                     android:id="@+id/soundStageView"
@@ -123,22 +92,17 @@
 
             <!-- Right: Quick Stage Buttons & Readout -->
             <LinearLayout
+                style="@style/Mazdash.Card"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"
-                android:orientation="vertical"
-                android:background="@drawable/card_dark"
-                android:padding="14dp">
+                android:orientation="vertical">
 
                 <TextView
+                    style="@style/Mazdash.Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="SZYBKIE POZYCJE"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:layout_marginBottom="10dp" />
+                    android:text="SZYBKIE POZYCJE" android:layout_marginBottom="10dp" />
 
                 <!-- Stage Position readout -->
                 <LinearLayout
@@ -171,55 +135,23 @@
 
                 <Button
                     android:id="@+id/btnStageCenter"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="CAŁE AUTO (ŚRODEK)"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/btn_rounded"
-                    android:layout_marginBottom="6dp" />
+                    style="@style/Mazdash.Button.Stage.Active"
+                    android:text="CAŁE AUTO (ŚRODEK)" />
 
                 <Button
                     android:id="@+id/btnStageDriver"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="KIEROWCA"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/btn_rounded"
-                    android:layout_marginBottom="6dp" />
+                    style="@style/Mazdash.Button.Stage"
+                    android:text="KIEROWCA" />
 
                 <Button
                     android:id="@+id/btnStageCopilot"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="PASAŻER"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/btn_rounded"
-                    android:layout_marginBottom="6dp" />
+                    style="@style/Mazdash.Button.Stage"
+                    android:text="PASAŻER" />
 
                 <Button
                     android:id="@+id/btnStageRear"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:text="TYŁ"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/btn_rounded"
-                    android:layout_marginBottom="6dp" />
+                    style="@style/Mazdash.Button.Stage"
+                    android:text="TYŁ" />
 
                 <View
                     android:layout_width="match_parent"
@@ -228,14 +160,11 @@
 
                 <Button
                     android:id="@+id/btnStageReset"
+                    style="@style/Mazdash.Button.Rounded"
                     android:layout_width="match_parent"
                     android:layout_height="36dp"
                     android:text="WYŚRODKUJ"
-                    android:textSize="11sp"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textColor="@color/text_secondary"
-                    android:background="@drawable/tile_bg" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
@@ -252,23 +181,19 @@
 
             <!-- Left: 8 Vertical Slider Columns + Profile Chips -->
             <LinearLayout
+                style="@style/Mazdash.Card"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.6"
                 android:orientation="vertical"
-                android:background="@drawable/card_dark"
                 android:padding="12dp"
                 android:layout_marginEnd="10dp">
 
                 <TextView
+                    style="@style/Mazdash.Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KOREKTOR GRAFICZNY (8-PASMOWY)"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:layout_marginBottom="6dp" />
+                    android:text="KOREKTOR GRAFICZNY (8-PASMOWY)" android:layout_marginBottom="6dp" />
 
                 <!-- 8 Vertical Sliders Row -->
                 <LinearLayout
@@ -310,27 +235,13 @@
                             android:layout_marginTop="2dp">
                             <Button
                                 android:id="@+id/btnEq0Minus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="−"
-                                android:textSize="14sp"
-                                android:padding="0dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                style="@style/Mazdash.Button.Stepper"
+                                android:text="−" />
                             <Button
                                 android:id="@+id/btnEq0Plus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="+"
-                                android:textSize="14sp"
-                                android:padding="0dp"
+                                style="@style/Mazdash.Button.Stepper"
                                 android:layout_marginStart="2dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                android:text="+" />
                         </LinearLayout>
 
                         <TextView
@@ -373,27 +284,13 @@
                             android:layout_marginTop="2dp">
                             <Button
                                 android:id="@+id/btnEq1Minus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="−"
-                                android:textSize="14sp"
-                                android:padding="0dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                style="@style/Mazdash.Button.Stepper"
+                                android:text="−" />
                             <Button
                                 android:id="@+id/btnEq1Plus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="+"
-                                android:textSize="14sp"
-                                android:padding="0dp"
+                                style="@style/Mazdash.Button.Stepper"
                                 android:layout_marginStart="2dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                android:text="+" />
                         </LinearLayout>
 
                         <TextView
@@ -436,27 +333,13 @@
                             android:layout_marginTop="2dp">
                             <Button
                                 android:id="@+id/btnEq2Minus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="−"
-                                android:textSize="14sp"
-                                android:padding="0dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                style="@style/Mazdash.Button.Stepper"
+                                android:text="−" />
                             <Button
                                 android:id="@+id/btnEq2Plus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="+"
-                                android:textSize="14sp"
-                                android:padding="0dp"
+                                style="@style/Mazdash.Button.Stepper"
                                 android:layout_marginStart="2dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                android:text="+" />
                         </LinearLayout>
 
                         <TextView
@@ -499,27 +382,13 @@
                             android:layout_marginTop="2dp">
                             <Button
                                 android:id="@+id/btnEq3Minus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="−"
-                                android:textSize="14sp"
-                                android:padding="0dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                style="@style/Mazdash.Button.Stepper"
+                                android:text="−" />
                             <Button
                                 android:id="@+id/btnEq3Plus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="+"
-                                android:textSize="14sp"
-                                android:padding="0dp"
+                                style="@style/Mazdash.Button.Stepper"
                                 android:layout_marginStart="2dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                android:text="+" />
                         </LinearLayout>
 
                         <TextView
@@ -562,27 +431,13 @@
                             android:layout_marginTop="2dp">
                             <Button
                                 android:id="@+id/btnEq4Minus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="−"
-                                android:textSize="14sp"
-                                android:padding="0dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                style="@style/Mazdash.Button.Stepper"
+                                android:text="−" />
                             <Button
                                 android:id="@+id/btnEq4Plus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="+"
-                                android:textSize="14sp"
-                                android:padding="0dp"
+                                style="@style/Mazdash.Button.Stepper"
                                 android:layout_marginStart="2dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                android:text="+" />
                         </LinearLayout>
 
                         <TextView
@@ -625,27 +480,13 @@
                             android:layout_marginTop="2dp">
                             <Button
                                 android:id="@+id/btnEq5Minus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="−"
-                                android:textSize="14sp"
-                                android:padding="0dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                style="@style/Mazdash.Button.Stepper"
+                                android:text="−" />
                             <Button
                                 android:id="@+id/btnEq5Plus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="+"
-                                android:textSize="14sp"
-                                android:padding="0dp"
+                                style="@style/Mazdash.Button.Stepper"
                                 android:layout_marginStart="2dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                android:text="+" />
                         </LinearLayout>
 
                         <TextView
@@ -688,27 +529,13 @@
                             android:layout_marginTop="2dp">
                             <Button
                                 android:id="@+id/btnEq6Minus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="−"
-                                android:textSize="14sp"
-                                android:padding="0dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                style="@style/Mazdash.Button.Stepper"
+                                android:text="−" />
                             <Button
                                 android:id="@+id/btnEq6Plus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="+"
-                                android:textSize="14sp"
-                                android:padding="0dp"
+                                style="@style/Mazdash.Button.Stepper"
                                 android:layout_marginStart="2dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                android:text="+" />
                         </LinearLayout>
 
                         <TextView
@@ -751,27 +578,13 @@
                             android:layout_marginTop="2dp">
                             <Button
                                 android:id="@+id/btnEq7Minus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="−"
-                                android:textSize="14sp"
-                                android:padding="0dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                style="@style/Mazdash.Button.Stepper"
+                                android:text="−" />
                             <Button
                                 android:id="@+id/btnEq7Plus"
-                                android:layout_width="26dp"
-                                android:layout_height="26dp"
-                                android:text="+"
-                                android:textSize="14sp"
-                                android:padding="0dp"
+                                style="@style/Mazdash.Button.Stepper"
                                 android:layout_marginStart="2dp"
-                                android:textColor="@android:color/white"
-                                android:minWidth="0dp"
-                                android:minHeight="0dp"
-                                android:background="@drawable/btn_stepper" />
+                                android:text="+" />
                         </LinearLayout>
 
                         <TextView
@@ -787,14 +600,10 @@
 
                 <!-- Profile Selection Below Sliders -->
                 <TextView
+                    style="@style/Mazdash.Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PROFILE DŹWIĘKU"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="4dp" />
+                    android:text="PROFILE DŹWIĘKU" android:layout_marginTop="6dp" android:layout_marginBottom="4dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -803,89 +612,45 @@
 
                     <Button
                         android:id="@+id/btnEqStandard"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Standard"
-                        android:textSize="10sp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/btn_rounded"
-                        android:layout_marginEnd="3dp" />
+                        style="@style/Mazdash.Button.Chip.Active" android:layout_marginEnd="3dp"
+                        android:text="Standard" />
 
                     <Button
                         android:id="@+id/btnEqPop"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Pop"
-                        android:textSize="10sp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/btn_rounded"
-                        android:layout_marginEnd="3dp" />
+                        style="@style/Mazdash.Button.Chip" android:layout_marginEnd="3dp"
+                        android:text="Pop" />
 
                     <Button
                         android:id="@+id/btnEqRock"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Rock"
-                        android:textSize="10sp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/btn_rounded"
-                        android:layout_marginEnd="3dp" />
+                        style="@style/Mazdash.Button.Chip" android:layout_marginEnd="3dp"
+                        android:text="Rock" />
 
                     <Button
                         android:id="@+id/btnEqClassic"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Klasyka"
-                        android:textSize="10sp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/btn_rounded"
-                        android:layout_marginEnd="3dp" />
+                        style="@style/Mazdash.Button.Chip" android:layout_marginEnd="3dp"
+                        android:text="Klasyka" />
 
                     <Button
                         android:id="@+id/btnEqJazz"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="Jazz"
-                        android:textSize="10sp"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/btn_rounded" />
+                        style="@style/Mazdash.Button.Chip"
+                        android:text="Jazz" />
                 </LinearLayout>
 
             </LinearLayout>
 
             <!-- Right: Loudness Toggle & Subwoofer -->
             <LinearLayout
+                style="@style/Mazdash.Card"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.8"
-                android:orientation="vertical"
-                android:background="@drawable/card_dark"
-                android:padding="14dp">
+                android:orientation="vertical">
 
                 <TextView
+                    style="@style/Mazdash.Text.SectionLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="DYNAMIKA DŹWIĘKU"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:textAllCaps="true"
-                    android:layout_marginBottom="10dp" />
+                    android:text="DYNAMIKA DŹWIĘKU" android:layout_marginBottom="10dp" />
 
                 <!-- Loudness Toggle Box (Underneath tab switch on the right) -->
                 <LinearLayout
@@ -969,14 +734,8 @@
 
                         <Button
                             android:id="@+id/btnSubMinus"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:text="−"
-                            android:textSize="16sp"
-                            android:minWidth="0dp"
-                            android:minHeight="0dp"
-                            android:textColor="@android:color/white"
-                            android:background="@drawable/btn_stepper" />
+                            style="@style/Mazdash.Button.Stepper.Large"
+                            android:text="−" />
 
                         <SeekBar
                             android:id="@+id/seekHeavyBass"
@@ -992,14 +751,8 @@
 
                         <Button
                             android:id="@+id/btnSubPlus"
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:text="+"
-                            android:textSize="16sp"
-                            android:minWidth="0dp"
-                            android:minHeight="0dp"
-                            android:textColor="@android:color/white"
-                            android:background="@drawable/btn_stepper" />
+                            style="@style/Mazdash.Button.Stepper.Large"
+                            android:text="+" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -1010,12 +763,11 @@
 
                 <Button
                     android:id="@+id/btnResetEq"
+                    style="@style/Mazdash.Button.Rounded"
                     android:layout_width="match_parent"
                     android:layout_height="38dp"
                     android:text="ZERUJ KOREKTOR (0 dB)"
-                    android:textSize="11sp"
-                    android:textColor="@color/text_secondary"
-                    android:background="@drawable/tile_bg" />
+                    android:textSize="11sp" />
 
             </LinearLayout>
 

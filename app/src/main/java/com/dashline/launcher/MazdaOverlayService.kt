@@ -78,40 +78,33 @@ class MazdaOverlayService : Service() {
         if (overlayView != null) return
 
         val density = resources.displayMetrics.density
-        val padding = (8 * density).toInt()
 
         val layout = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
-            gravity = Gravity.CENTER_VERTICAL
-            setPadding(padding, (6 * density).toInt(), (10 * density).toInt(), (6 * density).toInt())
+            gravity = Gravity.CENTER
+            val padding = (10 * density).toInt()
+            setPadding(padding, padding, padding, padding)
 
-            // Mazda Soul Red capsule background with subtle dark border
+            // Sleek Mazda stealth capsule with Soul Red border
+            val accentColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_accent)
+            val bgDeep = androidx.core.content.ContextCompat.getColor(this, R.color.mz_bg_deep)
             val bg = GradientDrawable().apply {
-                setColor(Color.parseColor("#E60B0C0E")) // 90% dark stealth
-                setStroke((1.5f * density).toInt(), Color.parseColor("#C41230")) // Soul Red border
+                setColor(GradientThemes.withAlpha(bgDeep, 230)) // 90% dark stealth
+                setStroke((1.5f * density).toInt(), accentColor) // Soul Red border
                 cornerRadius = 24 * density
             }
             background = bg
             elevation = 6 * density
         }
 
+        val accentColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_accent)
         val icon = ImageView(this).apply {
             setImageResource(R.drawable.ic_home)
-            setColorFilter(Color.parseColor("#C41230")) // Soul Red icon
-            layoutParams = LinearLayout.LayoutParams((18 * density).toInt(), (18 * density).toInt()).apply {
-                marginEnd = (6 * density).toInt()
-            }
-        }
-
-        val label = TextView(this).apply {
-            text = "MAZDA"
-            textSize = 12f
-            setTextColor(Color.WHITE)
-            typeface = android.graphics.Typeface.DEFAULT_BOLD
+            setColorFilter(accentColor) // Soul Red vector icon
+            layoutParams = LinearLayout.LayoutParams((22 * density).toInt(), (22 * density).toInt())
         }
 
         layout.addView(icon)
-        layout.addView(label)
 
         // Drag & click listener
         val windowType = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

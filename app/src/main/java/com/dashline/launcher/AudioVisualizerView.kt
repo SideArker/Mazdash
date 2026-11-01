@@ -27,7 +27,7 @@ class AudioVisualizerView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val barPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#C41230") // Mazda Soul Red
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_accent)
         style = Paint.Style.FILL
     }
 

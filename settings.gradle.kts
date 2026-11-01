@@ -16,5 +16,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Dashline"
+rootProject.name = "Mazdash"
 include(":app")
+includeBuild("open-headunit")

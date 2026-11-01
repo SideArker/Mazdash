@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="material_grey_500">#9E9E9E</color>
+    <color name="material_grey_700">#616161</color>
+    <color name="material_grey_900">#212121</color>
+
+    <color name="primary_dark">#09090B</color>
+    <color name="primary_light">#fffbff</color>
+    <color name="material_orange_700">#f57c00</color>
+    <color name="material_green_700">#388e3c</color>
+    <color name="material_red_700">#C41230</color>
+
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_second">#A1A1AA</color>
+    <color name="text_dark">#71717A</color>
+    <color name="black_overlay">#66000000</color>
+
+    <color name="setting_background_color">#09090B</color>
+    <!-- The app's accent: Mazda Soul Red Crystal, matching Mazdash. -->
+    <color name="brand_primary">#C41230</color>
+    <color name="onb_audio_card">#18181B</color>
+    <color name="onb_audio_option">#202024</color>
+    <color name="onb_audio_option_selected">#27272A</color>
+    <color name="onb_audio_chip_bg">#26C41230</color>
+    <color name="onb_audio_chip_text">#FFFFFF</color>
+    <color name="divider_color">#2E2E34</color>
+    <color name="adaptive_text_color">#FFFFFF</color>
+
+    <color name="extreme_dark_background">#09090B</color>
+    <color name="splash_background">#09090B</color>
+    <color name="splash_text_white">#FFFFFF</color>
+    <color name="splash_text_revived">#C41230</color>
+
+    <!-- Custom Menu Colors -->
+    <color name="color_projection_blue">#C41230</color>
+    <color name="color_usb_orange">#E65100</color>
+    <color name="color_wifi_purple">#C41230</color>
+    <color name="color_settings_darkblue">#18181B</color>
+
+    <!-- Failure banner on the main screen. Amber rather than red: these are conditions the user
+         can usually fix, and a red screen on a car dashboard reads as a fault in the car. -->
+    <color name="warning_banner_tint">#26F57C00</color>
+    <color name="warning_banner_stroke">#66F57C00</color>
+    <color name="warning_banner_icon">#F57C00</color>
+
+    <!-- Material 3 color roles aligned with Mazda dark theme and Soul Red. -->
+    <color name="md_surface">#09090B</color>
+    <color name="md_surface_container">#18181B</color>
+    <color name="md_surface_container_highest">#27272A</color>
+    <color name="md_surface_container_high">#202024</color>
+    <color name="md_on_surface">#FFFFFF</color>
+    <color name="md_on_surface_variant">#A1A1AA</color>
+    <color name="md_outline">#2E2E34</color>
+    <color name="md_outline_variant">#3F3F46</color>
+    <color name="md_primary">#C41230</color>
+    <color name="md_on_primary">#FFFFFF</color>
+    <color name="md_secondary_container">#27272A</color>
+    <color name="md_on_secondary_container">#FFFFFF</color>
+
+    <!-- Extreme dark: every surface is black and only faint outlines separate groups. -->
+    <color name="md_extreme_container_highest">#18181B</color>
+    <color name="md_extreme_on_surface">#FFFFFF</color>
+    <color name="md_extreme_on_surface_variant">#A1A1AA</color>
+    <color name="md_extreme_outline">#2E2E34</color>
+    <color name="md_extreme_outline_variant">#3F3F46</color>
+    <color name="md_extreme_primary">#C41230</color>
+    <color name="md_extreme_secondary_container">#202024</color>
+
+    <!-- Home screen: flat panels, so the zones read apart without elevation on old units. -->
+    <color name="home_panel">#121214</color>
+    <color name="home_panel_stroke">#2E2E34</color>
+    <color name="home_tile">#18181B</color>
+    <color name="home_tile_pressed">#27272A</color>
+    <color name="home_tile_stroke">#2E2E34</color>
+    <color name="home_slot_stroke">#2E2E34</color>
+    <color name="home_text">#FFFFFF</color>
+    <color name="home_text_muted">#A1A1AA</color>
+    <color name="home_apps_tile">#18181B</color>
+    <color name="home_apps_tile_pressed">#27272A</color>
+    <color name="home_apps_icon">#C41230</color>
+    <color name="home_usb">#C41230</color>
+    <color name="home_wifi">#C41230</color>
+    <color name="home_self">#C41230</color>
+    <color name="home_monochrome">#A1A1AA</color>
+    <color name="home_countdown_ring">#80C41230</color>
+
+    <color name="home_extreme_panel">#09090B</color>
+    <color name="home_extreme_panel_stroke">#2E2E34</color>
+    <color name="home_extreme_tile">#18181B</color>
+    <color name="home_extreme_tile_pressed">#27272A</color>
+    <color name="home_extreme_tile_stroke">#2E2E34</color>
+    <color name="home_extreme_slot_stroke">#2E2E34</color>
+    <color name="home_extreme_text">#FFFFFF</color>
+    <color name="home_extreme_text_muted">#A1A1AA</color>
+    <color name="home_extreme_apps_tile">#18181B</color>
+    <color name="home_extreme_apps_tile_pressed">#27272A</color>
+    <color name="home_extreme_apps_icon">#C41230</color>
+    <color name="home_extreme_usb">#C41230</color>
+    <color name="home_extreme_wifi">#C41230</color>
+    <color name="home_extreme_self">#C41230</color>
+    <color name="home_extreme_monochrome">#A1A1AA</color>
+    <color name="home_extreme_countdown_ring">#80C41230</color>
+
+    <!-- The one-time hint on the launcher home that shows where pages are added. -->
+    <color name="home_hint_scrim">#BD04060A</color>
+    <color name="home_hint_callout">#18181B</color>
+    <color name="home_hint_title">#FFFFFF</color>
+    <color name="home_hint_body">#A1A1AA</color>
+    <color name="home_hint_button">#C41230</color>
+    <color name="home_hint_button_focused">#E01A3C</color>
+</resources>

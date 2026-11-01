@@ -323,9 +323,7 @@ class HomeActivity : BaseActivity() {
                 binding.shortcutAndroidAuto.background = GradientThemes.roundedRect(accent, 8f * density)
                 binding.labelAndroidAuto.setText(R.string.aa_status_projecting)
             } else {
-                val night = GradientThemes.isNight(this)
-                val baseColor = if (night) android.graphics.Color.parseColor("#1C1E22")
-                                else android.graphics.Color.parseColor("#E0E3E8")
+                val baseColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_surface_tile)
                 binding.shortcutAndroidAuto.background = GradientThemes.roundedRect(baseColor, 8f * density)
                 binding.labelAndroidAuto.setText(R.string.shortcut_android_auto)
             }

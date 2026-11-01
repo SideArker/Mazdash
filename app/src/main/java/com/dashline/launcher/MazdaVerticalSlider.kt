@@ -25,18 +25,18 @@ class MazdaVerticalSlider @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val trackPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#27272A")
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_surface_interactive)
         style = Paint.Style.FILL
     }
 
     private val centerMarkerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#52525B")
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_border)
         strokeWidth = 2f * resources.displayMetrics.density
         style = Paint.Style.STROKE
     }
 
     private val fillPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#C41230") // Mazda Soul Red
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_accent)
         style = Paint.Style.FILL
     }
 
@@ -46,7 +46,7 @@ class MazdaVerticalSlider @JvmOverloads constructor(
     }
 
     private val thumbRingPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#C41230")
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_accent)
         strokeWidth = 2.5f * resources.displayMetrics.density
         style = Paint.Style.STROKE
     }

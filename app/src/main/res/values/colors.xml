@@ -1,27 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- LIGHT theme (default). Dark variant lives in values-night/colors.xml.
-         Color names are shared so layouts adapt automatically. -->
-    <!-- bg is only the pre-draw fallback; the real background is the gradient
-         applied at runtime. Bars/surfaces are translucent so it shows through —
-         and deliberately not opaque white, so the pastel gradient tints them
-         instead of the UI turning into a sheet of paper in daylight. -->
-    <color name="bg">#C9DAEC</color>
-    <color name="bar">#59FFFFFF</color>
-    <color name="surface">#6BFFFFFF</color>
-    <color name="surface_light">#B4CDE6</color>
-    <color name="divider">#22000000</color>
+    <!-- =================================================================== -->
+    <!-- MAZDASH GLOBAL DESIGN TOKENS (CSS-style centralized theme variables) -->
+    <!-- Changing these tokens updates the visual style across all screens. -->
+    <!-- =================================================================== -->
 
-    <color name="text_primary">#10151B</color>
-    <color name="text_secondary">#55657A</color>
-    <color name="icon_tint">#1E5C8A</color>
-    <color name="accent">#2F7FCB</color>
+    <!-- Mazda Soul Red Accent & Interactive States -->
+    <color name="mz_accent">#C41230</color>
+    <color name="mz_accent_hover">#E01A3C</color>
+    <color name="mz_accent_pressed">#9E0E26</color>
+    <color name="mz_accent_dim">#26C41230</color>
+    <color name="mz_accent_glow">#4DC41230</color>
 
-    <color name="tile">#6BFFFFFF</color>
+    <!-- Cockpit Backgrounds (Stealth Dark Automotive) -->
+    <color name="mz_bg_deep">#09090B</color>
+    <color name="mz_bg_screen">#121214</color>
+    <color name="mz_bg_bezel">#161618</color>
+    <color name="mz_bg_bar">#F218181B</color>
 
-    <!-- media widget -->
-    <color name="on_accent">#FFFFFF</color>
-    <color name="art_bg">#59FFFFFF</color>
-    <color name="seek_track">#9CBCD8</color>
-    <color name="seek_fill">#1E5C8A</color>
+    <!-- Card & Surface Hierarchy -->
+    <color name="mz_surface_card">#18181B</color>
+    <color name="mz_surface_tile">#202024</color>
+    <color name="mz_surface_interactive">#27272A</color>
+    <color name="mz_surface_interactive_hover">#3F3F46</color>
+    <color name="mz_surface_active">#C41230</color>
+
+    <!-- Borders & Dividers -->
+    <color name="mz_border">#2E2E34</color>
+    <color name="mz_border_subtle">#1FFFFFFF</color>
+    <color name="mz_border_accent">#80C41230</color>
+
+    <!-- Typography -->
+    <color name="mz_text_primary">#FFFFFF</color>
+    <color name="mz_text_secondary">#A1A1AA</color>
+    <color name="mz_text_muted">#71717A</color>
+    <color name="mz_text_on_accent">#FFFFFF</color>
+
+    <!-- Status & Indicators -->
+    <color name="mz_status_connected">#22C55E</color>
+    <color name="mz_status_disconnected">#71717A</color>
+    <color name="mz_status_warning">#F59E0B</color>
+    <color name="mz_status_danger">#EF4444</color>
+
+    <!-- Framework & Upstream Aliases (pointing directly to tokens) -->
+    <color name="accent">@color/mz_accent</color>
+    <color name="bg">@color/mz_bg_deep</color>
+    <color name="bar">@color/mz_bg_bar</color>
+    <color name="surface">@color/mz_surface_card</color>
+    <color name="surface_light">@color/mz_surface_interactive</color>
+    <color name="tile">@color/mz_surface_tile</color>
+    <color name="divider">@color/mz_border</color>
+
+    <color name="text_primary">@color/mz_text_primary</color>
+    <color name="text_secondary">@color/mz_text_secondary</color>
+    <color name="icon_tint">@color/mz_text_primary</color>
+
+    <!-- Media widget -->
+    <color name="on_accent">@color/mz_text_on_accent</color>
+    <color name="art_bg">@color/mz_surface_tile</color>
+    <color name="seek_track">@color/mz_border</color>
+    <color name="seek_fill">@color/mz_accent</color>
 </resources>

@@ -28,12 +28,12 @@ class MazdaSoundStageView @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
 
     private val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#151517")
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_bg_screen)
         style = Paint.Style.FILL
     }
 
     private val gridPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#2C2C30")
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_border)
         strokeWidth = 2f * resources.displayMetrics.density
         style = Paint.Style.STROKE
     }
@@ -49,22 +49,22 @@ class MazdaSoundStageView @JvmOverloads constructor(
     }
 
     private val speakerPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#636366")
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_surface_interactive_hover)
         style = Paint.Style.FILL
     }
 
     private val targetPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#C41230") // Mazda Soul Red
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_accent)
         style = Paint.Style.FILL
     }
 
     private val targetGlowPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#44C41230")
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_accent_glow)
         style = Paint.Style.FILL
     }
 
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
-        color = Color.parseColor("#8E8E93")
+        color = androidx.core.content.ContextCompat.getColor(context, R.color.mz_text_secondary)
         textSize = 12f * resources.displayMetrics.scaledDensity
         textAlign = Paint.Align.CENTER
     }

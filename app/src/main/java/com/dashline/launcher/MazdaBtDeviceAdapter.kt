@@ -51,14 +51,15 @@ class MazdaBtDeviceAdapter(
                 !connectedAddress.isNullOrEmpty() &&
                 device.address.equals(connectedAddress, ignoreCase = true)
 
+            val context = binding.root.context
             if (isThisConnected) {
-                binding.textDeviceStatus.text = binding.root.context.getString(R.string.bt_connected)
-                binding.textDeviceStatus.setTextColor(Color.parseColor("#30D158"))
-                binding.btnConnectToggle.text = binding.root.context.getString(R.string.bt_disconnect)
+                binding.textDeviceStatus.text = context.getString(R.string.bt_connected)
+                binding.textDeviceStatus.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.mz_status_connected))
+                binding.btnConnectToggle.text = context.getString(R.string.bt_disconnect)
             } else {
-                binding.textDeviceStatus.text = binding.root.context.getString(R.string.bt_disconnected)
-                binding.textDeviceStatus.setTextColor(Color.parseColor("#8E8E93"))
-                binding.btnConnectToggle.text = binding.root.context.getString(R.string.bt_connect)
+                binding.textDeviceStatus.text = context.getString(R.string.bt_disconnected)
+                binding.textDeviceStatus.setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.mz_text_secondary))
+                binding.btnConnectToggle.text = context.getString(R.string.bt_connect)
             }
 
             binding.btnConnectToggle.setOnClickListener {

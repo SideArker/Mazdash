@@ -8,63 +8,41 @@
 
     <!-- Top Navigation Header -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@color/bar"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp">
+        style="@style/Mazdash.Header">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/navBack"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:padding="10dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Mazdash.Button.Icon"
             android:contentDescription="@string/nav_back"
             app:srcCompat="@drawable/ic_back" />
 
         <TextView
             android:id="@+id/pageTitle"
+            style="@style/Mazdash.Text.HeaderTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:text="@string/mazda_media_title"
-            android:textColor="@color/text_primary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="@string/mazda_media_title" />
 
         <!-- Sound DSP Shortcut -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnOpenDsp"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:padding="10dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Mazdash.Button.Icon"
             android:contentDescription="@string/mazda_dsp_title"
             app:srcCompat="@drawable/ic_equalizer" />
 
         <!-- Bluetooth Manager Shortcut -->
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/btnOpenBluetooth"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:padding="10dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Mazdash.Button.Icon"
             android:contentDescription="@string/mazda_bt_title"
             app:srcCompat="@drawable/ic_bluetooth" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/navHome"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:padding="10dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Mazdash.Button.Icon"
             android:contentDescription="@string/nav_home"
             app:srcCompat="@drawable/ic_home" />
 
@@ -90,16 +68,16 @@
             android:id="@+id/imageMediaOverlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#A6000000"
+            android:background="#A609090B"
             android:visibility="gone" />
 
         <!-- Active Media Player View (2-Column Landscape) -->
         <LinearLayout
             android:id="@+id/layoutPlaying"
+            style="@style/Mazdash.Card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:background="@drawable/card_dark"
             android:padding="16dp"
             android:gravity="center_vertical"
             android:visibility="visible">
@@ -117,28 +95,23 @@
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:scaleType="centerCrop"
-                    android:background="@drawable/tile_bg"
-                    android:padding="16dp"
-                    app:srcCompat="@drawable/ic_audio"
-                    app:tint="#C41230"
-                    android:elevation="4dp" />
+                    android:background="@drawable/card_dark"
+                    android:contentDescription="@null"
+                    app:srcCompat="@drawable/ic_audio" />
 
                 <TextView
-                    android:id="@+id/textMediaAlbum"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/textAlbumName"
+                    style="@style/Mazdash.Text.CardSubtitle"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxWidth="200dp"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="Album Bluetooth"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp"
                     android:layout_marginTop="10dp"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end" />
 
             </LinearLayout>
 
-            <!-- Right: Title, Artist, 20-bar Visualizer & Transport Controls -->
+            <!-- Right: Track Metadata, 20-Bar Visualizer, Transport Controls -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -148,43 +121,28 @@
 
                 <TextView
                     android:id="@+id/textMediaSource"
+                    style="@style/Mazdash.Text.SectionLabel.Accent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/btn_pill"
-                    android:paddingStart="12dp"
-                    android:paddingEnd="12dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
                     android:text="Bluetooth Audio"
-                    android:textColor="@android:color/white"
-                    android:textSize="11sp"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="6dp" />
 
-                <!-- Song Title -->
                 <TextView
-                    android:id="@+id/textMediaTitle"
+                    android:id="@+id/textTrackTitle"
+                    style="@style/Mazdash.Text.CardTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:ellipsize="marquee"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:text="Odtwarzanie Bluetooth"
-                    android:textColor="@color/text_primary"
                     android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="2dp" />
+                    android:maxLines="1"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever" />
 
-                <!-- Artist -->
                 <TextView
-                    android:id="@+id/textMediaArtist"
+                    android:id="@+id/textTrackArtist"
+                    style="@style/Mazdash.Text.CardSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:ellipsize="end"
-                    android:text="Gotowy do odtwarzania"
-                    android:textColor="@color/text_secondary"
                     android:textSize="16sp"
                     android:layout_marginBottom="14dp" />
 
@@ -204,36 +162,23 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/btnPrev"
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:padding="13dp"
-                        android:background="@drawable/btn_circle"
+                        style="@style/Mazdash.Button.Media.Skip"
                         android:contentDescription="@string/media_previous"
                         app:srcCompat="@drawable/ic_skip_previous"
-                        app:tint="@android:color/white"
                         android:layout_marginEnd="16dp" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/btnPlayPause"
-                        android:layout_width="66dp"
-                        android:layout_height="66dp"
-                        android:padding="16dp"
-                        android:background="@drawable/btn_circle"
-                        android:backgroundTint="#C41230"
+                        style="@style/Mazdash.Button.Media.Play"
                         android:contentDescription="@string/media_play_pause"
                         app:srcCompat="@drawable/ic_play"
-                        app:tint="@android:color/white"
                         android:layout_marginEnd="16dp" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/btnNext"
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:padding="13dp"
-                        android:background="@drawable/btn_circle"
+                        style="@style/Mazdash.Button.Media.Skip"
                         android:contentDescription="@string/media_next"
-                        app:srcCompat="@drawable/ic_skip_next"
-                        app:tint="@android:color/white" />
+                        app:srcCompat="@drawable/ic_skip_next" />
 
                 </LinearLayout>
 
@@ -244,11 +189,11 @@
         <!-- No Connection Prompt View -->
         <LinearLayout
             android:id="@+id/layoutNotConnected"
+            style="@style/Mazdash.Card"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/card_dark"
             android:padding="24dp"
             android:visibility="gone">
 
@@ -257,25 +202,24 @@
                 android:layout_height="72dp"
                 android:padding="12dp"
                 app:srcCompat="@drawable/ic_bluetooth"
-                app:tint="#C41230"
+                app:tint="@color/mz_accent"
                 android:layout_marginBottom="16dp" />
 
             <TextView
+                style="@style/Mazdash.Text.CardTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/media_not_connected_title"
-                android:textColor="@color/text_primary"
                 android:textSize="22sp"
-                android:textStyle="bold"
                 android:gravity="center"
                 android:layout_marginBottom="8dp" />
 
             <TextView
+                style="@style/Mazdash.Text.CardSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxWidth="480dp"
                 android:text="@string/media_not_connected_subtitle"
-                android:textColor="@color/text_secondary"
                 android:textSize="14sp"
                 android:gravity="center"
                 android:lineSpacingExtra="2dp"
@@ -283,16 +227,12 @@
 
             <Button
                 android:id="@+id/btnPairPhone"
+                style="@style/Mazdash.Button.Pill"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:paddingStart="28dp"
                 android:paddingEnd="28dp"
-                android:text="@string/media_btn_pair"
-                android:textColor="@android:color/white"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:background="@drawable/btn_pill"
-                android:backgroundTint="#C41230" />
+                android:text="@string/media_btn_pair" />
 
         </LinearLayout>
 

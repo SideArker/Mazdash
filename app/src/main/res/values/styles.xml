@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- Base Styles for Android AAPT dot-hierarchy resolution -->
+    <style name="Mazdash" />
+    <style name="Mazdash.Button" />
+    <style name="Mazdash.Button.Media" />
+    <style name="Mazdash.Text" />
+
+    <!-- =================================================================== -->
+    <!-- MAZDASH GLOBAL COMPONENT STYLES                                     -->
+    <!-- Master stylesheet analogous to global CSS classes and components.   -->
+    <!-- All UI components reference these styles to enable easy theming.    -->
+    <!-- =================================================================== -->
+
+    <!-- ========================= 1. CARDS & SURFACES ========================= -->
+
+    <!-- Base Card Container -->
+    <style name="Mazdash.Card">
+        <item name="android:background">@drawable/card_dark</item>
+        <item name="android:padding">14dp</item>
+    </style>
+
+    <!-- Interactive / Clickable Card -->
+    <style name="Mazdash.Card.Clickable">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <!-- Inner Nested Container / Row Tile -->
+    <style name="Mazdash.Tile">
+        <item name="android:background">@drawable/tile_bg</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <!-- Phone-projection shortcuts (Android Auto / CarPlay) -->
+    <style name="ProjectionTile" parent="Mazdash.Card.Clickable">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingEnd">10dp</item>
+    </style>
+    <style name="Mazdash.ProjectionTile" parent="ProjectionTile" />
+
+
+    <!-- ========================= 2. BUTTONS ========================= -->
+
+    <!-- Sleek Mazda Soul Red Pill Button (Primary Actions, never stretches to oval) -->
+    <style name="Mazdash.Button.Pill">
+        <item name="android:background">@drawable/btn_pill</item>
+        <item name="android:textColor">@color/mz_text_on_accent</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">44dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+    </style>
+
+    <!-- Standard Rounded Action Button (Secondary / Tooling) -->
+    <style name="Mazdash.Button.Rounded">
+        <item name="android:background">@drawable/btn_rounded</item>
+        <item name="android:textColor">@color/mz_text_primary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:paddingStart">14dp</item>
+        <item name="android:paddingEnd">14dp</item>
+    </style>
+
+    <!-- Active Rounded Action Button (Soul Red Highlight) -->
+    <style name="Mazdash.Button.Rounded.Accent">
+        <item name="android:background">@drawable/btn_rounded_accent</item>
+        <item name="android:textColor">@color/mz_text_on_accent</item>
+    </style>
+
+    <!-- Stepper Button (Minus / Plus increment for EQ & Subwoofer) -->
+    <style name="Mazdash.Button.Stepper">
+        <item name="android:layout_width">26dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:background">@drawable/btn_stepper</item>
+        <item name="android:textColor">@color/mz_text_primary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Stepper Button - Large (Subwoofer) -->
+    <style name="Mazdash.Button.Stepper.Large">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- Equalizer Profile Preset Chip -->
+    <style name="Mazdash.Button.Chip">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/btn_rounded</item>
+        <item name="android:textColor">@color/mz_text_secondary</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Equalizer Profile Preset Chip (Active) -->
+    <style name="Mazdash.Button.Chip.Active">
+        <item name="android:background">@drawable/btn_rounded_accent</item>
+        <item name="android:textColor">@color/mz_text_on_accent</item>
+    </style>
+
+    <!-- Sound Stage Quick Position Button (Cockpit Seats) -->
+    <style name="Mazdash.Button.Stage">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:background">@drawable/btn_rounded</item>
+        <item name="android:textColor">@color/mz_text_primary</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginBottom">6dp</item>
+    </style>
+
+    <!-- Sound Stage Quick Position Button (Active) -->
+    <style name="Mazdash.Button.Stage.Active">
+        <item name="android:background">@drawable/btn_rounded_accent</item>
+        <item name="android:textColor">@color/mz_text_on_accent</item>
+    </style>
+
+    <!-- Navigation / Header Borderless Icon Button -->
+    <style name="Mazdash.Button.Icon">
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
+        <item name="android:tint">@color/icon_tint</item>
+    </style>
+
+    <!-- Media Transport Button: Play / Pause (Big Soul Red Circle) -->
+    <style name="Mazdash.Button.Media.Play">
+        <item name="android:layout_width">66dp</item>
+        <item name="android:layout_height">66dp</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:background">@drawable/btn_circle_accent</item>
+        <item name="android:tint">@color/mz_text_on_accent</item>
+    </style>
+
+    <!-- Media Transport Button: Skip Previous / Next (Interactive Surface Circle) -->
+    <style name="Mazdash.Button.Media.Skip">
+        <item name="android:layout_width">52dp</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:padding">13dp</item>
+        <item name="android:background">@drawable/btn_circle</item>
+        <item name="android:tint">@color/mz_text_primary</item>
+    </style>
+
+
+    <!-- ========================= 3. TYPOGRAPHY ========================= -->
+
+    <!-- Header Page Title -->
+    <style name="Mazdash.Text.HeaderTitle">
+        <item name="android:textColor">@color/mz_text_primary</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <!-- Uppercase Section Label (Cockpit Headers) -->
+    <style name="Mazdash.Text.SectionLabel">
+        <item name="android:textColor">@color/mz_text_secondary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- Section Label with Mazda Soul Red Accent -->
+    <style name="Mazdash.Text.SectionLabel.Accent">
+        <item name="android:textColor">@color/mz_accent</item>
+    </style>
+
+    <!-- Card Headline -->
+    <style name="Mazdash.Text.CardTitle">
+        <item name="android:textColor">@color/mz_text_primary</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Card Secondary Text / Subtitle -->
+    <style name="Mazdash.Text.CardSubtitle">
+        <item name="android:textColor">@color/mz_text_secondary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- Equalizer Gain Value (e.g. "+3 dB", "0 dB") -->
+    <style name="Mazdash.Text.EqGain">
+        <item name="android:textColor">@color/mz_text_primary</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Equalizer Frequency Label (e.g. "1kHz", "14kHz") -->
+    <style name="Mazdash.Text.EqFreq">
+        <item name="android:textColor">@color/mz_text_secondary</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+    <!-- ========================= 4. HEADERS & NAVIGATION ========================= -->
+
+    <!-- Top Navigation Header Bar -->
+    <style name="Mazdash.Header">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">56dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/bar</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
+    <!-- Segmented Tab Switch Container (Kabina vs Equalizer) -->
+    <style name="Mazdash.Header.SegmentedTab">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:background">@drawable/card_dark</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:padding">3dp</item>
+    </style>
+
+    <!-- Segmented Tab Switch Button -->
+    <style name="Mazdash.Header.TabButton">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- Segmented Tab Switch Button - Active -->
+    <style name="Mazdash.Header.TabButton.Active">
+        <item name="android:background">@drawable/btn_pill</item>
+        <item name="android:textColor">@color/mz_text_on_accent</item>
+    </style>
+
+    <!-- Segmented Tab Switch Button - Inactive -->
+    <style name="Mazdash.Header.TabButton.Inactive">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@color/mz_text_secondary</item>
+    </style>
+
+
+    <!-- ========================= 5. SETTINGS COMPONENTS ========================= -->
+
+    <!-- Settings: small caps section header above each group -->
+    <style name="SettingsSection" parent="Mazdash.Text.SectionLabel.Accent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginTop">18dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- Settings: rounded card that groups rows of a section -->
+    <style name="SettingsGroup" parent="Mazdash.Card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">0dp</item>
+    </style>
+
+    <!-- Settings row: title on left, current value on right -->
+    <style name="SettingsRow">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="SettingsRowTitle" parent="Mazdash.Text.CardTitle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="SettingsRowValue" parent="Mazdash.Text.CardSubtitle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:gravity">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Hairline divider between rows inside a group -->
+    <style name="SettingsDivider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:background">@color/mz_border</item>
+    </style>
+
+    <style name="CustomizeButton" parent="Mazdash.Button.Rounded">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="FavoriteTile" parent="Mazdash.Tile">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginStart">6dp</item>
+        <item name="android:layout_marginEnd">6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">88dp</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+    </style>
+
+    <style name="FcCell">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingEnd">4dp</item>
+    </style>
+
+</resources>

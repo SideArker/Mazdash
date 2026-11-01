@@ -142,8 +142,9 @@ class MazdaMediaActivity : BaseActivity() {
                     binding.imageMediaBackground.visibility = View.VISIBLE
                     binding.imageMediaOverlay.visibility = View.VISIBLE
                 } else {
+                    val accentColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_accent)
                     binding.imageAlbumArt.setImageResource(R.drawable.ic_audio)
-                    binding.imageAlbumArt.imageTintList = ColorStateList.valueOf(Color.parseColor("#C41230"))
+                    binding.imageAlbumArt.imageTintList = ColorStateList.valueOf(accentColor)
                     val p = (16 * resources.displayMetrics.density).toInt()
                     binding.imageAlbumArt.setPadding(p, p, p, p)
 
@@ -158,8 +159,9 @@ class MazdaMediaActivity : BaseActivity() {
                 sourceText = "Bluetooth Audio • $devName"
                 isPlaying = isBtPlaying
 
+                val accentColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_accent)
                 binding.imageAlbumArt.setImageResource(R.drawable.ic_audio)
-                binding.imageAlbumArt.imageTintList = ColorStateList.valueOf(Color.parseColor("#C41230"))
+                binding.imageAlbumArt.imageTintList = ColorStateList.valueOf(accentColor)
                 val p = (16 * resources.displayMetrics.density).toInt()
                 binding.imageAlbumArt.setPadding(p, p, p, p)
 
@@ -167,9 +169,9 @@ class MazdaMediaActivity : BaseActivity() {
                 binding.imageMediaOverlay.visibility = View.GONE
             }
 
-            binding.textMediaTitle.text = title
-            binding.textMediaArtist.text = artist
-            binding.textMediaAlbum.text = album
+            binding.textTrackTitle.text = title
+            binding.textTrackArtist.text = artist
+            binding.textAlbumName.text = album
             binding.textMediaSource.text = sourceText
 
             // Visualizer

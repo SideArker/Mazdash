@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Night theme: unified Mazda Soul Red and stealth cockpit palette -->
+    <color name="setting_background_color">#09090B</color>
+    <color name="primary_dark">#09090B</color>
+    <color name="divider_color">#2E2E34</color>
+    <color name="adaptive_text_color">#FFFFFF</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="splash_background">#09090B</color>
+    <color name="splash_text_revived">#C41230</color>
+
+    <color name="onb_audio_card">#18181B</color>
+    <color name="onb_audio_option">#202024</color>
+    <color name="onb_audio_option_selected">#27272A</color>
+    <color name="onb_audio_chip_bg">#26C41230</color>
+    <color name="onb_audio_chip_text">#FFFFFF</color>
+
+    <!-- Mazda Tokens & Primary Accents -->
+    <color name="brand_primary">#C41230</color>
+    <color name="color_projection_blue">#C41230</color>
+    <color name="color_usb_orange">#E65100</color>
+    <color name="color_wifi_purple">#C41230</color>
+    <color name="color_settings_darkblue">#18181B</color>
+
+    <!-- Material 3 roles matching Mazda tokens -->
+    <color name="md_surface">#09090B</color>
+    <color name="md_surface_container">#18181B</color>
+    <color name="md_surface_container_high">#202024</color>
+    <color name="md_surface_container_highest">#27272A</color>
+    <color name="md_on_surface">#FFFFFF</color>
+    <color name="md_on_surface_variant">#A1A1AA</color>
+    <color name="md_outline">#2E2E34</color>
+    <color name="md_outline_variant">#3F3F46</color>
+    <color name="md_primary">#C41230</color>
+    <color name="md_on_primary">#FFFFFF</color>
+    <color name="md_secondary_container">#27272A</color>
+    <color name="md_on_secondary_container">#FFFFFF</color>
+
+    <!-- Home screen: stealth dark automotive -->
+    <color name="home_panel">#121214</color>
+    <color name="home_panel_stroke">#2E2E34</color>
+    <color name="home_tile">#18181B</color>
+    <color name="home_tile_pressed">#27272A</color>
+    <color name="home_tile_stroke">#2E2E34</color>
+    <color name="home_slot_stroke">#2E2E34</color>
+    <color name="home_text">#FFFFFF</color>
+    <color name="home_text_muted">#A1A1AA</color>
+    <color name="home_apps_tile">#18181B</color>
+    <color name="home_apps_tile_pressed">#27272A</color>
+    <color name="home_apps_icon">#C41230</color>
+    <color name="home_usb">#C41230</color>
+    <color name="home_wifi">#C41230</color>
+    <color name="home_self">#C41230</color>
+    <color name="home_monochrome">#A1A1AA</color>
+    <color name="home_countdown_ring">#80C41230</color>
+</resources>

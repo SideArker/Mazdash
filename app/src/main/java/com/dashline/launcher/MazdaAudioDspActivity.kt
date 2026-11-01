@@ -138,22 +138,24 @@ class MazdaAudioDspActivity : BaseActivity() {
     }
 
     private fun selectTab(isCabin: Boolean) {
-        val activeColor = Color.parseColor("#C41230")
+        val activeColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_accent)
         val inactiveColor = Color.TRANSPARENT
+        val activeTextColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_text_on_accent)
+        val inactiveTextColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_text_secondary)
 
         binding.pageCabin.visibility = if (isCabin) View.VISIBLE else View.GONE
         binding.pageEqualizer.visibility = if (isCabin) View.GONE else View.VISIBLE
 
         if (isCabin) {
             binding.tabCabin.backgroundTintList = ColorStateList.valueOf(activeColor)
-            binding.tabCabin.setTextColor(Color.WHITE)
+            binding.tabCabin.setTextColor(activeTextColor)
             binding.tabEqualizer.backgroundTintList = ColorStateList.valueOf(inactiveColor)
-            binding.tabEqualizer.setTextColor(Color.parseColor("#8E8E93"))
+            binding.tabEqualizer.setTextColor(inactiveTextColor)
         } else {
             binding.tabEqualizer.backgroundTintList = ColorStateList.valueOf(activeColor)
-            binding.tabEqualizer.setTextColor(Color.WHITE)
+            binding.tabEqualizer.setTextColor(activeTextColor)
             binding.tabCabin.backgroundTintList = ColorStateList.valueOf(inactiveColor)
-            binding.tabCabin.setTextColor(Color.parseColor("#8E8E93"))
+            binding.tabCabin.setTextColor(inactiveTextColor)
         }
     }
 
@@ -298,8 +300,10 @@ class MazdaAudioDspActivity : BaseActivity() {
     }
 
     private fun updateProfileHighlight(mode: Int) {
-        val activeBg = Color.parseColor("#C41230")
-        val inactiveBg = Color.parseColor("#27272A")
+        val activeBg = androidx.core.content.ContextCompat.getColor(this, R.color.mz_accent)
+        val inactiveBg = androidx.core.content.ContextCompat.getColor(this, R.color.mz_surface_interactive)
+        val activeText = androidx.core.content.ContextCompat.getColor(this, R.color.mz_text_on_accent)
+        val inactiveText = androidx.core.content.ContextCompat.getColor(this, R.color.mz_text_secondary)
 
         val modes = intArrayOf(
             MazdaAudioDspController.EQ_STANDARD,
@@ -313,7 +317,7 @@ class MazdaAudioDspActivity : BaseActivity() {
             val btn = profileButtons[i]
             val isCurrent = (modes[i] == mode)
             btn.backgroundTintList = ColorStateList.valueOf(if (isCurrent) activeBg else inactiveBg)
-            btn.setTextColor(if (isCurrent) Color.WHITE else Color.parseColor("#8E8E93"))
+            btn.setTextColor(if (isCurrent) activeText else inactiveText)
         }
     }
 
