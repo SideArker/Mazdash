@@ -44,6 +44,7 @@ class MazdaBluetoothController private constructor(private val appContext: Conte
     }
 
     private var btFeature: BTFeature? = null
+    fun getBtFeature(): BTFeature? = btFeature
     private var isBound = false
     private val prefs = Prefs(appContext)
 

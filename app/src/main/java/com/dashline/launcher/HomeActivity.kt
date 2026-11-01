@@ -215,8 +215,8 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun onTab(tab: TabAction) = when (tab) {
-        TabAction.RADIO -> openNativeRadio()
-        TabAction.PHONE -> startActivity(Intent(this, MazdaBluetoothActivity::class.java))
+        TabAction.RADIO -> startActivity(Intent(this, MazdaRadioActivity::class.java))
+        TabAction.PHONE -> startActivity(Intent(this, MazdaPhoneActivity::class.java))
         TabAction.AUDIO -> openMedia()
         TabAction.BLUETOOTH -> startActivity(Intent(this, MazdaBluetoothActivity::class.java))
         TabAction.APPS -> startActivity(Intent(this, AppDrawerActivity::class.java))
@@ -224,25 +224,13 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun openNativeRadio() {
-        val intent = packageManager.getLaunchIntentForPackage("com.nwd.radio")
-            ?: packageManager.getLaunchIntentForPackage("com.microntek.radio")
-        if (intent != null) {
-            try {
-                startActivity(intent)
-                return
-            } catch (e: Exception) {
-                // ignore
-            }
-        }
-        if (!AppRepository.launchFirstAvailable(this, prefs.candidatesFor(Prefs.ROLE_RADIO))) {
-            android.widget.Toast.makeText(this, "Radio FM (com.nwd.radio)", android.widget.Toast.LENGTH_SHORT).show()
-        }
+        startActivity(Intent(this, MazdaRadioActivity::class.java))
     }
 
     private fun setupCardsAndBar() {
         binding.mediaCard.setOnClickListener { openMedia() }
         binding.phoneCard.setOnClickListener {
-            startActivity(Intent(this, MazdaBluetoothActivity::class.java))
+            startActivity(Intent(this, MazdaPhoneActivity::class.java))
         }
         // Phone projection: if projecting, immediately raise to front; otherwise launch receiver.
         binding.shortcutAndroidAuto.setOnClickListener {

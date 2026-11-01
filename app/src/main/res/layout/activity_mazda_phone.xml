@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <!-- Top Navigation Header with Segmented Tabs -->
+    <LinearLayout
+        style="@style/Mazdash.Header">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/navBack"
+            style="@style/Mazdash.Button.Icon"
+            android:contentDescription="@string/nav_back"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/pageTitle"
+            style="@style/Mazdash.Text.HeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="12dp"
+            android:text="Telefon" />
+
+        <!-- Segmented Tab Bar -->
+        <LinearLayout
+            style="@style/Mazdash.Header.SegmentedTab"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="12dp">
+
+            <Button
+                android:id="@+id/tabKeypad"
+                style="@style/Mazdash.Header.TabButton.Active"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Klawiatura"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/tabContacts"
+                style="@style/Mazdash.Header.TabButton.Inactive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Kontakty"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/tabHistory"
+                style="@style/Mazdash.Header.TabButton.Inactive"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Historia"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <!-- Bluetooth Manager Shortcut -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnOpenBluetooth"
+            style="@style/Mazdash.Button.Icon"
+            android:contentDescription="@string/mazda_bt_title"
+            app:srcCompat="@drawable/ic_bluetooth" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/navHome"
+            style="@style/Mazdash.Button.Icon"
+            android:contentDescription="@string/nav_home"
+            app:srcCompat="@drawable/ic_home" />
+
+    </LinearLayout>
+
+    <!-- Active Call Banner (Visible during incoming/outgoing/active call) -->
+    <LinearLayout
+        android:id="@+id/layoutActiveCall"
+        style="@style/Mazdash.Card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/card_dark"
+        android:visibility="gone">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            style="@style/Mazdash.Button.Icon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="8dp"
+            app:srcCompat="@drawable/ic_phone"
+            app:tint="@color/mz_accent"
+            android:layout_marginEnd="12dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textActiveCallName"
+                style="@style/Mazdash.Text.CardTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Jan Kowalski"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textActiveCallNumber"
+                style="@style/Mazdash.Text.CardSubtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+48 601 234 567"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/textActiveCallStatus"
+                style="@style/Mazdash.Text.SectionLabel.Accent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Trwa rozmowa (00:45)"
+                android:layout_marginTop="2dp" />
+
+        </LinearLayout>
+
+        <!-- Audio Channel Toggle (Car Speaker vs Handset) -->
+        <Button
+            android:id="@+id/btnToggleAudioRoute"
+            style="@style/Mazdash.Button.Rounded"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:text="Głośniki auta"
+            android:textSize="11sp"
+            android:layout_marginEnd="8dp" />
+
+        <!-- Green Answer Button (Visible when incoming) -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnAnswer"
+            style="@style/Mazdash.Button.Icon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:background="@drawable/btn_pill"
+            android:backgroundTint="@color/mz_status_connected"
+            app:srcCompat="@drawable/ic_call"
+            app:tint="@android:color/white"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone" />
+
+        <!-- Red Hang Up Button -->
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btnHangUp"
+            style="@style/Mazdash.Button.Icon"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:padding="10dp"
+            android:background="@drawable/btn_pill"
+            android:backgroundTint="@color/mz_status_danger"
+            app:srcCompat="@drawable/ic_call_end"
+            app:tint="@android:color/white" />
+
+    </LinearLayout>
+
+    <!-- Main Content Area -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="12dp">
+
+        <!-- 1. Keypad / Dialpad Container -->
+        <LinearLayout
+            android:id="@+id/containerKeypad"
+            style="@style/Mazdash.Card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible">
+
+            <!-- Left: Number Display & Action -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:paddingEnd="16dp">
+
+                <TextView
+                    style="@style/Mazdash.Text.SectionLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="WYBIERZ NUMER"
+                    android:layout_marginBottom="8dp" />
+
+                <!-- Dialed Number Row -->
+                <LinearLayout
+                    style="@style/Mazdash.Tile"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/textDialedNumber"
+                        style="@style/Mazdash.Text.CardTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:hint="Wpisz numer..."
+                        android:textColorHint="@color/mz_text_muted"
+                        android:textSize="22sp"
+                        android:letterSpacing="0.05"
+                        android:maxLines="1" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/btnBackspace"
+                        style="@style/Mazdash.Button.Icon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:padding="8dp"
+                        app:srcCompat="@drawable/ic_backspace" />
+
+                </LinearLayout>
+
+                <!-- Big Call Button (Pill with icon and text) -->
+                <Button
+                    android:id="@+id/btnDial"
+                    style="@style/Mazdash.Button.Pill"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="Zadzwoń"
+                    android:textSize="16sp"
+                    android:backgroundTint="@color/mz_status_connected"
+                    android:layout_marginBottom="12dp" />
+
+                <!-- Quick BT Connection Status -->
+                <TextView
+                    android:id="@+id/textPhoneBtStatus"
+                    style="@style/Mazdash.Text.CardSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Połączono: Telefon"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <!-- Right: 3x4 Keypad Grid -->
+            <GridLayout
+                android:id="@+id/gridKeypad"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.2"
+                android:columnCount="3"
+                android:rowCount="4"
+                android:alignmentMode="alignMargins"
+                android:useDefaultMargins="true">
+
+                <!-- Row 1: 1, 2, 3 -->
+                <Button
+                    android:id="@+id/key1"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="1"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/key2"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="2\nABC"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/key3"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="3\nDEF"
+                    android:textSize="16sp" />
+
+                <!-- Row 2: 4, 5, 6 -->
+                <Button
+                    android:id="@+id/key4"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="4\nGHI"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/key5"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="5\nJKL"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/key6"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="6\nMNO"
+                    android:textSize="16sp" />
+
+                <!-- Row 3: 7, 8, 9 -->
+                <Button
+                    android:id="@+id/key7"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="7\nPQRS"
+                    android:textSize="15sp" />
+
+                <Button
+                    android:id="@+id/key8"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="8\nTUV"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/key9"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="9\nWXYZ"
+                    android:textSize="15sp" />
+
+                <!-- Row 4: *, 0, # -->
+                <Button
+                    android:id="@+id/keyStar"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="*"
+                    android:textSize="22sp" />
+
+                <Button
+                    android:id="@+id/key0"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="0\n+"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/keyHash"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:text="#"
+                    android:textSize="20sp" />
+
+            </GridLayout>
+
+        </LinearLayout>
+
+        <!-- 2. Contacts Container -->
+        <LinearLayout
+            android:id="@+id/containerContacts"
+            style="@style/Mazdash.Card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    style="@style/Mazdash.Text.SectionLabel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="KSIĄŻKA TELEFONICZNA" />
+
+                <Button
+                    android:id="@+id/btnSyncContacts"
+                    style="@style/Mazdash.Button.Rounded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:text="Synchronizuj"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerContacts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
+
+        </LinearLayout>
+
+        <!-- 3. Call History Container -->
+        <LinearLayout
+            android:id="@+id/containerHistory"
+            style="@style/Mazdash.Card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                style="@style/Mazdash.Text.SectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OSTATNIE POŁĄCZENIA"
+                android:layout_marginBottom="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerHistory"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>
