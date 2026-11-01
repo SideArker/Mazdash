@@ -86,8 +86,8 @@ class MazdaOverlayService : Service() {
             setPadding(padding, padding, padding, padding)
 
             // Sleek Mazda stealth capsule with Soul Red border
-            val accentColor = androidx.core.content.ContextCompat.getColor(this, R.color.mz_accent)
-            val bgDeep = androidx.core.content.ContextCompat.getColor(this, R.color.mz_bg_deep)
+            val accentColor = androidx.core.content.ContextCompat.getColor(this@MazdaOverlayService, R.color.mz_accent)
+            val bgDeep = androidx.core.content.ContextCompat.getColor(this@MazdaOverlayService, R.color.mz_bg_deep)
             val bg = GradientDrawable().apply {
                 setColor(GradientThemes.withAlpha(bgDeep, 230)) // 90% dark stealth
                 setStroke((1.5f * density).toInt(), accentColor) // Soul Red border
