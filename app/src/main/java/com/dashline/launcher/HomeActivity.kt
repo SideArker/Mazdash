@@ -261,8 +261,11 @@ class HomeActivity : BaseActivity() {
         // Home button: we're already on the dashboard — force a weather refresh.
         binding.homeButton.setOnClickListener { loadWeather() }
 
+        binding.topBar.setOnClickListener {
+            MazdaQuickShadeDialog.show(this)
+        }
         binding.brightnessButton.setOnClickListener {
-            MazdaBrightnessDialog(this).show()
+            MazdaQuickShadeDialog.show(this)
         }
         binding.brightnessButton.setOnLongClickListener {
             cycleBrightnessPreset()

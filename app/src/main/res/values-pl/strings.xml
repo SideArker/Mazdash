@@ -4,6 +4,7 @@
 
     <!-- bottom tabs -->
     <string name="tab_audio">Audio</string>
+    <string name="tab_radio">Radio</string>
     <string name="tab_phone">Telefon</string>
     <string name="tab_nav">Nawigacja</string>
     <string name="tab_apps">Aplikacje</string>

@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shadeRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_mazda_shade"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="14dp"
+    android:paddingBottom="10dp">
+
+    <!-- 1. Header: Clock, Date, Status badges & Action buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/shadeClock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00:00"
+                android:textColor="@color/mz_text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/shadeDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/mz_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shadeBtnWifi"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/tab_settings"
+            app:srcCompat="@drawable/ic_wifi" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shadeBtnBt"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="8dp"
+            android:layout_marginStart="4dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/tab_bluetooth"
+            app:srcCompat="@drawable/ic_bluetooth" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shadeBtnSettings"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="8dp"
+            android:layout_marginStart="4dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/tab_settings"
+            app:srcCompat="@drawable/ic_settings" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/shadeBtnClose"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:padding="8dp"
+            android:layout_marginStart="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/brightness_close"
+            app:srcCompat="@drawable/ic_arrow_up" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="14dp"
+        android:background="@color/mz_border" />
+
+    <!-- 2. Dual Automotive Sliders: Brightness and Volume -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card_dark"
+        android:padding="14dp">
+
+        <!-- Brightness row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:tint="@color/mz_accent"
+                app:srcCompat="@drawable/ic_brightness" />
+
+            <SeekBar
+                android:id="@+id/shadeBrightnessSlider"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:max="100"
+                android:progress="80"
+                android:maxHeight="6dp"
+                android:minHeight="6dp"
+                android:progressDrawable="@drawable/seek_progress"
+                android:thumb="@drawable/seek_thumb"
+                android:thumbOffset="0dp" />
+
+            <TextView
+                android:id="@+id/shadeBrightnessValue"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="80%"
+                android:textColor="@color/mz_accent"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Brightness Presets -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/shadePreset25"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="25% Noc"
+                android:textColor="@color/mz_text_primary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/shadePreset50"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="50%"
+                android:textColor="@color/mz_text_primary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/shadePreset75"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="75%"
+                android:textColor="@color/mz_text_primary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/shadePreset100"
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:background="@drawable/btn_rounded"
+                android:text="100% Dzień"
+                android:textColor="@color/mz_text_primary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Divider between sliders -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/mz_border_subtle" />
+
+        <!-- Volume row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/shadeVolumeIcon"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/volume_mute"
+                app:srcCompat="@drawable/ic_volume" />
+
+            <SeekBar
+                android:id="@+id/shadeVolumeSlider"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:max="15"
+                android:progress="10"
+                android:maxHeight="6dp"
+                android:minHeight="6dp"
+                android:progressDrawable="@drawable/seek_progress"
+                android:thumb="@drawable/seek_thumb"
+                android:thumbOffset="0dp" />
+
+            <TextView
+                android:id="@+id/shadeVolumeValue"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="10"
+                android:textColor="@color/mz_text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 3. Quick Action Cockpit Tiles -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
+
+        <!-- Screen Off / Night Blackout -->
+        <LinearLayout
+            android:id="@+id/shadeTileScreenOff"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/btn_rounded"
+            android:clickable="true"
+            android:focusable="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:tint="@color/mz_text_secondary"
+                app:srcCompat="@drawable/ic_hidden" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/brightness_screen_off"
+                android:textColor="@color/mz_text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Radio -->
+        <LinearLayout
+            android:id="@+id/shadeTileRadio"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/btn_rounded"
+            android:clickable="true"
+            android:focusable="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:tint="@color/mz_text_primary"
+                app:srcCompat="@drawable/ic_radio" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/tab_radio"
+                android:textColor="@color/mz_text_primary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Telefon -->
+        <LinearLayout
+            android:id="@+id/shadeTilePhone"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="6dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/btn_rounded"
+            android:clickable="true"
+            android:focusable="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:tint="@color/mz_text_primary"
+                app:srcCompat="@drawable/ic_phone" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="@string/tab_phone"
+                android:textColor="@color/mz_text_primary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Android Auto -->
+        <LinearLayout
+            android:id="@+id/shadeTileAuto"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@drawable/btn_rounded"
+            android:clickable="true"
+            android:focusable="true">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:tint="@color/mz_accent"
+                app:srcCompat="@drawable/ic_android_auto" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Android Auto"
+                android:textColor="@color/mz_accent"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- 4. Bottom Pull Handle to dismiss -->
+    <LinearLayout
+        android:id="@+id/shadeDismissHandle"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground">
+
+        <View
+            android:layout_width="44dp"
+            android:layout_height="4dp"
+            android:background="@drawable/drag_handle" />
+    </LinearLayout>
+
+</LinearLayout>

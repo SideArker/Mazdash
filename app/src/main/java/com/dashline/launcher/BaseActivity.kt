@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -70,6 +71,34 @@ abstract class BaseActivity : AppCompatActivity() {
             systemBarsBehavior =
                 WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
+    }
+
+    private var swipeStartY = 0f
+    private var isSwipeDownCandidate = false
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val density = resources.displayMetrics.density
+        when (ev.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                if (ev.rawY <= 75 * density) {
+                    swipeStartY = ev.rawY
+                    isSwipeDownCandidate = true
+                } else {
+                    isSwipeDownCandidate = false
+                }
+            }
+            MotionEvent.ACTION_MOVE -> {
+                if (isSwipeDownCandidate && (ev.rawY - swipeStartY) > 55 * density) {
+                    isSwipeDownCandidate = false
+                    MazdaQuickShadeDialog.show(this)
+                    return true
+                }
+            }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                isSwipeDownCandidate = false
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
     // ---- UI colour gradient -------------------------------------------------
