@@ -57,10 +57,8 @@ android {
         create("legacy") {
             dimension = "distribution"
             minSdk = 19
-            // Only this flavour offers its own updates: it's the one distributed
-            // outside a store, and the Play build is signed with a different key
-            // so it could not install these APKs anyway.
-            buildConfigField("boolean", "UPDATE_CHECK", "true")
+            // Mazdash is a custom vehicle-specific build; disable upstream Dashline update checks
+            buildConfigField("boolean", "UPDATE_CHECK", "false")
         }
         create("play") {
             dimension = "distribution"
