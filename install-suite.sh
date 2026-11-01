@@ -54,6 +54,7 @@ echo "Cel instalacji: $TARGET_DEVICE"
 
 install_apk_reliable() {
     local apk_path="$1"
+    local pkg_name="$2"
     local apk_name="$(basename "$apk_path")"
     local remote_temp="/data/local/tmp/$apk_name"
 
@@ -61,19 +62,28 @@ install_apk_reliable() {
     $ADB_CMD push "$apk_path" "$remote_temp"
 
     echo "Instalacja $apk_name przez Package Manager..."
-    # Flagi: -r (reinstall), -t (test/debug allowed), -d (downgrade allowed), -g (grant permissions)
-    $ADB_CMD shell pm install -r -t -d -g "$remote_temp"
+    local out
+    out=$($ADB_CMD shell pm install -r -t -d -g "$remote_temp" 2>&1)
+    echo "$out"
+
+    if [[ "$out" == *"INSTALL_FAILED_UPDATE_INCOMPATIBLE"* ]]; then
+        echo "Wykryto niezgodny podpis poprzedniej instalacji ($out)."
+        echo "Automatyczne odinstalowanie starej wersji: $pkg_name..."
+        $ADB_CMD shell pm uninstall "$pkg_name" 2>/dev/null || true
+        echo "Ponowna instalacja nowej wersji..."
+        $ADB_CMD shell pm install -r -t -d -g "$remote_temp"
+    fi
     
     $ADB_CMD shell rm -f "$remote_temp"
 }
 
 echo ""
 echo "1/2 Instalacja launchera Mazdash..."
-install_apk_reliable "$MAZDASH_APK"
+install_apk_reliable "$MAZDASH_APK" "com.dashline.launcher"
 
 echo ""
 echo "2/2 Instalacja odbiornika Open Headunit (Mazda Edition)..."
-install_apk_reliable "$HEADUNIT_APK"
+install_apk_reliable "$HEADUNIT_APK" "com.andrerinas.headunitrevived"
 
 echo ""
 echo "Nadawanie uprawnień systemowych dla Open Headunit..."
