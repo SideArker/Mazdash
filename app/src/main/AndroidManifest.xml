@@ -38,13 +38,8 @@
             android:theme="@style/Theme.RadioLauncher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!--
-                  HOME + DEFAULT is what makes Android offer this app as a launcher.
-                  Temporarily commented out for safe standalone testing without replacing OEM launcher.
-                  Uncomment to make Mazdash the primary car launcher.
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
-                -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
