@@ -270,6 +270,17 @@ class UsbDeviceIdentityPolicyTest {
     }
 
     @Test
+    fun `every accepted accessory identity can become the default USB handler`() {
+        val filter = java.io.File("src/main/res/xml/usb_device_filter.xml").readText()
+        for (pid in listOf(0x2D00, 0x2D01, 0x2D04, 0x2D05)) {
+            assertTrue(
+                "Missing manifest filter for 0x18D1:${pid.toString(16)}",
+                filter.contains("<usb-device vendor-id=\"6353\" product-id=\"${pid}\" />"),
+            )
+        }
+    }
+
+    @Test
     fun `the audio-only accessory modes are not accepted, having no accessory interface`() {
         for (pid in listOf(0x2D02, 0x2D03)) {
             val device = Device(0x18D1, pid, 0x00, emptyList())

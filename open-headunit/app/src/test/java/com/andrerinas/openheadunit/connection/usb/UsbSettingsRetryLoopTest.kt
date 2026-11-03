@@ -12,6 +12,54 @@ import org.junit.Test
 import org.mockito.Mockito.*
 
 class UsbSettingsRetryLoopTest {
+    @Test fun `ordinary retry opens the reenumerated accessory instead of the stale boot device`() = runBlocking {
+        mockStatic(android.os.SystemClock::class.java).use {
+        mockStatic(androidx.appcompat.app.AppCompatDelegate::class.java).use {
+            val service = mock(AapService::class.java)
+            val app = mock(App::class.java)
+            val component = mock(AppComponent::class.java)
+            val comm = mock(CommManager::class.java)
+            `when`(service.applicationContext).thenReturn(app)
+            App::class.java.getDeclaredField("component\$delegate").apply { isAccessible = true }
+                .set(app, lazyOf(component))
+            `when`(component.commManager).thenReturn(comm)
+            val states = MutableStateFlow<CommManager.ConnectionState>(CommManager.ConnectionState.Disconnected())
+            `when`(comm.connectionState).thenReturn(states)
+
+            val stale = mock(android.hardware.usb.UsbDevice::class.java)
+            `when`(stale.deviceName).thenReturn("usb-1")
+            `when`(stale.vendorId).thenReturn(0x18d1)
+            `when`(stale.productId).thenReturn(0x2d00)
+            val fresh = mock(android.hardware.usb.UsbDevice::class.java)
+            `when`(fresh.deviceName).thenReturn("usb-2")
+            `when`(fresh.vendorId).thenReturn(0x18d1)
+            `when`(fresh.productId).thenReturn(0x2d00)
+            val usb = mock(android.hardware.usb.UsbManager::class.java)
+            `when`(service.getSystemService(android.content.Context.USB_SERVICE)).thenReturn(usb)
+            `when`(service.getSharedPreferences(anyString(), anyInt()))
+                .thenReturn(mock(android.content.SharedPreferences::class.java))
+            `when`(usb.deviceList).thenReturn(hashMapOf("usb-1" to stale))
+            `when`(usb.hasPermission(fresh)).thenReturn(true)
+
+            val opened = mutableListOf<android.hardware.usb.UsbDevice>()
+            doAnswer {
+                opened += stale
+                `when`(usb.deviceList).thenReturn(hashMapOf("usb-2" to fresh))
+                states.value = CommManager.ConnectionState.Error("stale USB device")
+                Unit
+            }.`when`(comm).connect(stale, ConnectionPriorityPolicy.Tier.USB, null)
+            doAnswer {
+                opened += fresh
+                states.value = CommManager.ConnectionState.Connected
+                Unit
+            }.`when`(comm).connect(fresh, ConnectionPriorityPolicy.Tier.USB, null)
+
+            UsbLauncherManager(service).connectWithRetry(stale)
+            assertEquals(listOf(stale, fresh), opened)
+        }
+        }
+    }
+
     @Test fun `four physical open failures retain Save but an unrelated terminal stops the loop`() = runBlocking {
         mockStatic(android.os.SystemClock::class.java).use {
         mockStatic(androidx.appcompat.app.AppCompatDelegate::class.java).use {

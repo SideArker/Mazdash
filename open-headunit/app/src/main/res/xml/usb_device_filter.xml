@@ -17,9 +17,12 @@
 -->
 <resources>
 
-    <!-- Already in accessory mode. Widening this set means widening the policy with it. -->
+    <!-- Already in accessory mode. Keep all accepted AOA product IDs in this filter so Android
+         can offer Open Headunit as the default handler for each re-enumerated identity. -->
     <usb-device vendor-id="6353" product-id="11520" />  <!-- 0x18D1:0x2D00 accessory -->
     <usb-device vendor-id="6353" product-id="11521" />  <!-- 0x18D1:0x2D01 accessory + ADB -->
+    <usb-device vendor-id="6353" product-id="11524" />  <!-- 0x18D1:0x2D04 accessory + audio -->
+    <usb-device vendor-id="6353" product-id="11525" />  <!-- 0x18D1:0x2D05 accessory + audio + ADB -->
 
     <!--
         Vendor class. This is the accessory interface, and also how modern Android presents MTP,
