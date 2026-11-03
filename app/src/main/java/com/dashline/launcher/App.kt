@@ -18,6 +18,7 @@ class App : Application() {
         ThemeManager.apply(prefs)
         MazdaBluetoothController.getInstance(this).init()
         MazdaAudioDspController.getInstance(this).init()
+        MazdaOverlayService.start(this)
         if (prefs.adbWifiEnabled) {
             AdbController.setWifiAdb(true)
         }

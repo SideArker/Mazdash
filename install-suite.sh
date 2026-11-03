@@ -93,4 +93,13 @@ $ADB_CMD shell pm grant com.andrerinas.headunitrevived android.permission.ACCESS
 $ADB_CMD shell pm grant com.andrerinas.headunitrevived android.permission.READ_PHONE_STATE 2>/dev/null || true
 
 echo ""
+echo "Nadawanie uprawnień nakładki dla Mazdash (pływające przyciski nawigacji)..."
+$ADB_CMD shell pm grant com.dashline.launcher android.permission.SYSTEM_ALERT_WINDOW 2>/dev/null || true
+$ADB_CMD shell appops set com.dashline.launcher SYSTEM_ALERT_WINDOW allow 2>/dev/null || true
+
+echo ""
+echo "Ukrywanie natywnego paska nawigacji i statusu Androida (Mazdash przejmuje nawigację)..."
+$ADB_CMD shell settings put global policy_control immersive.full=* 2>/dev/null || true
+
+echo ""
 echo "=== Sukces! Pakiet Mazdash i Open Headunit zainstalowane pomyślnie na $TARGET_DEVICE ==="
