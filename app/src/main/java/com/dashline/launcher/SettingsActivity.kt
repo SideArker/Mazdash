@@ -114,6 +114,14 @@ class SettingsActivity : BaseActivity() {
             }
             refresh()
         }
+        binding.rowVolumeHud.setOnClickListener {
+            prefs.customVolumeHudEnabled = !prefs.customVolumeHudEnabled
+            refresh()
+        }
+        binding.rowCallHud.setOnClickListener {
+            prefs.customCallHudEnabled = !prefs.customCallHudEnabled
+            refresh()
+        }
         binding.rowAdbWifi.setOnClickListener {
             prefs.adbWifiEnabled = !prefs.adbWifiEnabled
             AdbController.setWifiAdb(prefs.adbWifiEnabled)
@@ -274,6 +282,8 @@ class SettingsActivity : BaseActivity() {
 
         binding.visualizerValue.text = getString(if (prefs.visualizerEnabled) R.string.on else R.string.off)
         binding.floatingHomeValue.text = getString(if (prefs.floatingHomeEnabled) R.string.on else R.string.off)
+        binding.volumeHudValue.text = getString(if (prefs.customVolumeHudEnabled) R.string.on else R.string.off)
+        binding.callHudValue.text = getString(if (prefs.customCallHudEnabled) R.string.on else R.string.off)
         binding.adbWifiValue.text = getString(if (prefs.adbWifiEnabled) R.string.on else R.string.off)
 
         binding.versionValue.text = getString(

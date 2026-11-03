@@ -5,13 +5,14 @@ package com.dashline.launcher
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.Typeface
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
-import android.graphics.Typeface
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
@@ -151,6 +152,7 @@ class HomeActivity : BaseActivity() {
         setupPortraitDrawer()
         applyAccent()
         ensureLocationPermission()
+        MazdaOverlayService.start(this)
     }
 
     /**
@@ -903,15 +905,24 @@ class HomeActivity : BaseActivity() {
 
     // ---- Volume ------------------------------------------------------------
 
+    private var dspController: MazdaAudioDspController? = null
+    private val dspVolumeListener = object : MazdaAudioDspController.Listener {
+        override fun onSystemVolumeChanged(volume: Int) {
+            runOnUiThread { syncVolume() }
+        }
+    }
+
     private fun setupVolume() {
-        val stream = android.media.AudioManager.STREAM_MUSIC
-        binding.volumeSlider.max = audioManager.getStreamMaxVolume(stream)
+        val dsp = MazdaAudioDspController.getInstance(this)
+        dspController = dsp
+        dsp.addListener(dspVolumeListener)
+        binding.volumeSlider.max = MazdaAudioDspController.MAX_SYSTEM_VOLUME
         syncVolume()
 
         binding.volumeSlider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(sb: SeekBar, progress: Int, fromUser: Boolean) {
                 if (!fromUser) return
-                runCatching { audioManager.setStreamVolume(stream, progress, 0) }
+                dsp.setSystemVolume(progress)
                 updateVolumeIcon(progress)
             }
             override fun onStartTrackingTouch(sb: SeekBar) { draggingVolume = true }
@@ -920,10 +931,10 @@ class HomeActivity : BaseActivity() {
         binding.volumeIcon.setOnClickListener { toggleMute() }
     }
 
-    /** Keeps the slider in step with the unit's own volume knob / hardware keys. */
+    /** Keeps the slider in step with the unit's MCU volume (0-40). */
     private fun syncVolume() {
         if (draggingVolume) return
-        val vol = audioManager.getStreamVolume(android.media.AudioManager.STREAM_MUSIC)
+        val vol = dspController?.systemVolume ?: MazdaAudioDspController.getInstance(this).systemVolume
         binding.volumeSlider.progress = vol
         updateVolumeIcon(vol)
     }
@@ -935,10 +946,10 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun toggleMute() {
-        val stream = android.media.AudioManager.STREAM_MUSIC
-        val vol = audioManager.getStreamVolume(stream)
-        val target = if (vol > 0) 0 else audioManager.getStreamMaxVolume(stream) / 2
-        runCatching { audioManager.setStreamVolume(stream, target, 0) }
+        val dsp = dspController ?: MazdaAudioDspController.getInstance(this)
+        val vol = dsp.systemVolume
+        val target = if (vol > 0) 0 else 20
+        dsp.setSystemVolume(target)
         binding.volumeSlider.progress = target
         updateVolumeIcon(target)
     }
@@ -1027,7 +1038,11 @@ class HomeActivity : BaseActivity() {
         if (info == null) {
             showPlaceholderArt()
             binding.mediaTitle.isSelected = false
-            binding.mediaControls.visibility = android.view.View.GONE
+            if (prefs.mediaFraction >= 0.34f || !isLandscapeNow()) {
+                binding.mediaControls.visibility = android.view.View.VISIBLE
+            }
+            binding.btnPlayPause.setImageResource(R.drawable.ic_play)
+            binding.btnPlayPause.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN)
             binding.mediaSeekRow.visibility = android.view.View.GONE
             binding.mediaVisualizer.isPlaying = false
             binding.mediaVisualizer.visibility = android.view.View.GONE
@@ -1041,6 +1056,7 @@ class HomeActivity : BaseActivity() {
                 binding.mediaArtist.text = getString(R.string.media_tap_to_open)
                 binding.mediaTitle.isSelected = true
                 binding.btnPlayPause.setImageResource(R.drawable.ic_play)
+                binding.btnPlayPause.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN)
                 if (prefs.mediaFraction >= 0.34f || !isLandscapeNow()) {
                     binding.mediaControls.visibility = android.view.View.VISIBLE
                 }
@@ -1071,6 +1087,7 @@ class HomeActivity : BaseActivity() {
         binding.btnPlayPause.setImageResource(
             if (info.isPlaying) R.drawable.ic_pause else R.drawable.ic_play
         )
+        binding.btnPlayPause.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN)
         if (prefs.visualizerEnabled) {
             binding.mediaVisualizer.visibility = android.view.View.VISIBLE
             binding.mediaVisualizer.isPlaying = info.isPlaying
@@ -1419,6 +1436,7 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onDestroy() {
+        dspController?.removeListener(dspVolumeListener)
         MazdaOverlayService.hide(this)
         super.onDestroy()
     }

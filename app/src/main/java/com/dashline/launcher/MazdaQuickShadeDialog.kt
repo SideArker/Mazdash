@@ -140,9 +140,9 @@ class MazdaQuickShadeDialog(private val activity: Activity) {
     }
 
     private fun setupVolume() {
-        val stream = AudioManager.STREAM_MUSIC
-        val max = audioManager.getStreamMaxVolume(stream)
-        val current = audioManager.getStreamVolume(stream)
+        val dsp = MazdaAudioDspController.getInstance(activity)
+        val max = MazdaAudioDspController.MAX_SYSTEM_VOLUME
+        val current = dsp.systemVolume
 
         binding.shadeVolumeSlider.max = max
         binding.shadeVolumeSlider.progress = current
@@ -154,9 +154,7 @@ class MazdaQuickShadeDialog(private val activity: Activity) {
                 binding.shadeVolumeValue.text = "$progress"
                 updateVolumeIcon(progress)
                 if (fromUser) {
-                    runCatching {
-                        audioManager.setStreamVolume(stream, progress, 0)
-                    }
+                    dsp.setSystemVolume(progress)
                 }
             }
 
@@ -170,14 +168,14 @@ class MazdaQuickShadeDialog(private val activity: Activity) {
         })
 
         binding.shadeVolumeIcon.setOnClickListener {
-            val vol = audioManager.getStreamVolume(stream)
+            val vol = dsp.systemVolume
             if (vol > 0) {
                 previousVolume = vol
-                audioManager.setStreamVolume(stream, 0, 0)
+                dsp.setSystemVolume(0)
                 binding.shadeVolumeSlider.progress = 0
             } else {
-                val restore = if (previousVolume > 0) previousVolume else max / 2
-                audioManager.setStreamVolume(stream, restore, 0)
+                val restore = if (previousVolume > 0) previousVolume else 20
+                dsp.setSystemVolume(restore)
                 binding.shadeVolumeSlider.progress = restore
             }
         }

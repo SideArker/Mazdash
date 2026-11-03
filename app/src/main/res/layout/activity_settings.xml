@@ -213,6 +213,20 @@
 
                 <View style="@style/SettingsDivider" />
 
+                <LinearLayout android:id="@+id/rowVolumeHud" style="@style/SettingsRow">
+                    <TextView style="@style/SettingsRowTitle" android:text="@string/settings_custom_volume_hud" />
+                    <TextView android:id="@+id/volumeHudValue" style="@style/SettingsRowValue" />
+                </LinearLayout>
+
+                <View style="@style/SettingsDivider" />
+
+                <LinearLayout android:id="@+id/rowCallHud" style="@style/SettingsRow">
+                    <TextView style="@style/SettingsRowTitle" android:text="@string/settings_custom_call_hud" />
+                    <TextView android:id="@+id/callHudValue" style="@style/SettingsRowValue" />
+                </LinearLayout>
+
+                <View style="@style/SettingsDivider" />
+
                 <LinearLayout android:id="@+id/rowAdbWifi" style="@style/SettingsRow">
                     <TextView style="@style/SettingsRowTitle" android:text="@string/settings_adb_wifi" />
                     <TextView android:id="@+id/adbWifiValue" style="@style/SettingsRowValue" />
