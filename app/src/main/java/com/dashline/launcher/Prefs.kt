@@ -297,6 +297,16 @@ class Prefs(context: Context) {
         get() = sp.getBoolean(KEY_FLOATING_HOME, true)
         set(v) = sp.edit().putBoolean(KEY_FLOATING_HOME, v).apply()
 
+    /** Floating Mazda volume HUD overlay on volume changes. */
+    var customVolumeHudEnabled: Boolean
+        get() = sp.getBoolean(KEY_CUSTOM_VOLUME_HUD, true)
+        set(v) = sp.edit().putBoolean(KEY_CUSTOM_VOLUME_HUD, v).apply()
+
+    /** Floating Mazda call banner overlay on incoming/active phone calls. */
+    var customCallHudEnabled: Boolean
+        get() = sp.getBoolean(KEY_CUSTOM_CALL_HUD, true)
+        set(v) = sp.edit().putBoolean(KEY_CUSTOM_CALL_HUD, v).apply()
+
     /** Remote Wi-Fi ADB debugging on port 5555. */
     var adbWifiEnabled: Boolean
         get() = sp.getBoolean(KEY_ADB_WIFI, true)
@@ -501,6 +511,8 @@ class Prefs(context: Context) {
         private const val KEY_FAV_ON = "favorites_enabled"
         private const val KEY_PROJECTION_ON = "projection_row"
         private const val KEY_FLOATING_HOME = "floating_home"
+        private const val KEY_CUSTOM_VOLUME_HUD = "custom_volume_hud"
+        private const val KEY_CUSTOM_CALL_HUD = "custom_call_hud"
         private const val KEY_ADB_WIFI = "adb_wifi"
         private const val KEY_VISUALIZER_ENABLED = "visualizer_enabled"
         private const val KEY_BT_NAME = "bt_device_name"

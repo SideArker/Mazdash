@@ -70,6 +70,19 @@
     <string name="aa_tap_to_view">Dotknij, aby wyświetlić projekcję</string>
     <string name="settings_floating_home">Pływający przycisk powrotu Mazda</string>
     <string name="settings_floating_home_desc">Wyświetla przycisk powrotu do Mazdash w innych aplikacjach</string>
+    <string name="settings_custom_volume_hud">Pływający suwak głośności Mazda</string>
+    <string name="settings_custom_volume_hud_desc">Stylowy pasek głośności zastępujący fabryczny popup</string>
+    <string name="settings_custom_call_hud">Pływający baner połączeń Mazda</string>
+    <string name="settings_custom_call_hud_desc">Baner połączeń przychodzących i aktywnych z przyciskami odbierz/odrzuć</string>
+    <string name="call_hud_incoming">Połączenie przychodzące...</string>
+    <string name="call_hud_dialing">Wybieranie...</string>
+    <string name="call_hud_active">Rozmowa</string>
+    <string name="call_hud_answer">Odbierz</string>
+    <string name="call_hud_decline">Odrzuć</string>
+    <string name="call_hud_hangup">Rozłącz</string>
+    <string name="call_hud_route_car">Głośniki auta</string>
+    <string name="call_hud_route_phone">Słuchawka</string>
+    <string name="volume_hud_muted">WYCISZ</string>
     <string name="settings_adb_wifi">Debugowanie Wi-Fi ADB (Port 5555)</string>
     <string name="settings_adb_wifi_desc">Włącz lub wyłącz zdalny dostęp root przez ADB</string>
 

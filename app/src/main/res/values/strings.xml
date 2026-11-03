@@ -234,6 +234,19 @@
     <string name="aa_tap_to_view">Tap to open projection</string>
     <string name="settings_floating_home">Floating Mazda Home Button</string>
     <string name="settings_floating_home_desc">Display a return-to-home button in external apps</string>
+    <string name="settings_custom_volume_hud">Mazda Floating Volume HUD</string>
+    <string name="settings_custom_volume_hud_desc">Custom styled volume slider overlay replacing system popup</string>
+    <string name="settings_custom_call_hud">Mazda Floating Call HUD</string>
+    <string name="settings_custom_call_hud_desc">Incoming &amp; active call banner overlay with Answer/Hangup controls</string>
+    <string name="call_hud_incoming">Incoming call...</string>
+    <string name="call_hud_dialing">Dialing...</string>
+    <string name="call_hud_active">Active Call</string>
+    <string name="call_hud_answer">Answer</string>
+    <string name="call_hud_decline">Decline</string>
+    <string name="call_hud_hangup">Hang Up</string>
+    <string name="call_hud_route_car">Car Speakers</string>
+    <string name="call_hud_route_phone">Handset</string>
+    <string name="volume_hud_muted">MUTE</string>
     <string name="settings_adb_wifi">Wi-Fi ADB Debugging (Port 5555)</string>
     <string name="settings_adb_wifi_desc">Enable or disable remote ADB root port</string>
 
