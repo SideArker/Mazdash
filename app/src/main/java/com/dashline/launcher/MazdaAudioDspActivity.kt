@@ -22,6 +22,8 @@ class MazdaAudioDspActivity : BaseActivity() {
     private lateinit var profileButtons: Array<Button>
 
     private var isUpdatingFromHardware = false
+    private var isUserInteractingWithSliders = false
+    private var isCustomUserCurve = false
 
     private val dspListener = object : MazdaAudioDspController.Listener {
         override fun onStageChanged(fader: Int, balance: Int) {
@@ -34,23 +36,31 @@ class MazdaAudioDspActivity : BaseActivity() {
 
         override fun onEqualizerChanged(bass: Int, tenor: Int, treble: Int, heavyBass: Int, eqMode: Int) {
             runOnUiThread {
-                isUpdatingFromHardware = true
                 binding.seekHeavyBass.progress = heavyBass
                 binding.textHeavyBassVal.text = "+$heavyBass"
 
-                // Reflect hardware 3-band in 8 bands if custom
+                if (isUserInteractingWithSliders) {
+                    return@runOnUiThread
+                }
+
+                isUpdatingFromHardware = true
                 if (eqMode == MazdaAudioDspController.EQ_STANDARD) {
+                    isCustomUserCurve = false
                     applyEqCurve(intArrayOf(7, 7, 7, 7, 7, 7, 7, 7), false)
                 } else if (eqMode == MazdaAudioDspController.EQ_POP) {
+                    isCustomUserCurve = false
                     applyEqCurve(intArrayOf(8, 9, 8, 7, 8, 9, 8, 7), false)
                 } else if (eqMode == MazdaAudioDspController.EQ_ROCK) {
+                    isCustomUserCurve = false
                     applyEqCurve(intArrayOf(11, 10, 6, 5, 7, 9, 11, 12), false)
                 } else if (eqMode == MazdaAudioDspController.EQ_CLASSIC) {
+                    isCustomUserCurve = false
                     applyEqCurve(intArrayOf(10, 9, 7, 7, 8, 9, 10, 10), false)
                 } else if (eqMode == MazdaAudioDspController.EQ_JAZZ) {
+                    isCustomUserCurve = false
                     applyEqCurve(intArrayOf(9, 9, 8, 9, 7, 8, 9, 10), false)
-                } else {
-                    // Custom: sync bands proportionally
+                } else if (!isCustomUserCurve) {
+                    // Custom from hardware / external change: sync bands proportionally
                     eqSliders[0].progress = bass
                     eqSliders[1].progress = bass
                     eqSliders[2].progress = (bass + tenor) / 2
@@ -70,7 +80,9 @@ class MazdaAudioDspActivity : BaseActivity() {
 
         override fun onLoudnessChanged(enabled: Boolean) {
             runOnUiThread {
-                binding.switchLoudness.isChecked = enabled
+                if (binding.switchLoudness.isChecked != enabled) {
+                    binding.switchLoudness.isChecked = enabled
+                }
             }
         }
     }
@@ -80,7 +92,7 @@ class MazdaAudioDspActivity : BaseActivity() {
         binding = ActivityMazdaAudioDspBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        bindPageNav(binding.navBack, binding.navHome)
+        bindPageNav(binding.navBack)
 
         dspController = MazdaAudioDspController.getInstance(this)
 
@@ -208,18 +220,42 @@ class MazdaAudioDspActivity : BaseActivity() {
             val slider = eqSliders[i]
             val label = eqLabels[i]
 
-            slider.onProgressChanged = { progress ->
-                label.text = formatDb(progress)
-                if (!isUpdatingFromHardware) {
+            slider.onTrackingTouchChanged = { _ ->
+                val anyTracking = eqSliders.any { it.isTrackingTouch }
+                isUserInteractingWithSliders = anyTracking
+                if (!anyTracking && !isUpdatingFromHardware) {
+                    isCustomUserCurve = true
+                    dspController.setEqMode(MazdaAudioDspController.EQ_CUSTOM)
+                    updateProfileHighlight(MazdaAudioDspController.EQ_CUSTOM)
                     pushEqToHardware()
                 }
             }
 
+            slider.onProgressChanged = { progress ->
+                label.text = formatDb(progress)
+                if (!isUpdatingFromHardware) {
+                    isCustomUserCurve = true
+                    dspController.setEqMode(MazdaAudioDspController.EQ_CUSTOM)
+                    updateProfileHighlight(MazdaAudioDspController.EQ_CUSTOM)
+                    if (!slider.isTrackingTouch) {
+                        pushEqToHardware()
+                    }
+                }
+            }
+
             minusButtons[i].setOnClickListener {
+                isCustomUserCurve = true
+                dspController.setEqMode(MazdaAudioDspController.EQ_CUSTOM)
+                updateProfileHighlight(MazdaAudioDspController.EQ_CUSTOM)
                 slider.progress = (slider.progress - 1).coerceAtLeast(0)
+                pushEqToHardware()
             }
             plusButtons[i].setOnClickListener {
+                isCustomUserCurve = true
+                dspController.setEqMode(MazdaAudioDspController.EQ_CUSTOM)
+                updateProfileHighlight(MazdaAudioDspController.EQ_CUSTOM)
                 slider.progress = (slider.progress + 1).coerceAtMost(slider.max)
+                pushEqToHardware()
             }
         }
 
@@ -244,9 +280,9 @@ class MazdaAudioDspActivity : BaseActivity() {
             dspController.setHeavyBass(next)
         }
 
-        // Loudness switch
-        binding.switchLoudness.setOnCheckedChangeListener { _, isChecked ->
-            dspController.setLoudness(isChecked)
+        // Loudness switch - use OnClickListener to prevent programmatic loop!
+        binding.switchLoudness.setOnClickListener {
+            dspController.setLoudness(binding.switchLoudness.isChecked)
         }
 
         // Reset EQ

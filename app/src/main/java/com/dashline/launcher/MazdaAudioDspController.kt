@@ -30,10 +30,11 @@ class MazdaAudioDspController private constructor(private val appContext: Contex
     companion object {
         private const val TAG = "MazdaDspController"
 
-        const val MAX_STAGE = 28
-        const val CENTER_STAGE = 14
+        const val MAX_STAGE = 14
+        const val CENTER_STAGE = 7
         const val MAX_EQ = 14
         const val CENTER_EQ = 7
+        const val MAX_SYSTEM_VOLUME = 40
 
         // EQ Modes matching SettingConstant.AudioType
         const val EQ_CUSTOM = 0
@@ -75,11 +76,14 @@ class MazdaAudioDspController private constructor(private val appContext: Contex
         private set
     var isLoudness: Boolean = false
         private set
+    var systemVolume: Int = 20
+        private set
 
     interface Listener {
         fun onStageChanged(fader: Int, balance: Int) {}
         fun onEqualizerChanged(bass: Int, tenor: Int, treble: Int, heavyBass: Int, eqMode: Int) {}
         fun onLoudnessChanged(enabled: Boolean) {}
+        fun onSystemVolumeChanged(volume: Int) {}
     }
 
     private val listeners = mutableSetOf<Listener>()
@@ -89,6 +93,7 @@ class MazdaAudioDspController private constructor(private val appContext: Contex
         listener.onStageChanged(fader, balance)
         listener.onEqualizerChanged(bass, tenor, treble, heavyBass, eqMode)
         listener.onLoudnessChanged(isLoudness)
+        listener.onSystemVolumeChanged(systemVolume)
     }
 
     fun removeListener(listener: Listener) {
@@ -129,6 +134,10 @@ class MazdaAudioDspController private constructor(private val appContext: Contex
                 SettingConstant.AudioType.AUDIO_PARA_EQUAL.toInt() -> {
                     isLoudness = (value != 0)
                     notifyLoudnessChanged()
+                }
+                SettingConstant.AudioType.AUDIO_PARA_SYSTEM_VOLUME.toInt() -> {
+                    systemVolume = value
+                    notifySystemVolumeChanged()
                 }
             }
         }
@@ -197,13 +206,40 @@ class MazdaAudioDspController private constructor(private val appContext: Contex
         heavyBass = Settings.System.getInt(resolver, "mcu_heavy_bass", 0)
         eqMode = Settings.System.getInt(resolver, "mcu_eq", EQ_STANDARD)
         isLoudness = Settings.System.getInt(resolver, "mcu_state_equal", 0) != 0
+        systemVolume = Settings.System.getInt(resolver, "mcu_system_volume", 20)
 
         notifyStageChanged()
         notifyEqualizerChanged()
         notifyLoudnessChanged()
+        notifySystemVolumeChanged()
     }
 
     // ---- Controls ----
+
+    fun setSystemVolume(value: Int) {
+        val clamped = value.coerceIn(0, MAX_SYSTEM_VOLUME)
+        systemVolume = clamped
+        notifySystemVolumeChanged()
+        sendAudioParam(SettingConstant.AudioType.AUDIO_PARA_SYSTEM_VOLUME.toInt(), clamped)
+        try {
+            Settings.System.putInt(appContext.contentResolver, "mcu_system_volume", clamped)
+        } catch (e: Exception) {
+            // ignore
+        }
+        syncAndroidStreamVolume(clamped)
+    }
+
+    private fun syncAndroidStreamVolume(mcuVol: Int) {
+        try {
+            val am = appContext.getSystemService(Context.AUDIO_SERVICE) as? android.media.AudioManager ?: return
+            val stream = android.media.AudioManager.STREAM_MUSIC
+            val max = am.getStreamMaxVolume(stream)
+            val streamTarget = Math.round((mcuVol.toFloat() / MAX_SYSTEM_VOLUME.toFloat()) * max)
+            am.setStreamVolume(stream, streamTarget, 0)
+        } catch (e: Exception) {
+            // ignore
+        }
+    }
 
     fun setFader(value: Int) {
         val clamped = value.coerceIn(0, MAX_STAGE)
@@ -225,17 +261,17 @@ class MazdaAudioDspController private constructor(private val appContext: Contex
     }
 
     fun setStageDriver() {
-        setFader(CENTER_STAGE / 2)
-        setBalance(CENTER_STAGE / 2)
+        setFader(4)
+        setBalance(4)
     }
 
     fun setStageCopilot() {
-        setFader(CENTER_STAGE / 2)
-        setBalance(CENTER_STAGE + (CENTER_STAGE / 2))
+        setFader(4)
+        setBalance(10)
     }
 
     fun setStageRear() {
-        setFader(CENTER_STAGE + (CENTER_STAGE / 2))
+        setFader(10)
         setBalance(CENTER_STAGE)
     }
 
@@ -297,5 +333,9 @@ class MazdaAudioDspController private constructor(private val appContext: Contex
 
     private fun notifyLoudnessChanged() {
         listeners.forEach { it.onLoudnessChanged(isLoudness) }
+    }
+
+    private fun notifySystemVolumeChanged() {
+        listeners.forEach { it.onSystemVolumeChanged(systemVolume) }
     }
 }

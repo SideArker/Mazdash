@@ -152,31 +152,45 @@ class MazdaSoundStageView @JvmOverloads constructor(
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
-                val pad = 12f * resources.displayMetrics.density
-                val spkOffset = 30f * resources.displayMetrics.density
-                val startX = pad + (spkOffset * 0.8f)
-                val startY = pad + (spkOffset * 0.8f)
-                val activeWidth = (width - 2 * pad) - (spkOffset * 1.6f)
-                val activeHeight = (height - 2 * pad) - (spkOffset * 1.6f)
-
-                if (activeWidth > 0 && activeHeight > 0) {
-                    val rawFracX = ((event.x - startX) / activeWidth).coerceIn(0f, 1f)
-                    val rawFracY = ((event.y - startY) / activeHeight).coerceIn(0f, 1f)
-
-                    val newBalance = (rawFracX * MazdaAudioDspController.MAX_STAGE).toInt()
-                    val newFader = (rawFracY * MazdaAudioDspController.MAX_STAGE).toInt()
-
-                    if (newBalance != balance || newFader != fader) {
-                        balance = newBalance
-                        fader = newFader
-                        onStagePositionChanged?.invoke(fader, balance)
-                        invalidate()
-                    }
-                }
+            MotionEvent.ACTION_DOWN -> {
+                parent?.requestDisallowInterceptTouchEvent(true)
+                updateStageTouch(event.x, event.y)
+                return true
+            }
+            MotionEvent.ACTION_MOVE -> {
+                parent?.requestDisallowInterceptTouchEvent(true)
+                updateStageTouch(event.x, event.y)
+                return true
+            }
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                parent?.requestDisallowInterceptTouchEvent(false)
                 return true
             }
         }
         return super.onTouchEvent(event)
+    }
+
+    private fun updateStageTouch(touchX: Float, touchY: Float) {
+        val pad = 12f * resources.displayMetrics.density
+        val spkOffset = 30f * resources.displayMetrics.density
+        val startX = pad + (spkOffset * 0.8f)
+        val startY = pad + (spkOffset * 0.8f)
+        val activeWidth = (width - 2 * pad) - (spkOffset * 1.6f)
+        val activeHeight = (height - 2 * pad) - (spkOffset * 1.6f)
+
+        if (activeWidth > 0 && activeHeight > 0) {
+            val rawFracX = ((touchX - startX) / activeWidth).coerceIn(0f, 1f)
+            val rawFracY = ((touchY - startY) / activeHeight).coerceIn(0f, 1f)
+
+            val newBalance = Math.round(rawFracX * MazdaAudioDspController.MAX_STAGE).toInt()
+            val newFader = Math.round(rawFracY * MazdaAudioDspController.MAX_STAGE).toInt()
+
+            if (newBalance != balance || newFader != fader) {
+                balance = newBalance
+                fader = newFader
+                onStagePositionChanged?.invoke(fader, balance)
+                invalidate()
+            }
+        }
     }
 }

@@ -52,6 +52,9 @@ class MazdaVerticalSlider @JvmOverloads constructor(
     }
 
     var max: Int = 14
+    var isTrackingTouch: Boolean = false
+        private set
+
     var progress: Int = 7
         set(value) {
             val clamped = value.coerceIn(0, max)
@@ -63,6 +66,7 @@ class MazdaVerticalSlider @JvmOverloads constructor(
         }
 
     var onProgressChanged: ((Int) -> Unit)? = null
+    var onTrackingTouchChanged: ((Boolean) -> Unit)? = null
 
     private val trackRect = RectF()
     private val fillRect = RectF()
@@ -75,8 +79,8 @@ class MazdaVerticalSlider @JvmOverloads constructor(
         if (w <= 0 || h <= 0) return
 
         val density = resources.displayMetrics.density
-        val trackWidth = 6f * density
-        val thumbRadius = 9f * density
+        val trackWidth = 8f * density
+        val thumbRadius = 13f * density
         val padY = thumbRadius + (2f * density)
 
         val cx = w / 2f
@@ -114,15 +118,27 @@ class MazdaVerticalSlider @JvmOverloads constructor(
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN -> {
                 parent?.requestDisallowInterceptTouchEvent(true)
+                isTrackingTouch = true
+                onTrackingTouchChanged?.invoke(true)
                 updateFromTouch(event.y)
                 return true
             }
             MotionEvent.ACTION_MOVE -> {
+                parent?.requestDisallowInterceptTouchEvent(true)
                 updateFromTouch(event.y)
                 return true
             }
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+            MotionEvent.ACTION_UP -> {
                 parent?.requestDisallowInterceptTouchEvent(false)
+                isTrackingTouch = false
+                onTrackingTouchChanged?.invoke(false)
+                updateFromTouch(event.y)
+                return true
+            }
+            MotionEvent.ACTION_CANCEL -> {
+                parent?.requestDisallowInterceptTouchEvent(false)
+                isTrackingTouch = false
+                onTrackingTouchChanged?.invoke(false)
                 return true
             }
         }
@@ -131,7 +147,7 @@ class MazdaVerticalSlider @JvmOverloads constructor(
 
     private fun updateFromTouch(y: Float) {
         val density = resources.displayMetrics.density
-        val thumbRadius = 9f * density
+        val thumbRadius = 13f * density
         val padY = thumbRadius + (2f * density)
         val topY = padY
         val bottomY = height.toFloat() - padY
