@@ -88,23 +88,25 @@
 
     <!-- Stepper Button (Minus / Plus increment for EQ & Subwoofer) -->
     <style name="Mazdash.Button.Stepper">
-        <item name="android:layout_width">26dp</item>
-        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_width">36dp</item>
+        <item name="android:layout_height">36dp</item>
         <item name="android:background">@drawable/btn_stepper</item>
         <item name="android:textColor">@color/mz_text_primary</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">0dp</item>
-        <item name="android:minWidth">0dp</item>
-        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">36dp</item>
+        <item name="android:minHeight">36dp</item>
         <item name="android:gravity">center</item>
     </style>
 
     <!-- Stepper Button - Large (Subwoofer) -->
     <style name="Mazdash.Button.Stepper.Large">
-        <item name="android:layout_width">32dp</item>
-        <item name="android:layout_height">32dp</item>
-        <item name="android:textSize">16sp</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:minWidth">50dp</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:textSize">22sp</item>
     </style>
 
     <!-- Equalizer Profile Preset Chip -->
@@ -149,27 +151,27 @@
 
     <!-- Navigation / Header Borderless Icon Button -->
     <style name="Mazdash.Button.Icon">
-        <item name="android:layout_width">44dp</item>
-        <item name="android:layout_height">44dp</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">52dp</item>
+        <item name="android:layout_height">52dp</item>
+        <item name="android:padding">12dp</item>
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:tint">@color/icon_tint</item>
     </style>
 
     <!-- Media Transport Button: Play / Pause (Big Soul Red Circle) -->
     <style name="Mazdash.Button.Media.Play">
-        <item name="android:layout_width">66dp</item>
-        <item name="android:layout_height">66dp</item>
-        <item name="android:padding">16dp</item>
+        <item name="android:layout_width">74dp</item>
+        <item name="android:layout_height">74dp</item>
+        <item name="android:padding">18dp</item>
         <item name="android:background">@drawable/btn_circle_accent</item>
         <item name="android:tint">@color/mz_text_on_accent</item>
     </style>
 
     <!-- Media Transport Button: Skip Previous / Next (Interactive Surface Circle) -->
     <style name="Mazdash.Button.Media.Skip">
-        <item name="android:layout_width">52dp</item>
-        <item name="android:layout_height">52dp</item>
-        <item name="android:padding">13dp</item>
+        <item name="android:layout_width">58dp</item>
+        <item name="android:layout_height">58dp</item>
+        <item name="android:padding">14dp</item>
         <item name="android:background">@drawable/btn_circle</item>
         <item name="android:tint">@color/mz_text_primary</item>
     </style>

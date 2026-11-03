@@ -43,6 +43,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/navHome"
             style="@style/Mazdash.Button.Icon"
+            android:visibility="gone"
             android:contentDescription="@string/nav_home"
             app:srcCompat="@drawable/ic_home" />
 
@@ -170,6 +171,8 @@
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/btnPlayPause"
                         style="@style/Mazdash.Button.Media.Play"
+                        android:tag="noTint"
+                        app:tint="@color/mz_text_on_accent"
                         android:contentDescription="@string/media_play_pause"
                         app:srcCompat="@drawable/ic_play"
                         android:layout_marginEnd="16dp" />
