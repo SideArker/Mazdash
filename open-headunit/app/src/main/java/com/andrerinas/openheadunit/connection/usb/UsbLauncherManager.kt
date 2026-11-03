@@ -247,12 +247,25 @@ class UsbLauncherManager(val service: AapService) {
     // the reply so a cancelled Save cannot return as an unrestricted automatic connection.
     private val permissionOwners = java.util.concurrent.ConcurrentHashMap<String, CommManager.ConnectionState.Disconnected>()
 
-    internal fun takePermissionOwner(device: UsbDevice): CommManager.ConnectionState.Disconnected? =
-        permissionOwners.remove(device.deviceName) ?: pendingSettingsRestart()
+    // Attach, wake and reconnect scans can overlap while Android's permission dialog is open.
+    // A request is tied to this bus entry; AOA re-enumeration gets a new entry and may ask again.
+    private val pendingPermissionRequests = java.util.concurrent.ConcurrentHashMap.newKeySet<String>()
 
-    private fun requestPermission(device: UsbDevice, settingsRestart: CommManager.ConnectionState.Disconnected? = null) {
+    internal fun clearPermissionRequest(device: UsbDevice) {
+        pendingPermissionRequests.remove(device.deviceName)
+    }
+
+    internal fun takePermissionOwner(device: UsbDevice): CommManager.ConnectionState.Disconnected? {
+        clearPermissionRequest(device)
+        return permissionOwners.remove(device.deviceName) ?: pendingSettingsRestart()
+    }
+
+    internal fun requestPermission(device: UsbDevice, settingsRestart: CommManager.ConnectionState.Disconnected? = null) {
         val usbManager = UsbDeviceCompat.usbManager(service) ?: return
-        val permissionIntent = UsbReceiver.createPermissionPendingIntent(service)
+        if (!pendingPermissionRequests.add(device.deviceName)) {
+            AppLog.i("USB permission request already pending for ${device.deviceName}")
+            return
+        }
         if (settingsRestart == null) permissionOwners.remove(device.deviceName)
         else permissionOwners[device.deviceName] = settingsRestart
 
@@ -260,9 +273,12 @@ class UsbLauncherManager(val service: AapService) {
         ConnectionStageTracker.report(ConnectionStage.USB_SWITCHING)
 
         try {
+            val permissionIntent = UsbReceiver.createPermissionPendingIntent(service)
             ToastUtils.showToast(service, service.getString(R.string.requesting_usb_permission), Toast.LENGTH_SHORT)
             usbManager.requestPermission(device, permissionIntent)
         } catch (e: Exception) {
+            clearPermissionRequest(device)
+            permissionOwners.remove(device.deviceName)
             AppLog.e("Failed to request USB permission: ${e.message}. This device might not support USB permission dialogs.", e)
             ToastUtils.showToast(service, service.getString(R.string.error_usb_permission_failed), Toast.LENGTH_LONG)
         }
@@ -948,8 +964,8 @@ class UsbLauncherManager(val service: AapService) {
                     commManager.connectionState.value is CommManager.ConnectionState.Connecting) return
             }
             if (settingsRestart != null && !settingsRestart.acceptsSettingsRestart(commManager.connectionState.value)) return
-            val currentDevice = if (settingsRestart == null) device else {
-                if (SystemClock.elapsedRealtime() >= settingsRestart.settingsRestartUntilMs) return
+            val currentDevice = if (retryCount == 0 && settingsRestart == null) device else {
+                if (settingsRestart != null && SystemClock.elapsedRealtime() >= settingsRestart.settingsRestartUntilMs) return
                 val usbManager = UsbDeviceCompat.usbManager(service) ?: return
                 // AOA re-enumeration changes UsbDevice and permission even for the same phone.
                 // Prefer the same bus entry; accept a unique identity match, never guess between
@@ -961,8 +977,9 @@ class UsbLauncherManager(val service: AapService) {
                 val fresh = matches.firstOrNull { it.deviceName == device.deviceName }
                     ?: matches.singleOrNull() ?: return
                 if (!awaitAccessoryPermission(usbManager, fresh, UsbDeviceCompat.getUniqueName(fresh), settingsRestart)) return
-                if (SystemClock.elapsedRealtime() >= settingsRestart.settingsRestartUntilMs ||
-                    !settingsRestart.acceptsSettingsRestart(commManager.connectionState.value)) return
+                if (settingsRestart != null &&
+                    (SystemClock.elapsedRealtime() >= settingsRestart.settingsRestartUntilMs ||
+                        !settingsRestart.acceptsSettingsRestart(commManager.connectionState.value))) return
                 fresh
             }
             commManager.connect(currentDevice, tier, expectedState = settingsRestart)

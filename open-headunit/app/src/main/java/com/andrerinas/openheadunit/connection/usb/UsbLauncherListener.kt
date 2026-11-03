@@ -61,6 +61,7 @@ class UsbLauncherListener(private val manager: UsbLauncherManager) : UsbReceiver
     }
 
     override fun onUsbDetach(device: UsbDevice) {
+        manager.clearPermissionRequest(device)
         manager.noteRecoveryDeviceDetached(device)
         val commManager = App.provide(service).commManager
 
@@ -96,6 +97,7 @@ class UsbLauncherListener(private val manager: UsbLauncherManager) : UsbReceiver
     }
 
     override fun onUsbPermission(granted: Boolean, connect: Boolean, device: UsbDevice) {
+        manager.clearPermissionRequest(device)
         if (!UsbDeviceCompat.isConnectable(service, device)) {
             AppLog.i("Ignoring USB permission callback (VID: ${device.vendorId}): ${UsbDeviceCompat.matchReason(device)}")
             return

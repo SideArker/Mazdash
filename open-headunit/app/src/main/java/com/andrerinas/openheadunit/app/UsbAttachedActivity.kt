@@ -23,7 +23,6 @@ import com.andrerinas.openheadunit.connection.usb.UsbAccessoryMode
 import com.andrerinas.openheadunit.connection.usb.UsbAttachPolicy
 import com.andrerinas.openheadunit.connection.usb.UsbDeviceCompat
 import com.andrerinas.openheadunit.connection.usb.UsbDeviceDiagnostics
-import com.andrerinas.openheadunit.connection.usb.UsbReceiver
 import com.andrerinas.openheadunit.connection.usb.UsbSwitchClaim
 import com.andrerinas.openheadunit.utils.AppLog
 import com.andrerinas.openheadunit.utils.DeviceIntent
@@ -124,9 +123,10 @@ class UsbAttachedActivity : Activity() {
         if (UsbDeviceCompat.isInAccessoryMode(device)) {
             val usbManager = UsbDeviceCompat.usbManager(this) ?: run { finish(); return }
             if (!usbManager.hasPermission(device)) {
-                AppLog.i("Usb in accessory mode but no permission. Requesting...")
-                val permissionIntent = UsbReceiver.createPermissionPendingIntent(this)
-                usbManager.requestPermission(device, permissionIntent)
+                // The service also receives this attach and waits for the system's manifest
+                // grant. Let it own the fallback request so two dialogs cannot race here.
+                AppLog.i("Usb in accessory mode but no permission yet; handing off to service")
+                handOffToService()
                 finish()
                 return
             }
