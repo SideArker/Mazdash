@@ -36,6 +36,11 @@ class MazdaPhoneActivity : AppCompatActivity(), MazdaPhoneController.CallListene
         HISTORY
     }
 
+    companion object {
+        var isForeground: Boolean = false
+            private set
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMazdaPhoneBinding.inflate(layoutInflater)
@@ -189,6 +194,7 @@ class MazdaPhoneActivity : AppCompatActivity(), MazdaPhoneController.CallListene
 
     override fun onResume() {
         super.onResume()
+        isForeground = true
         phoneController.addListener(this)
         val devName = btController.connectedDeviceName
         if (!devName.isNullOrEmpty()) {
@@ -201,6 +207,7 @@ class MazdaPhoneActivity : AppCompatActivity(), MazdaPhoneController.CallListene
     }
 
     override fun onPause() {
+        isForeground = false
         phoneController.removeListener(this)
         super.onPause()
     }

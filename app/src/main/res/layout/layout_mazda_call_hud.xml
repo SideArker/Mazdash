@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/callHudRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_mazda_call_hud"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:elevation="14dp">
+
+    <!-- Caller Avatar Icon Container -->
+    <FrameLayout
+        android:id="@+id/callHudAvatarContainer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_pill_call_answer">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/callHudIcon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_call" />
+    </FrameLayout>
+
+    <!-- Caller Name & Status Info (clickable to open full MazdaPhoneActivity) -->
+    <LinearLayout
+        android:id="@+id/callHudInfoContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="false">
+
+        <TextView
+            android:id="@+id/callHudName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nieznany numer"
+            android:textColor="@color/mz_text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:ellipsize="end" />
+
+        <TextView
+            android:id="@+id/callHudStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/call_hud_incoming"
+            android:textColor="@color/mz_status_connected"
+            android:textSize="12sp"
+            android:singleLine="true"
+            android:ellipsize="end" />
+    </LinearLayout>
+
+    <!-- Incoming Call Actions: Answer and Decline Buttons -->
+    <LinearLayout
+        android:id="@+id/callHudActionsIncoming"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Answer Button -->
+        <LinearLayout
+            android:id="@+id/btnCallHudAnswer"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:background="@drawable/btn_pill_call_answer"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="16dp"
+            android:clickable="true"
+            android:focusable="false">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_call" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@string/call_hud_answer"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Decline Button -->
+        <LinearLayout
+            android:id="@+id/btnCallHudDecline"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/btn_pill_call_decline"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="16dp"
+            android:clickable="true"
+            android:focusable="false">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_call_end" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@string/call_hud_decline"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Active Call Actions: Audio Route & Hangup Buttons -->
+    <LinearLayout
+        android:id="@+id/callHudActionsActive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:visibility="gone">
+
+        <!-- Route Audio Button -->
+        <TextView
+            android:id="@+id/btnCallHudAudioRoute"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:background="@drawable/btn_stepper"
+            android:gravity="center"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:text="@string/call_hud_route_car"
+            android:textColor="@color/mz_text_primary"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="false" />
+
+        <!-- Hang Up Button -->
+        <LinearLayout
+            android:id="@+id/btnCallHudHangup"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/btn_pill_call_decline"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="14dp"
+            android:paddingEnd="16dp"
+            android:clickable="true"
+            android:focusable="false">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_call_end" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@string/call_hud_hangup"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
