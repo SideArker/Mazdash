@@ -26,6 +26,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/navHome"
         style="@style/Mazdash.Button.Icon"
+        android:visibility="gone"
         android:contentDescription="@string/nav_home"
         app:srcCompat="@drawable/ic_home" />
 

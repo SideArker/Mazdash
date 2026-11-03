@@ -73,33 +73,7 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    private var swipeStartY = 0f
-    private var isSwipeDownCandidate = false
-
-    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
-        val density = resources.displayMetrics.density
-        when (ev.actionMasked) {
-            MotionEvent.ACTION_DOWN -> {
-                if (ev.rawY <= 75 * density) {
-                    swipeStartY = ev.rawY
-                    isSwipeDownCandidate = true
-                } else {
-                    isSwipeDownCandidate = false
-                }
-            }
-            MotionEvent.ACTION_MOVE -> {
-                if (isSwipeDownCandidate && (ev.rawY - swipeStartY) > 55 * density) {
-                    isSwipeDownCandidate = false
-                    MazdaQuickShadeDialog.show(this)
-                    return true
-                }
-            }
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
-                isSwipeDownCandidate = false
-            }
-        }
-        return super.dispatchTouchEvent(ev)
-    }
+    // Slide-down top bar interception removed per automotive UX requirements.
 
     // ---- UI colour gradient -------------------------------------------------
 
@@ -194,10 +168,10 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    /** Wire a page header's Back / Home buttons. */
-    protected fun bindPageNav(backButton: View, homeButton: View) {
+    /** Wire a page header's Back / optional Home button. */
+    protected fun bindPageNav(backButton: View, homeButton: View? = null) {
         backButton.setOnClickListener { onBackPressed() }
-        homeButton.setOnClickListener { goHome() }
+        homeButton?.setOnClickListener { goHome() }
     }
 
     /** Return to the launcher dashboard, clearing any pages stacked above it. */
