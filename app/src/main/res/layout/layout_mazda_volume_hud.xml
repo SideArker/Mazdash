@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/volumeHudRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_mazda_volume_hud"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:elevation="12dp">
+
+    <!-- Mute / Volume Speaker Icon -->
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/hudVolumeIcon"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:padding="2dp"
+        android:tint="@color/mz_accent"
+        android:clickable="true"
+        android:focusable="false"
+        app:srcCompat="@drawable/ic_volume" />
+
+    <!-- Minus Stepper Button -->
+    <TextView
+        android:id="@+id/btnHudVolumeMinus"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/btn_circle_stepper"
+        android:gravity="center"
+        android:text="−"
+        android:textColor="@color/mz_text_primary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="false" />
+
+    <!-- Volume SeekBar Slider -->
+    <SeekBar
+        android:id="@+id/hudVolumeSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:max="40"
+        android:progress="20"
+        android:maxHeight="5dp"
+        android:minHeight="5dp"
+        android:progressDrawable="@drawable/seek_progress"
+        android:thumb="@drawable/seek_thumb"
+        android:thumbOffset="0dp"
+        android:splitTrack="false" />
+
+    <!-- Plus Stepper Button -->
+    <TextView
+        android:id="@+id/btnHudVolumePlus"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/btn_circle_stepper"
+        android:gravity="center"
+        android:text="+"
+        android:textColor="@color/mz_text_primary"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:focusable="false" />
+
+    <!-- Value Text (e.g. "20" or "MUTE") -->
+    <TextView
+        android:id="@+id/hudVolumeValue"
+        android:layout_width="48dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="20"
+        android:textColor="@color/mz_text_primary"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+</LinearLayout>
