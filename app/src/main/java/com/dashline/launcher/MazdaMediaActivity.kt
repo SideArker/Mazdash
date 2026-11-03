@@ -38,7 +38,7 @@ class MazdaMediaActivity : BaseActivity() {
         btController = MazdaBluetoothController.getInstance(this)
 
         binding.pageTitle.setText(R.string.mazda_media_title)
-        bindPageNav(binding.navBack, binding.navHome)
+        bindPageNav(binding.navBack)
 
         // 20-bar visualizer for rich audio display
         binding.largeVisualizer.barCount = 20
@@ -186,6 +186,7 @@ class MazdaMediaActivity : BaseActivity() {
             binding.btnPlayPause.setImageResource(
                 if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play
             )
+            binding.btnPlayPause.setColorFilter(Color.WHITE, android.graphics.PorterDuff.Mode.SRC_IN)
         } else {
             binding.layoutPlaying.visibility = View.GONE
             binding.layoutNotConnected.visibility = View.VISIBLE
